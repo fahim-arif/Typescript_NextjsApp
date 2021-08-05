@@ -1,4 +1,7 @@
 import { useState } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
+
+import Message from "./Message";
 
 export default function NewsletterBox() {
   const [email, setEmail] = useState("");
@@ -37,7 +40,7 @@ export default function NewsletterBox() {
         Get emails about updates and articles relating to the product.
       </p>
 
-      <form>
+      <form onSubmit={subscribe} className="flex items-center mb-4">
         <input
           type="email"
           name="email"
@@ -47,23 +50,16 @@ export default function NewsletterBox() {
           className="w-72 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
         />
         <button
-          onClick={subscribe}
-          className="bg-red-400 text-white text-sm font-bold py-2 px-4 rounded-lg"
+          disabled={loading}
+          type="submit"
+          className="flex justify-center items-center w-24 bg-red-400 text-white text-sm font-bold py-2 px-4 rounded-lg hover:bg-red-500"
         >
-          Subscribe
+          {!loading && <span>Subscribe</span>}
+          {loading && <ClipLoader color="#fff" loading={true} size={20} />}
         </button>
       </form>
 
-      {message.status === "error" && (
-        <p className="my-4 ml-1 text-red-400 text-sm font-bold">
-          Error Message
-        </p>
-      )}
-      {message.status === "success" && (
-        <p className="my-4 ml-1 text-green-400 text-sm font-bold">
-          Success Message
-        </p>
-      )}
+      <Message className="ml-1" type={message.status} text={message.text} />
     </div>
   );
 }
