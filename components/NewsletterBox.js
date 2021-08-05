@@ -12,6 +12,7 @@ export default function NewsletterBox() {
     e.preventDefault();
 
     setLoading(true);
+    setMessage({});
 
     const response = await fetch("/api/subscribe", {
       method: "POST",

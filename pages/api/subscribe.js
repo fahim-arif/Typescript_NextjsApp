@@ -26,13 +26,13 @@ export default async function handler(req, res) {
 
         res.status(200).json({
           status: "success",
-          text: "You are successfully subscribed to the newsletter",
+          text: "You've successfully subscribed to the newsletter",
         });
       } catch (error) {
         console.log(error.response.text);
         res.status(500).json({
           status: "error",
-          text: "There was an error in processing your request",
+          text: "There was an error in subscribing to the newsletter.",
         });
       }
 
