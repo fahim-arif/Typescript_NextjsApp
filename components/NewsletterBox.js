@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import ClipLoader from "react-spinners/ClipLoader";
-import { createSubscriber } from "../api/subscribe";
 import MailerSchema from "../schema/mailer";
+import { createSubscriber } from "../api/subscribers";
+
+import ClipLoader from "react-spinners/ClipLoader";
 import Message from "./Message";
 
 export default function NewsletterBox() {
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const {
     register,
     handleSubmit,
-    setError,
     clearErrors,
     reset,
     formState: { errors },
@@ -23,24 +23,26 @@ export default function NewsletterBox() {
   });
 
   const handleSubscribe = async (fields) => {
-    clearErrors();
     setLoading(true);
+    clearErrors();
     setMessage("");
+    setError("");
 
     try {
-      const subscriber = await createSubscriber(fields);
-      console.log("Subscriber created", subscriber);
+      await createSubscriber(fields);
       reset({}, { keepErrors: true });
       setMessage("You've subscribed to the newsletter successfully");
     } catch (error) {
       console.log(error);
-      setError("serverError", {
-        type: "error",
-        message: error.message,
-      });
+      setError(error.message);
     }
 
     setLoading(false);
+  };
+
+  const handleChange = () => {
+    setMessage("");
+    setError("");
   };
 
   return (
@@ -60,8 +62,9 @@ export default function NewsletterBox() {
           type="text"
           name="first_name"
           placeholder="Enter First Name"
-          {...register("first_name")}
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
+          {...register("first_name")}
+          onChange={handleChange}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.first_name?.message}
@@ -71,8 +74,9 @@ export default function NewsletterBox() {
           type="text"
           name="last_name"
           placeholder="Enter Last Name"
-          {...register("last_name")}
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
+          {...register("last_name")}
+          onChange={handleChange}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.last_name?.message}
@@ -82,8 +86,9 @@ export default function NewsletterBox() {
           type="text"
           name="contact_no"
           placeholder="Enter Contact No."
-          {...register("contact_no")}
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
+          {...register("contact_no")}
+          onChange={handleChange}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.contact_no?.message}
@@ -93,8 +98,9 @@ export default function NewsletterBox() {
           type="email"
           name="email"
           placeholder="Enter Email"
-          {...register("email")}
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
+          {...register("email")}
+          onChange={handleChange}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.email?.message}
@@ -110,13 +116,7 @@ export default function NewsletterBox() {
         </button>
       </form>
 
-      {errors.serverError && (
-        <Message
-          className="ml-1"
-          type={errors.serverError?.type}
-          message={errors.serverError?.message}
-        />
-      )}
+      {error && <Message className="ml-1" type="error" message={error} />}
       {message && <Message className="ml-1" type="success" message={message} />}
     </div>
   );
