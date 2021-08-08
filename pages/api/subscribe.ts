@@ -1,16 +1,25 @@
+import type { NextApiRequest, NextApiResponse } from "next";
 const mailchimp = require("@mailchimp/mailchimp_marketing");
+
+interface ResponseData {
+  status: string;
+  text: string;
+}
 
 mailchimp.setConfig({
   apiKey: process.env.MAILCHIMP_API_KEY,
   server: process.env.MAILCHIMP_SERVER_PREFIX,
 });
 
-export default async function handler(req, res) {
-  const method = req.method;
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<ResponseData>
+) {
+  const method: string = req.method;
 
   switch (method) {
     case "POST":
-      const { email } = req.body;
+      const { email }: { email: string } = req.body;
 
       if (!email || email.trim().length === 0) {
         return res

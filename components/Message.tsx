@@ -1,4 +1,10 @@
-export default function Message({ message, type, className }) {
+interface Props {
+  type: string;
+  message: string;
+  className?: string | null;
+}
+
+export default function Message({ type, message, className }: Props) {
   return (
     <div className={className}>
       {type === "error" && (

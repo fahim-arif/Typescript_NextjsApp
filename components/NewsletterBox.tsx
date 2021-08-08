@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import MailerSchema from "../schema/mailer";
+
+import MailerSchema from "../schema/Mailer";
 import { createSubscriber } from "../api/subscribers";
+import { SubscriberCreate, SubscriberGet } from "../types/Mailer";
 
 import ClipLoader from "react-spinners/ClipLoader";
 import Message from "./Message";
 
 export default function NewsletterBox() {
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const {
     register,
@@ -22,14 +24,14 @@ export default function NewsletterBox() {
     resolver: yupResolver(MailerSchema),
   });
 
-  const handleSubscribe = async (fields) => {
+  const handleSubscribe = async (fields: SubscriberCreate) => {
     setLoading(true);
     clearErrors();
     setMessage("");
     setError("");
 
     try {
-      await createSubscriber(fields);
+      const subscriber: SubscriberGet = await createSubscriber(fields);
       reset({}, { keepErrors: true });
       setMessage("You've subscribed to the newsletter successfully");
     } catch (error) {
@@ -38,11 +40,6 @@ export default function NewsletterBox() {
     }
 
     setLoading(false);
-  };
-
-  const handleChange = () => {
-    setMessage("");
-    setError("");
   };
 
   return (
@@ -64,7 +61,6 @@ export default function NewsletterBox() {
           placeholder="Enter First Name"
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
           {...register("first_name")}
-          onChange={handleChange}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.first_name?.message}
@@ -76,7 +72,6 @@ export default function NewsletterBox() {
           placeholder="Enter Last Name"
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
           {...register("last_name")}
-          onChange={handleChange}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.last_name?.message}
@@ -88,7 +83,6 @@ export default function NewsletterBox() {
           placeholder="Enter Contact No."
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
           {...register("contact_no")}
-          onChange={handleChange}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.contact_no?.message}
@@ -100,7 +94,6 @@ export default function NewsletterBox() {
           placeholder="Enter Email"
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
           {...register("email")}
-          onChange={handleChange}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.email?.message}

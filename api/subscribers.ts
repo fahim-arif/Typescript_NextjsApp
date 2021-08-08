@@ -1,6 +1,8 @@
-const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_HOST}/subscribers`;
+import { SubscriberCreate, SubscriberGet } from "../types/Mailer";
 
-const getSubscribers = async () => {
+const baseUrl: string = `${process.env.NEXT_PUBLIC_SERVER_HOST}/subscribers`;
+
+const getSubscribers = async (): Promise<SubscriberGet[]> => {
   try {
     const response = await fetch(baseUrl, {
       method: "GET",
@@ -16,7 +18,7 @@ const getSubscribers = async () => {
   }
 };
 
-const getSubscriberById = async ({ id }) => {
+const getSubscriberById = async (id: string): Promise<SubscriberGet> => {
   try {
     const response = await fetch(`${baseUrl}/${id}`, {
       method: "GET",
@@ -32,11 +34,13 @@ const getSubscriberById = async ({ id }) => {
   }
 };
 
-const createSubscriber = async (subscriberCreate) => {
+const createSubscriber = async (
+  subscriberCreate: SubscriberCreate
+): Promise<SubscriberGet> => {
   const { first_name, last_name, email, contact_no } = subscriberCreate;
 
   try {
-    const response = await fetch(`${baseUrl}`, {
+    const response = await fetch(baseUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
