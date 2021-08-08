@@ -1,5 +1,4 @@
 export default function Message({ message, type, className }) {
-  console.log("Props", type, message);
   return (
     <div className={className}>
       {type === "error" && (

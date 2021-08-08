@@ -3,17 +3,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ClipLoader from "react-spinners/ClipLoader";
-
+import { createSubscriber } from "../api/subscribe";
+import MailerSchema from "../schema/mailer";
 import Message from "./Message";
 
-let schema = yup.object().shape({
-  fullname: yup.string().required(),
-  contact: yup.number().required(),
-  email: yup.string().email().required(),
-});
-
 export default function NewsletterBox() {
-  const [message, setMessage] = useState({});
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const {
@@ -24,32 +19,24 @@ export default function NewsletterBox() {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(MailerSchema),
   });
 
-  const subscribe = async (fields) => {
+  const handleSubscribe = async (fields) => {
     clearErrors();
-
     setLoading(true);
-    setMessage({});
+    setMessage("");
 
-    const response = await fetch("/api/subscribe", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email: fields.email }),
-    });
-
-    const data = await response.json();
-
-    if (data.status === "success") {
+    try {
+      const subscriber = await createSubscriber(fields);
+      console.log("Subscriber created", subscriber);
       reset({}, { keepErrors: true });
-      setMessage(data);
-    } else {
+      setMessage("You've subscribed to the newsletter successfully");
+    } catch (error) {
+      console.log(error);
       setError("serverError", {
-        type: data.status,
-        message: data.text,
+        type: "error",
+        message: error.message,
       });
     }
 
@@ -65,27 +52,41 @@ export default function NewsletterBox() {
         Get emails about updates and articles relating to the product.
       </p>
 
-      <form onSubmit={handleSubmit(subscribe)} className="flex flex-col mb-4">
+      <form
+        onSubmit={handleSubmit(handleSubscribe)}
+        className="flex flex-col mb-4"
+      >
         <input
           type="text"
-          name="fullname"
-          placeholder="Enter Full Name"
-          {...register("fullname")}
+          name="first_name"
+          placeholder="Enter First Name"
+          {...register("first_name")}
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
         />
         <p className="text-red-400 text-sm font-bold">
-          {errors.fullname?.message}
+          {errors.first_name?.message}
         </p>
 
         <input
           type="text"
-          name="contact"
-          placeholder="Enter Contact No."
-          {...register("contact")}
+          name="last_name"
+          placeholder="Enter Last Name"
+          {...register("last_name")}
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
         />
         <p className="text-red-400 text-sm font-bold">
-          {errors.contact?.message}
+          {errors.last_name?.message}
+        </p>
+
+        <input
+          type="text"
+          name="contact_no"
+          placeholder="Enter Contact No."
+          {...register("contact_no")}
+          className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
+        />
+        <p className="text-red-400 text-sm font-bold">
+          {errors.contact_no?.message}
         </p>
 
         <input
@@ -116,13 +117,7 @@ export default function NewsletterBox() {
           message={errors.serverError?.message}
         />
       )}
-      {message && (
-        <Message
-          className="ml-1"
-          type={message.status}
-          message={message.text}
-        />
-      )}
+      {message && <Message className="ml-1" type="success" message={message} />}
     </div>
   );
 }
