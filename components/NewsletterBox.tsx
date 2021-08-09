@@ -42,6 +42,16 @@ export default function NewsletterBox() {
     setLoading(false);
   };
 
+  const handleChange = () => {
+    setMessage("");
+    setError("");
+  };
+
+  const firstName = register("first_name");
+  const lastName = register("last_name");
+  const contactNo = register("contact_no");
+  const email = register("email");
+
   return (
     <div className="lg:w-1/4 md:w-1/2 w-full px-4">
       <h1 className="text-xl font-medium text-gray-800 mb-4">
@@ -60,7 +70,11 @@ export default function NewsletterBox() {
           name="first_name"
           placeholder="Enter First Name"
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
-          {...register("first_name")}
+          onChange={(e) => {
+            firstName.onChange(e);
+            handleChange();
+          }}
+          ref={firstName.ref}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.first_name?.message}
@@ -71,7 +85,11 @@ export default function NewsletterBox() {
           name="last_name"
           placeholder="Enter Last Name"
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
-          {...register("last_name")}
+          onChange={(e) => {
+            lastName.onChange(e);
+            handleChange();
+          }}
+          ref={lastName.ref}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.last_name?.message}
@@ -82,7 +100,11 @@ export default function NewsletterBox() {
           name="contact_no"
           placeholder="Enter Contact No."
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
-          {...register("contact_no")}
+          onChange={(e) => {
+            contactNo.onChange(e);
+            handleChange();
+          }}
+          ref={contactNo.ref}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.contact_no?.message}
@@ -93,7 +115,11 @@ export default function NewsletterBox() {
           name="email"
           placeholder="Enter Email"
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
-          {...register("email")}
+          onChange={(e) => {
+            email.onChange(e);
+            handleChange();
+          }}
+          ref={email.ref}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.email?.message}
