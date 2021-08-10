@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, UseFormRegisterReturn } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import MailerSchema from "../schema/Mailer";
@@ -14,19 +14,12 @@ export default function NewsletterBox() {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const {
-    register,
-    handleSubmit,
-    clearErrors,
-    reset,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit, reset, formState: { errors }, } = useForm({
     resolver: yupResolver(MailerSchema),
   });
 
   const handleSubscribe = async (fields: SubscriberCreate) => {
     setLoading(true);
-    clearErrors();
     setMessage("");
     setError("");
 
@@ -42,7 +35,8 @@ export default function NewsletterBox() {
     setLoading(false);
   };
 
-  const handleChange = () => {
+  const handleChange = (e: any, fieldName: UseFormRegisterReturn) => {
+    fieldName.onChange(e);
     setMessage("");
     setError("");
   };
@@ -70,11 +64,8 @@ export default function NewsletterBox() {
           name="first_name"
           placeholder="Enter First Name"
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
-          onChange={(e) => {
-            firstName.onChange(e);
-            handleChange();
-          }}
           ref={firstName.ref}
+          onChange={(e) => handleChange(e, firstName)}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.first_name?.message}
@@ -85,11 +76,8 @@ export default function NewsletterBox() {
           name="last_name"
           placeholder="Enter Last Name"
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
-          onChange={(e) => {
-            lastName.onChange(e);
-            handleChange();
-          }}
           ref={lastName.ref}
+          onChange={(e) => handleChange(e, lastName)}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.last_name?.message}
@@ -100,11 +88,8 @@ export default function NewsletterBox() {
           name="contact_no"
           placeholder="Enter Contact No."
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
-          onChange={(e) => {
-            contactNo.onChange(e);
-            handleChange();
-          }}
           ref={contactNo.ref}
+          onChange={(e) => handleChange(e, contactNo)}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.contact_no?.message}
@@ -115,11 +100,8 @@ export default function NewsletterBox() {
           name="email"
           placeholder="Enter Email"
           className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
-          onChange={(e) => {
-            email.onChange(e);
-            handleChange();
-          }}
           ref={email.ref}
+          onChange={(e) => handleChange(e, email)}
         />
         <p className="text-red-400 text-sm font-bold">
           {errors.email?.message}

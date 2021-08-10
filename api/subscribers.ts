@@ -1,37 +1,27 @@
-import * as http from "../http";
+import http from "./http";
 import { SubscriberCreate, SubscriberGet } from "../types/Mailer";
+
+const endpoint = "/subscribers";
 
 const getSubscribers = async (): Promise<SubscriberGet[]> => {
   return http
-    .get("/subscribers", { headers: { "Content-Type": "application/json" } })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      return Promise.reject(error);
-    });
+    .get(endpoint, { headers: { "Content-Type": "application/json" } })
+    .then((response) => response.data)
+    .catch((error) => Promise.reject(error));
 };
 
 const getSubscriberById = async (id: string): Promise<SubscriberGet> => {
   return http
-    .get(`/subscribers/${id}`, {
-      headers: { "Content-Type": "application/json" },
-    })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      return Promise.reject(error);
-    });
+    .get(`${endpoint}/${id}`, { headers: { "Content-Type": "application/json" } })
+    .then((response) => response.data)
+    .catch((error) => Promise.reject(error));
 };
 
-const createSubscriber = async (
-  subscriberCreate: SubscriberCreate
-): Promise<SubscriberGet> => {
+const createSubscriber = async (subscriberCreate: SubscriberCreate): Promise<SubscriberGet> => {
   const { first_name, last_name, email, contact_no } = subscriberCreate;
 
   return http
-    .post("/subscribers", {
+    .post(endpoint, {
       headers: { "Content-Type": "application/json" },
       data: JSON.stringify({
         first_name: first_name,
@@ -40,12 +30,8 @@ const createSubscriber = async (
         contact_no: contact_no.toString(),
       }),
     })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      return Promise.reject(error);
-    });
+    .then((response) => response.data)
+    .catch((error) => Promise.reject(error));
 };
 
 export { createSubscriber, getSubscribers, getSubscriberById };
