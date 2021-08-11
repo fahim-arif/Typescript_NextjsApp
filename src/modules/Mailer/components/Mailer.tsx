@@ -9,7 +9,7 @@ import { createSubscriber } from "../services/mailer";
 import ClipLoader from "react-spinners/ClipLoader";
 import Message from "@common/components/elements/Message";
 
-export default function NewsletterBox() {
+export default function Mailer() {
   const [message, setMessage] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
