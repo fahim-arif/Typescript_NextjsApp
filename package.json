@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^2.7.1",
-    "@mailchimp/mailchimp_marketing": "^3.0.56",
     "axios": "^0.21.1",
     "next": "11.0.1",
     "react": "17.0.2",
