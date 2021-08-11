@@ -47,8 +47,8 @@ export default function NewsletterBox() {
   const email = register("email");
 
   return (
-    <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-      <h1 className="text-xl font-medium text-gray-800 mb-4">
+    <div className="border lg:w-1/3 md:w-1/2 w-full px-4 py-4">
+      <h1 className="text-xl font-medium text-gray-800">
         Subscribe to the Newsletter
       </h1>
       <p className="text-gray-700 my-4">

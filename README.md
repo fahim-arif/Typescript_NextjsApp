@@ -10,12 +10,10 @@ Install dependencies:
 npm install
 ```
 
-Create mailchimp account and set secret keys in .env.local:
+Create .env and copy environment variables from .env.local and set values:
 
 ```
-MAILCHIMP_API_KEY=
-MAILCHIMP_SERVER_PREFIX=
-MAILCHIMP_AUDIENCE_ID=
+NEXT_PUBLIC_SERVER_HOST=
 ```
 
 Run development server:
