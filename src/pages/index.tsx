@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
-import logo from "../public/logo.png";
-import Footer from "../components/Footer";
+import logo from "@public/logo.png";
+import Footer from "@common/components/elements/Footer";
 
 export default function Home() {
   return (

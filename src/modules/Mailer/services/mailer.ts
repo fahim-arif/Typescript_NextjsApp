@@ -1,4 +1,4 @@
-import http from "./http";
+import http from "@common/utils/http";
 import { SubscriberCreate, SubscriberGet } from "../types/Mailer";
 
 const endpoint = "/subscribers";

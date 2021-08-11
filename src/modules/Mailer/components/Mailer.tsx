@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useForm, UseFormRegisterReturn } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import MailerSchema from "../schema/Mailer";
-import { createSubscriber } from "../api/subscribers";
 import { SubscriberCreate, SubscriberGet } from "../types/Mailer";
+import MailerSchema from "../schema/Mailer";
+import { createSubscriber } from "../services/mailer";
 
 import ClipLoader from "react-spinners/ClipLoader";
-import Message from "./Message";
+import Message from "@common/components/elements/Message";
 
 export default function NewsletterBox() {
   const [message, setMessage] = useState<string>("");
