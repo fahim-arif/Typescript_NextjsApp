@@ -10,14 +10,6 @@ export default function Home() {
         <title>twomatches</title>
         <meta name="description" content="twomatches next app" />
         <link rel="icon" href="/favicon.ico" />
-        <link 
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" 
-          rel="stylesheet" 
-        />
-        <link
-          href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-          rel="stylesheet"
-        />
       </Head>
 
       <main className="flex flex-col justify-center items-center pt-8">
