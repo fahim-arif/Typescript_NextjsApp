@@ -1,14 +1,11 @@
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from "axios";
-import getConfig from 'next/config';
 
-const { publicRuntimeConfig } = getConfig();
+console.log("API SERVER HOST:", process.env.NEXT_PUBLIC_API_SERVER_HOST);
 
-console.log(publicRuntimeConfig.API_SERVER_HOST)
-const SERVER_HOST: string = publicRuntimeConfig.API_SERVER_HOST;
+const SERVER_HOST: string = process.env.NEXT_PUBLIC_API_SERVER_HOST;
 
 // update this method when using different http client library
 const request = (method: Method = "GET", url: string, config = {}): Promise<AxiosResponse> => {
-  
   
   const { params, data, headers, maxContentLength }: AxiosRequestConfig = config;
   const baseURL = SERVER_HOST;
