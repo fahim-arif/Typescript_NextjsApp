@@ -1,124 +1,133 @@
-import { useState } from "react";
-import { useForm, UseFormRegisterReturn } from "react-hook-form";
+import React, { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  Button,
+  Text,
+  Heading,
+  Flex,
+  Input,
+  FormErrorMessage,
+  FormControl,
+} from "@chakra-ui/react";
 
 import { SubscriberCreate, SubscriberGet } from "../types/Mailer";
 import MailerSchema from "../schema/Mailer";
 import { createSubscriber } from "../services/mailer";
-
-import ClipLoader from "react-spinners/ClipLoader";
 import Message from "@common/components/elements/Message";
+import FormErrorSummary from "@root/common/components/elements/FormErrorSummary";
 
 export default function Mailer() {
-  const [message, setMessage] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const { register, handleSubmit, reset, formState: { errors }, } = useForm({
+  const initialRef = useRef();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm<SubscriberCreate>({
     resolver: yupResolver(MailerSchema),
   });
 
-  const handleSubscribe = async (fields: SubscriberCreate) => {
-    setLoading(true);
-    setMessage("");
-    setError("");
+  const [message, setMessage] = useState<string>("");
+  const [serverError, setServerError] = useState<string>("");
 
+  const onSubmit = async (values: SubscriberCreate) => {
     try {
-      const subscriber: SubscriberGet = await createSubscriber(fields);
-      reset({}, { keepErrors: true });
+      const subscriber: SubscriberGet = await createSubscriber(values);
       setMessage("You've subscribed to the newsletter successfully");
     } catch (error) {
       console.log(error);
-      setError(error.message);
+      setServerError("Something went wrong. Try again later.");
     }
-
-    setLoading(false);
   };
-
-  const handleChange = (e: any, fieldName: UseFormRegisterReturn) => {
-    fieldName.onChange(e);
-    setMessage("");
-    setError("");
-  };
-
-  const firstName = register("first_name");
-  const lastName = register("last_name");
-  const contactNo = register("contact_no");
-  const email = register("email");
 
   return (
-    <div className="border lg:w-1/3 md:w-1/2 w-full px-4 py-4">
-      <h1 className="text-xl font-medium text-gray-800">
+    <Flex
+      width={["full", "full", 2 / 3]}
+      maxWidth="md"
+      direction="column"
+      border="1px"
+      borderColor="gray.300"
+      px={4}
+      py={6}
+      mx={4}
+    >
+      <Heading fontSize="xl" fontWeight="medium" color="gray.700">
         Subscribe to the Newsletter
-      </h1>
-      <p className="text-gray-700 my-4">
+      </Heading>
+      <Text color="gray.700" mt={4} mb={6}>
         Get emails about updates and articles relating to the product.
-      </p>
+      </Text>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormErrorSummary errors={errors} serverError={serverError} />
 
-      <form
-        onSubmit={handleSubmit(handleSubscribe)}
-        className="flex flex-col mb-4"
-      >
-        <input
-          type="text"
-          name="first_name"
-          placeholder="Enter First Name"
-          className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
-          ref={firstName.ref}
-          onChange={(e) => handleChange(e, firstName)}
-        />
-        <p className="text-red-400 text-sm font-bold">
-          {errors.first_name?.message}
-        </p>
+        <FormControl isInvalid={errors.first_name && true} mb={4}>
+          <Input
+            id="first_name"
+            type="text"
+            placeholder="Enter First Name"
+            {...register("first_name")}
+            maxWidth="sm"
+          />
+          <FormErrorMessage>
+            {errors.first_name && errors.first_name.message}
+          </FormErrorMessage>
+        </FormControl>
 
-        <input
-          type="text"
-          name="last_name"
-          placeholder="Enter Last Name"
-          className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
-          ref={lastName.ref}
-          onChange={(e) => handleChange(e, lastName)}
-        />
-        <p className="text-red-400 text-sm font-bold">
-          {errors.last_name?.message}
-        </p>
+        <FormControl isInvalid={errors.last_name && true} mb={4}>
+          <Input
+            id="last_name"
+            type="text"
+            placeholder="Enter Last Name"
+            {...register("last_name")}
+            maxWidth="sm"
+          />
+          <FormErrorMessage>
+            {errors.last_name && errors.last_name.message}
+          </FormErrorMessage>
+        </FormControl>
 
-        <input
-          type="text"
-          name="contact_no"
-          placeholder="Enter Contact No."
-          className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
-          ref={contactNo.ref}
-          onChange={(e) => handleChange(e, contactNo)}
-        />
-        <p className="text-red-400 text-sm font-bold">
-          {errors.contact_no?.message}
-        </p>
+        <FormControl isInvalid={errors.contact_no && true} mb={4}>
+          <Input
+            id="contact_no"
+            type="text"
+            placeholder="Enter Contact No."
+            {...register("contact_no")}
+            maxWidth="sm"
+          />
+          <FormErrorMessage>
+            {errors.contact_no && errors.contact_no.message}
+          </FormErrorMessage>
+        </FormControl>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter Email"
-          className="mt-2 mb-1 mr-4 text-gray-700 border py-2 px-4 rounded-lg focus:outline-none"
-          ref={email.ref}
-          onChange={(e) => handleChange(e, email)}
-        />
-        <p className="text-red-400 text-sm font-bold">
-          {errors.email?.message}
-        </p>
+        <FormControl isInvalid={errors.email && true} mb={4}>
+          <Input
+            id="email"
+            ref={initialRef}
+            type="email"
+            placeholder="Enter email address"
+            {...register("email")}
+            maxWidth="sm"
+          />
+          <FormErrorMessage>
+            {errors.email && errors.email.message}
+          </FormErrorMessage>
+        </FormControl>
 
-        <button
-          disabled={loading}
+        <Button
+          isLoading={isSubmitting}
           type="submit"
-          className="w-24 mt-4 self-start flex justify-center items-center bg-red-400 text-white text-base py-1 px-3 rounded hover:bg-red-500"
+          bg="red.400"
+          color="white"
+          _hover={{ bg: "red.300" }}
+          mr={3}
         >
-          {!loading && <span>Subscribe</span>}
-          {loading && <ClipLoader color="#fff" loading={true} size={20} />}
-        </button>
+          Subscribe
+        </Button>
       </form>
 
-      {error && <Message className="ml-1" type="error" message={error} />}
-      {message && <Message className="ml-1" type="success" message={message} />}
-    </div>
+      {message && (
+        <Message className="ml-1 mt-4" type="success" message={message} />
+      )}
+    </Flex>
   );
 }
