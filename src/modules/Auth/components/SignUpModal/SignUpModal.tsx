@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useMergeRefs } from "@chakra-ui/hooks";
 import {
   Button,
   Modal,
@@ -20,11 +21,7 @@ import {
 import PasswordInput from "@common/components/elements/PasswordInput";
 import FormErrorSummary from "@common/components/elements/FormErrorSummary";
 import SignUpSchema from "@modules/Auth/schema/SignUpSchema";
-import {
-  SignUpModalProps,
-  UserCreate,
-  UserGet,
-} from "@modules/Auth/types/SignUp";
+import { SignUpModalProps, UserCreate } from "@modules/Auth/types/SignUp";
 import { signUpUser } from "../../services/signup";
 
 export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
@@ -42,7 +39,7 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
 
   const onSubmit = async (values: UserCreate) => {
     try {
-      const user: UserGet = await signUpUser(values);
+      await signUpUser(values);
       router.push("/email_verification");
     } catch (error) {
       setServerError("Something went wrong. Try again later.");
@@ -60,14 +57,41 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
       <ModalContent>
         <ModalHeader>Sign Up</ModalHeader>
         <ModalCloseButton />
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <ModalBody>
             <FormErrorSummary errors={errors} serverError={serverError} />
+
+            <FormControl isInvalid={errors.name && true} mb={4}>
+              <FormLabel htmlFor="name">Name</FormLabel>
+              <Input
+                id="name"
+                type="text"
+                placeholder="Enter name"
+                {...register("name")}
+                ref={useMergeRefs(initialRef, register("name").ref)}
+              />
+              <FormErrorMessage>
+                {errors.name && errors.name.message}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={errors.company_name && true} mb={4}>
+              <FormLabel htmlFor="company_name">Company Name</FormLabel>
+              <Input
+                id="company_name"
+                type="text"
+                placeholder="Enter company name"
+                {...register("company_name")}
+              />
+              <FormErrorMessage>
+                {errors.company_name && errors.company_name.message}
+              </FormErrorMessage>
+            </FormControl>
+
             <FormControl isInvalid={errors.email && true} mb={4}>
               <FormLabel htmlFor="email">Email</FormLabel>
               <Input
                 id="email"
-                ref={initialRef}
                 type="email"
                 placeholder="Enter email address"
                 {...register("email")}
@@ -78,19 +102,6 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
             </FormControl>
 
             <PasswordInput errors={errors} register={register} />
-
-            <FormControl isInvalid={errors.store_name && true} mb={4}>
-              <FormLabel htmlFor="store_name">Store Name</FormLabel>
-              <Input
-                id="store_name"
-                type="text"
-                placeholder="Enter store name"
-                {...register("store_name")}
-              />
-              <FormErrorMessage>
-                {errors.store_name && errors.store_name.message}
-              </FormErrorMessage>
-            </FormControl>
           </ModalBody>
 
           <ModalFooter>

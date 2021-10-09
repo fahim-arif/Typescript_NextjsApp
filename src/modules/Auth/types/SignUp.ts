@@ -4,9 +4,10 @@ export interface SignUpModalProps {
 }
 
 export interface UserCreate {
+  name: string;
+  company_name: string;
   email: string;
   password: string;
-  store_name: string;
 }
 
 export interface UserGet {}

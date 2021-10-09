@@ -101,7 +101,7 @@ export default function Mailer() {
 
         <FormControl isInvalid={errors.email && true} mb={4}>
           <Input
-            id="email"
+            id="subscriber_email"
             ref={initialRef}
             type="email"
             placeholder="Enter email address"
