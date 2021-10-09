@@ -23,6 +23,7 @@ export function makeServer({ environment = "development" } = {}) {
       //   return schema.all("users");
       // });
 
+      this.passthrough();
       this.passthrough((request) => {
         if (request.url === "/_next/static/development/_devPagesManifest.json")
           return true;
