@@ -6,7 +6,7 @@ export default function FormErrorSummary({ errors, serverError }) {
   }
 
   return (
-    <Text color="red.400" mb={4}>
+    <Text data-testid="form-error-summary" color="red.400" mb={4}>
       {!serverError
         ? "Please correct the highlighted fields below and try again"
         : serverError}

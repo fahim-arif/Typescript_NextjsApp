@@ -27,11 +27,16 @@ export default function Navbar() {
         </Box>
         <Spacer />
         <Box>
-          <Button mr="4" onClick={onOpen}>
+          <Button data-testid="signup" mr="4" onClick={onOpen}>
             Sign Up
           </Button>
 
-          <Button bg="red.400" color="white" _hover={{ bg: "red.300" }}>
+          <Button
+            data-testid="login"
+            bg="red.400"
+            color="white"
+            _hover={{ bg: "red.300" }}
+          >
             Log in
           </Button>
         </Box>

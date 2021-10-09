@@ -54,7 +54,7 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
       isCentered
     >
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent data-testid="sign-up-modal">
         <ModalHeader>Sign Up</ModalHeader>
         <ModalCloseButton />
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -106,6 +106,7 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
 
           <ModalFooter>
             <Button
+              data-testid="sign-up-btn"
               isLoading={isSubmitting}
               type="submit"
               bg="red.400"
