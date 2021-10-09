@@ -57,7 +57,11 @@ export default function Mailer() {
       <Text color="gray.700" mt={4} mb={6}>
         Get emails about updates and articles relating to the product.
       </Text>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        data-testid="mailer-form"
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+      >
         <FormErrorSummary errors={errors} serverError={serverError} />
 
         <FormControl isInvalid={errors.first_name && true} mb={4}>
@@ -114,6 +118,7 @@ export default function Mailer() {
         </FormControl>
 
         <Button
+          data-testid="subscribe-btn"
           isLoading={isSubmitting}
           type="submit"
           bg="red.400"
@@ -126,7 +131,12 @@ export default function Mailer() {
       </form>
 
       {message && (
-        <Message className="ml-1 mt-4" type="success" message={message} />
+        <Message
+          data-testid="success-msg"
+          className="ml-1 mt-4"
+          type="success"
+          message={message}
+        />
       )}
     </Flex>
   );
