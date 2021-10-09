@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -25,15 +21,19 @@
       "@layout/*": ["layout/*"],
       "@modules/*": ["modules/*"],
       "@pages/*": ["pages/*"],
-      "@public/*": ["../public/*"], 
+      "@public/*": ["../public/*"]
     }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "src/common/mock/index.js",
+    "src/common/mock/mirageProxy.js",
+    "src/common/mock/index.js",
+    "src/common/mock/index.js",
+    "src/common/mock/handlers/mailer.js",
+    "cypress/integration/auth/register.spec.js"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

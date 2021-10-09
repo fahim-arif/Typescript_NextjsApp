@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "cypress:open": "cypress open",
     "lint": "next lint"
   },
   "dependencies": {
@@ -24,9 +25,11 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.16",
+    "cypress": "^8.5.0",
     "dotenv": "^10.0.0",
     "eslint": "7.32.0",
     "eslint-config-next": "11.0.1",
+    "miragejs": "^0.1.42",
     "typescript": "4.3.5"
   }
 }
