@@ -8,6 +8,7 @@ export interface UserCreate {
   company_name: string;
   email: string;
   password: string;
+  notify: boolean;
 }
 
 export interface UserGet {}

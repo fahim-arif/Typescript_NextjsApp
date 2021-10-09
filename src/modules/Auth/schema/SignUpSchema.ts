@@ -20,6 +20,7 @@ const SignUpSchema = yup.object().shape({
       "password must contain at least one lowercase, one uppercase, one number, one special character"
     )
     .label("password"),
+  notify: yup.boolean().required(),
 });
 
 export default SignUpSchema;

@@ -13,6 +13,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Input,
+  Checkbox,
   FormErrorMessage,
   FormLabel,
   FormControl,
@@ -38,6 +39,7 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
   const [serverError, setServerError] = useState("");
 
   const onSubmit = async (values: UserCreate) => {
+    console.log("Info:", values);
     try {
       await signUpUser(values);
       router.push("/email_verification");
@@ -102,6 +104,15 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
             </FormControl>
 
             <PasswordInput errors={errors} register={register} />
+
+            <Checkbox
+              id="notify"
+              defaultIsChecked
+              color="gray.600"
+              {...register("notify")}
+            >
+              I want to receive notifications from twoMatches.
+            </Checkbox>
           </ModalBody>
 
           <ModalFooter>
