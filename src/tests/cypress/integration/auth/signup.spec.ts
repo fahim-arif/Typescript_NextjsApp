@@ -1,4 +1,4 @@
-import { makeServer } from "../../../common/mock";
+import { makeServer } from "../../../mock";
 import { Response } from "miragejs";
 
 describe("Sign Up UI Interactions", () => {
@@ -81,6 +81,43 @@ describe("Sign Up Validations", () => {
     }
   });
 
+  it("requires a valid company name that matches pattern", () => {
+    const companyNames = [
+      {
+        input: "abc?",
+        error: true,
+      },
+      {
+        input: "J@xyz",
+        error: true,
+      },
+      {
+        input: "A(B)",
+        error: true,
+      },
+      {
+        input: "ABC Corporation",
+        error: false,
+      },
+      {
+        input: "XYZ-101",
+        error: false,
+      },
+      {
+        input: "P.Q's Company",
+        error: false,
+      },
+    ];
+
+    for (let i = 0; i < companyNames.length; i++) {
+      cy.get("#company_name").clear().type(companyNames[i].input);
+      cy.get("[data-testid=sign-up-btn]").click();
+      cy.contains(/company name.*valid/i).should(
+        companyNames[i].error ? "exist" : "not.exist"
+      );
+    }
+  });
+
   it("requires a valid email", () => {
     const emails = [
       {
@@ -117,31 +154,33 @@ describe("Sign Up Validations", () => {
   });
 
   it("requires a valid password", () => {
-    const passRE = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])/;
+    // const passRE = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/;
     const passwords = [
+      // {
+      //   input: "abc12345",
+      //   get error() {
+      //     return !passRE.test(this.input);
+      //   },
+      // },
       {
         input: "abc12345",
-        get error() {
-          return !passRE.test(this.input);
-        },
+        error: true,
       },
       {
         input: "ABCabc1278",
-        get error() {
-          return !passRE.test(this.input);
-        },
+        error: true,
       },
       {
         input: "Ab##mansja",
-        get error() {
-          return !passRE.test(this.input);
-        },
+        error: true,
+      },
+      {
+        input: "Aa1bcde=",
+        error: true,
       },
       {
         input: "Aa1@abcd",
-        get error() {
-          return !passRE.test(this.input);
-        },
+        error: false,
       },
     ];
 

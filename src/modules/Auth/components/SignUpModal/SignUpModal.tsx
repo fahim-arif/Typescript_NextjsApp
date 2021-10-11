@@ -49,12 +49,7 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      initialFocusRef={initialRef}
-      isCentered
-    >
+    <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={initialRef}>
       <ModalOverlay />
       <ModalContent data-testid="sign-up-modal">
         <ModalHeader>Sign Up</ModalHeader>

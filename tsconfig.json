@@ -21,18 +21,19 @@
       "@layout/*": ["layout/*"],
       "@modules/*": ["modules/*"],
       "@pages/*": ["pages/*"],
-      "@public/*": ["../public/*"]
+      "@public/*": ["../public/*"],
+      "@tests/*": ["tests/*"]
     }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/common/mock/index.js",
-    "src/common/mock/mirageProxy.js",
-    "src/common/mock/index.js",
-    "src/common/mock/index.js",
-    "src/common/mock/handlers/mailer.js",
+    "src/tests/mock/index.js",
+    "src/tests/mock/mirageProxy.js",
+    "src/tests/mock/index.js",
+    "src/tests/mock/index.js",
+    "src/tests/mock/handlers/mailer.js",
     "cypress/integration/auth/register.spec.js"
   ],
   "exclude": ["node_modules"]

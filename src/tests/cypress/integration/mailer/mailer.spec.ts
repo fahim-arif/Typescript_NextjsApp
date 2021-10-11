@@ -1,4 +1,4 @@
-import { makeServer } from "../../../common/mock";
+import { makeServer } from "../../../mock";
 import { Response } from "miragejs";
 
 describe("Mailer UI Interactions", () => {
