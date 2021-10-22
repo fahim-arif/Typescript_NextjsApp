@@ -1,6 +1,6 @@
 import { createServer, Model } from "miragejs";
 import mailerHandlers from "./handlers/mailerHandlers";
-import authHandlers from "./handlers/authHandlers";
+import registerHandlers from "./handlers/registerHandlers";
 
 export function makeServer({ environment = "development" } = {}) {
   let server = createServer({
@@ -32,7 +32,7 @@ export function makeServer({ environment = "development" } = {}) {
   });
 
   mailerHandlers(server);
-  authHandlers(server);
+  registerHandlers(server);
 
   return server;
 }

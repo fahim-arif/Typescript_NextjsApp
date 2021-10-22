@@ -1,16 +1,9 @@
 import Link from "next/link";
-import { useDisclosure } from "@chakra-ui/hooks";
 import { Flex, Spacer, Box, Heading, Button } from "@chakra-ui/react";
 
-import SignUpModal from "@modules/Auth/components/SignUpModal";
-
 export default function Navbar() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <>
-      <SignUpModal isOpen={isOpen} onClose={onClose} />
-
       <Flex
         align="center"
         p="2"
@@ -20,19 +13,26 @@ export default function Navbar() {
       >
         <Box>
           <Link href="/">
-            <Heading size="md" cursor="pointer">
-              TwoMatches
-            </Heading>
+            <a>
+              <Heading size="md" cursor="pointer">
+                TwoMatches
+              </Heading>
+            </a>
           </Link>
         </Box>
         <Spacer />
         <Box>
-          <Button data-testid="signup" mr="4" onClick={onOpen}>
-            Sign Up
-          </Button>
+          <Link href="/signup">
+            <a>
+              <Button size="sm" data-testid="signup" mr="4">
+                Sign Up
+              </Button>
+            </a>
+          </Link>
 
           <Button
             data-testid="login"
+            size="sm"
             bg="red.400"
             color="white"
             _hover={{ bg: "red.300" }}

@@ -3,45 +3,31 @@ import { Response } from "miragejs";
 
 describe("Sign Up UI Interactions", () => {
   before(() => {
-    cy.visit("/");
+    cy.visit("/signup");
   });
 
   it("shows Sign Up button", () => {
-    cy.get("[data-testid=signup]").contains(/sign up/i);
-  });
-
-  it("does not show sign up modal initially", () => {
-    cy.get("[data-testid=sign-up-modal]").should("not.exist");
-  });
-
-  it("opens modal on clicking Sign Up button", () => {
-    cy.get("[data-testid=signup]").click();
-    cy.get("[data-testid=sign-up-modal]").should("exist");
+    cy.get("[data-testid=sign-up-form]").should("exist");
   });
 });
 
 describe("Sign Up Validations", () => {
   beforeEach(() => {
-    cy.visit("/");
-    cy.get("[data-testid=signup]").click();
+    cy.visit("/signup");
   });
 
   it("requires all form fields", () => {
     cy.get("[data-testid=sign-up-btn]").click();
-    cy.get("[data-testid=sign-up-modal]")
-      .get("form")
-      .contains(/sign up/i)
-      .click();
-    cy.get("[data-testid=sign-up-modal]")
+    cy.get("[data-testid=sign-up-form]")
       .contains(/name.*required/i)
       .should("exist");
-    cy.get("[data-testid=sign-up-modal]")
+    cy.get("[data-testid=sign-up-form]")
       .contains(/company name.*required/i)
       .should("exist");
-    cy.get("[data-testid=sign-up-modal]")
+    cy.get("[data-testid=sign-up-form]")
       .contains(/email.*required/i)
       .should("exist");
-    cy.get("[data-testid=sign-up-modal]")
+    cy.get("[data-testid=sign-up-form]")
       .contains(/password.*required/i)
       .should("exist");
   });
@@ -206,8 +192,7 @@ describe("Sign Up Network Requests", () => {
   });
 
   it("successfully signs up user", () => {
-    cy.visit("/");
-    cy.get("[data-testid=signup]").click();
+    cy.visit("/signup");
 
     cy.get("#name").type("John Doe");
     cy.get("#company_name").type("Example Company");
@@ -220,12 +205,11 @@ describe("Sign Up Network Requests", () => {
 
   it("fails sign up due to server error", () => {
     // mirage response with 500 error
-    server.post("/auth", () => {
+    server.post("/register", () => {
       return new Response(500, {}, {});
     });
 
-    cy.visit("/");
-    cy.get("[data-testid=signup]").click();
+    cy.visit("/signup");
 
     cy.get("#name").type("John Doe");
     cy.get("#company_name").type("Example Company");

@@ -1,9 +1,9 @@
 import { Response } from 'miragejs';
 
-export default function authHandlers (server) {
+export default function registerHandlers (server) {
   server.config({
     routes() {
-      this.post('/auth', () => {
+      this.post('/register', () => {
         return new Response(201, {}, {});
       });
     }

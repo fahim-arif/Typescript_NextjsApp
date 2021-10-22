@@ -14,3 +14,15 @@ a {
 * {
   box-sizing: border-box;
 }
+
+@media screen and (min-height: 0px) {
+  #signup-form-title {
+    margin-top: 6rem;
+  }
+}
+
+@media screen and (min-height: 900px) {
+  #signup-form-title {
+    margin-top: 12.9375rem;
+  }
+}

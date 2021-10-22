@@ -15,7 +15,12 @@ const SignUpSchema = yup.object().shape({
     .max(255)
     .matches(/^[a-zA-Z0-9 .'-]+$/, "company name must be a valid")
     .label("company name"),
-  email: yup.string().required().max(320).email().label("email"),
+  email: yup
+    .string()
+    .required()
+    .max(320)
+    .email()
+    .label("email"),
   password: yup
     .string()
     .required()
@@ -26,7 +31,9 @@ const SignUpSchema = yup.object().shape({
       "password must contain at least one lowercase, one uppercase, one number, one special character (e.g. !@#$%^&*)"
     )
     .label("password"),
-  notify: yup.boolean().required(),
+  receive_notifications: yup
+    .boolean()
+    .required(),
 });
 
 export default SignUpSchema;
