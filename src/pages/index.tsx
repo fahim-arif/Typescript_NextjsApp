@@ -1,23 +1,21 @@
 import Head from "next/head";
-import Image from "next/image";
-import logo from "@public/logo.png";
+
+import Navbar from "@root/common/components/elements/Navbar";
+import LogoHeader from "@root/common/components/elements/LogoHeader";
 import Footer from "@common/components/elements/Footer";
 
 export default function Home() {
   return (
     <div className="app">
       <Head>
-        <title>twomatches</title>
-        <meta name="description" content="twomatches next app" />
+        <title>twoMatches</title>
+        <meta name="description" content="TwoMatches Next App" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex flex-col justify-center items-center pt-8">
-        <div className="relative w-28 h-28">
-          <Image src={logo} alt="twoMatches logo" layout="fill" />
-        </div>
-        <p className="pt-4 text-4xl" style={{ fontFamily: "Montserrat, sans-serif" }}><span className="font-semibold">two</span>matches</p>
-      </main>
+      <Navbar />
+
+      <LogoHeader />
 
       <Footer />
     </div>
