@@ -1,4 +1,5 @@
-import Logo from "./Logo";
+import LogoIcon from "./LogoIcon";
 import LogoText from "./LogoText";
+import Logo from "./Logo";
 
-export { Logo, LogoText };
+export { LogoIcon, LogoText, Logo };

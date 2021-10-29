@@ -7,13 +7,15 @@ export default function FormErrorSummary({ errors, serverError, ...props }) {
   }
 
   return (
-    <HStack {...props}>
-      <FormErrorIcon color="orange.200" />
+    <HStack {...props} alignItems={{ base: "start", sm: "center" }}>
+      <FormErrorIcon color="orange.200" marginY={{ base: "0.75rem", sm: 0 }} />
       <Text
         data-testid="form-error-summary"
         color="orange.200"
+        fontSize="0.9375rem"
         lineHeight="1.375rem"
-        mb={4}
+        marginBottom={4}
+        paddingY={2}
       >
         {!serverError
           ? "Please correct the highlighted fields and try again."

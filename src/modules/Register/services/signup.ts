@@ -1,16 +1,23 @@
-import { AxiosResponse } from "axios";
-import http from "@common/utils/http";
+import { AxiosRequestConfig, AxiosResponse, Method } from "axios";
+
+import axiosInstance from "@common/utils/axiosInstance";
 import { UserCreate } from "@modules/Register/types/SignUp";
 
-const endpoint = "/register";
+const path = "/register";
 
 const signUpUser = async (userCreate: UserCreate): Promise<AxiosResponse> => {
-  return http
-    .post(`${endpoint}/`, {
+  try {
+    const options: AxiosRequestConfig = {
+      method: "POST" as Method,
+      url: path,
       data: userCreate,
-    })
-    .then((response) => response.data)
-    .catch((error) => Promise.reject(error));
+    };
+
+    const response: AxiosResponse = await axiosInstance.request(options);
+    return response;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export { signUpUser };

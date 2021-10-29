@@ -11,11 +11,12 @@ import {
   FormControl,
 } from "@chakra-ui/react";
 
-import { SubscriberCreate, SubscriberGet } from "../types/Mailer";
+import { SubscriberCreate } from "../types/Mailer";
 import MailerSchema from "../schema/Mailer";
 import { createSubscriber } from "../services/mailer";
+import removeEmptyFields from "@common/utils/removeEmptyFields";
 import Message from "@common/components/elements/Message";
-import FormErrorSummary from "@root/common/components/elements/FormErrorSummary";
+import FormErrorSummary from "@common/components/elements/FormErrorSummary";
 
 export default function Mailer() {
   const initialRef = useRef();
@@ -32,7 +33,8 @@ export default function Mailer() {
 
   const onSubmit = async (values: SubscriberCreate) => {
     try {
-      const subscriber: SubscriberGet = await createSubscriber(values);
+      removeEmptyFields(values);
+      await createSubscriber(values);
       setMessage("You've subscribed to the newsletter successfully");
     } catch (error) {
       console.log(error);

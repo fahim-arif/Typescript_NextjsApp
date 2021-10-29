@@ -6,11 +6,9 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Button,
-  FormErrorMessage,
-  FormLabel,
-  FormControl,
 } from "@chakra-ui/react";
+
+import EyeIcon from "../EyeIcon";
 
 const PasswordFormField = (props: any, ref: any) => {
   const [show, setShow] = useState(false);
@@ -22,26 +20,29 @@ const PasswordFormField = (props: any, ref: any) => {
       <InputGroup size="md">
         <Input
           {...props}
+          ref={ref}
           borderRadius="sm"
-          p="1.4rem"
+          padding="1.4rem"
           lineHeight="1.375"
           color="grayScale.200"
+          borderColor="grayScale.500"
           _placeholder={{ color: "grayScale.500" }}
-          pr="4.5rem"
+          paddingRight="3rem"
+          marginTop="0.9rem"
           type={show ? "text" : "password"}
         />
         <Box
           alignSelf="start"
           bg="white"
-          pos="absolute"
-          top="-1.0rem"
+          position="absolute"
+          top="0rem"
           left="0.7rem"
           zIndex="2"
           padding="0.25rem 0.625rem"
         >
           <Text
-            p="0"
-            m="0"
+            padding="0"
+            margin="0"
             fontWeight="500"
             fontSize="0.875rem"
             lineHeight="1.3125rem"
@@ -50,10 +51,12 @@ const PasswordFormField = (props: any, ref: any) => {
             {props.label}
           </Text>
         </Box>
-        <InputRightElement width="4.5rem" h="full">
-          <Button h="1.75rem" size="sm" onClick={handleClick}>
-            {show ? "Hide" : "Show"}
-          </Button>
+        <InputRightElement marginRight="0.5rem" marginTop="1.1rem">
+          <EyeIcon
+            color="grayScale.300"
+            cursor="pointer"
+            onClick={handleClick}
+          />
         </InputRightElement>
       </InputGroup>
     </Flex>
