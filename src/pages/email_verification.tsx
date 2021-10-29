@@ -7,7 +7,6 @@ export default function Home() {
       <Head>
         <title>twomatches</title>
         <meta name="description" content="twomatches next app" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Navbar />

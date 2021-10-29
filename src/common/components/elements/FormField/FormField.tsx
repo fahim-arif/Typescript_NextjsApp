@@ -10,13 +10,15 @@ const FormField = (props: any, ref: any) => {
         p="1.4rem"
         lineHeight="1.375"
         color="grayScale.200"
+        borderColor="grayScale.500"
+        mt="0.9rem"
         _placeholder={{ color: "grayScale.500" }}
       />
       <Box
         alignSelf="start"
         bg="white"
-        pos="absolute"
-        top="-1.0rem"
+        position="absolute"
+        top="0rem"
         left="0.7rem"
         zIndex="2"
         padding="0.25rem 0.625rem"

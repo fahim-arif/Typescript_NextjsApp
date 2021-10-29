@@ -1,27 +1,51 @@
-import http from "@common/utils/http";
+import { AxiosRequestConfig, AxiosResponse, Method } from "axios";
+
+import axiosInstance from "@common/utils/axiosInstance";
 import { SubscriberCreate, SubscriberGet } from "../types/Mailer";
 
-const endpoint = "/subscribers";
+const path = "/subscribers";
 
 const getSubscribers = async (): Promise<SubscriberGet[]> => {
-  return http
-    .get(endpoint)
-    .then((response) => response.data)
-    .catch((error) => Promise.reject(error));
+  try {
+    const options: AxiosRequestConfig = {
+      method: "GET" as Method,
+      url: path,
+    }
+
+    const response: AxiosResponse<SubscriberGet[]> = await axiosInstance.request(options) 
+    return response.data; 
+  } catch (error) {
+    throw error;
+  }
 };
 
 const getSubscriberById = async (id: string): Promise<SubscriberGet> => {
-  return http
-    .get(`${endpoint}/${id}`)
-    .then((response) => response.data)
-    .catch((error) => Promise.reject(error));
+  try {
+    const options: AxiosRequestConfig = {
+      method: "GET" as Method,
+      url: `${path}/${id}`,
+    }
+
+    const response: AxiosResponse<SubscriberGet> = await axiosInstance.request(options) 
+    return response.data; 
+  } catch (error) {
+    throw error;
+  }
 };
 
 const createSubscriber = async (subscriberCreate: SubscriberCreate): Promise<SubscriberGet> => {
-  return http
-    .post(endpoint, { data: subscriberCreate })
-    .then((response) => response.data)
-    .catch((error) => Promise.reject(error));
+  try {
+    const options: AxiosRequestConfig = {
+      method: "POST" as Method,
+      url: path,
+      data: subscriberCreate
+    }
+
+    const response: AxiosResponse<SubscriberGet> = await axiosInstance.request(options) 
+    return response.data; 
+  } catch (error) {
+    throw error;
+  }
 };
 
 export { createSubscriber, getSubscribers, getSubscriberById };

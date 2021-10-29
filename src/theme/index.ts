@@ -26,6 +26,13 @@ const theme = extendTheme({
     h3: "2.25rem",
     h2: "2.875rem",
     h1: "3.5rem",
+    mbody: "0.9375rem",
+    mh6: "1.125rem",
+    mh5: "1.1875rem",
+    mh4: "1.375rem",
+    mh3: "1.625rem",
+    mh2: "2rem",
+    mh1: "2.375rem",
   },
   colors: {
     grayScale: {

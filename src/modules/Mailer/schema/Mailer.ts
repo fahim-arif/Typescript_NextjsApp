@@ -16,7 +16,12 @@ const MailerSchema = yup.object().shape(
       .max(255)
       .matches(/^[a-zA-Z .'-]+$/, "last name must be a valid name")
       .label("last name"),
-    email: yup.string().required().email().max(320).label("email"),
+    email: yup
+      .string()
+      .required()
+      .email()
+      .max(320)
+      .label("email"),
     contact_no: yup
       .string()
       .nullable()
