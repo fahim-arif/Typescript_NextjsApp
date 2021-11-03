@@ -3,11 +3,15 @@ import * as yup from "yup";
 const SignUpSchema = yup.object().shape({
   name: yup
     .string()
+    .trim()
     .required()
     .min(2)
     .max(255)
-    .matches(/^[a-zA-Z .'-]+$/, "name must be a valid name")
-    .label("name"),
+    .matches(
+      /^[a-zA-z]+[a-zA-Z.'-]*(?: [a-zA-Z.'-]+)+/,
+      "full name must be valid"
+    )
+    .label("full name"),
   company_name: yup
     .string()
     .required()
