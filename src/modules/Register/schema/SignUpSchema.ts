@@ -1,5 +1,7 @@
 import * as yup from "yup";
 
+import { commonPasswordSet } from "@common/utils/10k-most-common";
+
 const SignUpSchema = yup.object().shape({
   name: yup
     .string()
@@ -30,10 +32,43 @@ const SignUpSchema = yup.object().shape({
     .required()
     .min(8)
     .max(255)
+    .test({
+      name: "name match",
+      exclusive: false,
+      params: {},
+      message: "password must not contain value of name field",
+      test: function (value) {
+        if (!this.parent.name) return true;
+        let re = new RegExp("^(?!.*" + this.parent.name + ").*$", "gi");
+        return re.test(value);
+      },
+    })
+    .test({
+      name: "email first part match",
+      exclusive: false,
+      params: {},
+      message:
+        "password must not contain first part of email field - firstpart@example.com",
+      test: function (value) {
+        if (!this.parent.email) return true;
+        const emailFirstPart = this.parent.email.split("@")[0];
+        let re = new RegExp("^(?!.*" + emailFirstPart + ").*$", "gi");
+        return re.test(value);
+      },
+    })
     .matches(
       /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
       "password must contain at least one lowercase, one uppercase, one number, one special character (e.g. !@#$%^&*)"
     )
+    .test({
+      name: "common word",
+      exclusive: false,
+      params: {},
+      message: "password must not be a common word",
+      test: function (value) {
+        return !commonPasswordSet.has(value);
+      },
+    })
     .label("password"),
   receive_notifications: yup
     .boolean()
