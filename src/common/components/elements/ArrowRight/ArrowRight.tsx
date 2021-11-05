@@ -8,7 +8,7 @@ function ArrowRightIcon(props: any) {
         fillRule="evenodd"
         clipRule="evenodd"
         d="M12.63 3.065L10.118.578l.563-.569 3.485 3.451-3.482 3.515-.568-.563 2.523-2.547L.8 3.893l-.002-.8 11.831-.028z"
-        fill="#fff"
+        fill="currentColor"
       />
     </Icon>
   );

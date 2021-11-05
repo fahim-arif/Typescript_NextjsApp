@@ -53,7 +53,23 @@ describe("Sign Up Validations", () => {
         error: true,
       },
       {
+        input: "John",
+        error: true,
+      },
+      {
+        input: "John",
+        error: true,
+      },
+      {
+        input: "-John Doe",
+        error: true,
+      },
+      {
         input: "John Doe",
+        error: false,
+      },
+      {
+        input: "John F. Doe",
         error: false,
       },
     ];
@@ -61,7 +77,7 @@ describe("Sign Up Validations", () => {
     for (let i = 0; i < names.length; i++) {
       cy.get("#name").clear().type(names[i].input);
       cy.get("[data-testid=sign-up-btn]").click();
-      cy.contains(/name.*valid name/i).should(
+      cy.contains(/full name.*valid/i).should(
         names[i].error ? "exist" : "not.exist"
       );
     }
@@ -82,6 +98,10 @@ describe("Sign Up Validations", () => {
         error: true,
       },
       {
+        input: "-ABC Company",
+        error: true,
+      },
+      {
         input: "ABC Corporation",
         error: false,
       },
@@ -91,6 +111,10 @@ describe("Sign Up Validations", () => {
       },
       {
         input: "P.Q's Company",
+        error: false,
+      },
+      {
+        input: "   ABC Corp.   ",
         error: false,
       },
     ];
@@ -197,7 +221,7 @@ describe("Sign Up Network Requests", () => {
     cy.get("#name").type("John Doe");
     cy.get("#company_name").type("Example Company");
     cy.get("#email").type("john@example.com");
-    cy.get("#password").type("John#Doe#123");
+    cy.get("#password").type("Random@abc#123");
     cy.get("[data-testid=sign-up-btn]").click();
 
     cy.url().should("contain", "/email_verification");

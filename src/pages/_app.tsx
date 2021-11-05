@@ -3,7 +3,8 @@ import "@public/styles/globals.css";
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 import "@fontsource/barlow/400.css";
 import "@fontsource/barlow/500.css";
-import theme from "@root/theme";
+
+import theme from "@common/theme";
 
 import { makeServer } from "@tests/mock";
 import { initMirageProxyForCypress } from "@tests/mock/mirageProxy";

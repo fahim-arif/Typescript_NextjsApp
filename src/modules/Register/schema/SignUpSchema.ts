@@ -16,14 +16,16 @@ const SignUpSchema = yup.object().shape({
     .label("full name"),
   company_name: yup
     .string()
+    .trim()
     .required()
     .min(1)
     .max(255)
-    .matches(/^[a-zA-Z0-9 .'-]+$/, "company name must be a valid")
+    .matches(/^[a-zA-z0-9]+[a-zA-Z0-9 .'-]*$/, "company name must be valid")
     .label("company name"),
   email: yup
     .string()
-    .required()
+    .trim().
+    required()
     .max(320)
     .email()
     .label("email"),
