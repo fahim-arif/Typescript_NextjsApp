@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Navbar from "@root/common/components/elements/Navbar";
 
-export default function Home() {
+export default function EmailVerification() {
   return (
     <div className="app">
       <Head>

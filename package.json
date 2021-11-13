@@ -16,6 +16,7 @@
     "@fontsource/barlow": "^4.5.0",
     "@fontsource/inter": "^4.5.0",
     "@hookform/resolvers": "^2.7.1",
+    "auth0-js": "^9.17.0",
     "axios": "^0.21.1",
     "framer-motion": "^4.1.17",
     "next": "11.0.1",
@@ -26,6 +27,7 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@types/auth0-js": "^9.14.5",
     "@types/react": "^17.0.16",
     "cypress": "^8.5.0",
     "dotenv": "^10.0.0",

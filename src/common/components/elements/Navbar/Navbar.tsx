@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { Flex, Spacer, Box, Heading, Button } from "@chakra-ui/react";
 
+import useAuth from "@common/hooks/useAuth";
+
 export default function Navbar() {
+  const { isLoading, isAuthenticated, user, logout } = useAuth();
+
   return (
     <>
       <Flex
@@ -22,23 +26,41 @@ export default function Navbar() {
         </Box>
         <Spacer />
         <Box>
-          <Link href="/signup">
-            <a>
-              <Button size="sm" data-testid="signup" mr="4">
-                Sign Up
+          {!isLoading &&
+            (isAuthenticated ? (
+              <Button
+                size="sm"
+                data-testid="logout"
+                mr="4"
+                onClick={() => logout()}
+              >
+                Logout
               </Button>
-            </a>
-          </Link>
+            ) : (
+              <>
+                <Link href="/signup">
+                  <a>
+                    <Button size="sm" data-testid="signup" mr="4">
+                      Sign Up
+                    </Button>
+                  </a>
+                </Link>
 
-          <Button
-            data-testid="login"
-            size="sm"
-            bg="red.400"
-            color="white"
-            _hover={{ bg: "red.300" }}
-          >
-            Log in
-          </Button>
+                <Link href="/login">
+                  <a>
+                    <Button
+                      data-testid="login"
+                      size="sm"
+                      bg="red.400"
+                      color="white"
+                      _hover={{ bg: "red.300" }}
+                    >
+                      Login
+                    </Button>
+                  </a>
+                </Link>
+              </>
+            ))}
         </Box>
       </Flex>
     </>

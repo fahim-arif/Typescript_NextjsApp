@@ -1,8 +1,8 @@
 import Head from "next/head";
 
-import Navbar from "@root/common/components/elements/Navbar";
-import Footer from "@common/components/elements/Footer";
+import Navbar from "@common/components/elements/Navbar";
 import Logo from "@common/components/elements/Logo/Logo";
+import Footer from "@common/components/elements/Footer";
 
 export default function Home() {
   return (

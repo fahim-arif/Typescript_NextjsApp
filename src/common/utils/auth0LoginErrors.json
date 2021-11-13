@@ -1,0 +1,8 @@
+{
+  "access_denied": "Incorrect email or password",
+  "blocked_user": "Something went wrong. Please Contact administrator.",
+  "password_leaked": "Something went wrong. Please Contact administrator.",
+  "too_many_attempts": "Something went wrong. Please Contact administrator.",
+  "unauthorized": "Please verify your email before logging in.",
+  "other": "Something went wrong. Please Contact administrator."
+}

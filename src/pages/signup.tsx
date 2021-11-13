@@ -3,12 +3,14 @@ import Head from "next/head";
 import Link from "next/link";
 import { Flex, HStack, Circle } from "@chakra-ui/react";
 
-import { Logo } from "@root/common/components/elements/Logo";
-import DesignSection from "@root/common/components/elements/DesignSection";
-import SignUpForm from "@root/modules/Register/components/SignUpForm";
-import ArrowLeft from "@root/common/components/elements/ArrowLeft";
+import publicRoute from "@common/components/elements/publicRoute";
+import { Logo } from "@common/components/elements/Logo";
+import DesignSection from "@common/components/elements/DesignSection";
+import SignUpForm from "@modules/Register/components/SignUpForm";
+import ArrowLeft from "@common/components/elements/ArrowLeft";
+import CircleDesignHeader from "@common/components/elements/CircleDesignHeader";
 
-export default function Signup() {
+function Signup() {
   const [showContent, setShowContent] = useState(false);
 
   return (
@@ -20,9 +22,11 @@ export default function Signup() {
 
       <Flex minHeight="100%">
         <DesignSection
+          title="Create an account to start your free trial"
           display={{
             base: showContent ? "none" : "block",
-            lg: "block",
+            md: "none",
+            xl: "block",
           }}
           hide={() => setShowContent(true)}
         />
@@ -31,40 +35,62 @@ export default function Signup() {
           flex="1"
           display={{
             base: showContent ? "flex" : "none",
-            lg: "flex",
+            md: "flex",
           }}
           direction="column"
           alignItems="center"
-          paddingX="1.75rem"
-          paddingTop={{ base: "7", lg: "12.9375rem" }}
+          paddingTop={{ xl: "12.9375rem" }}
         >
-          <HStack
-            width={{ base: "full", md: "auto" }}
-            spacing="1.875rem"
-            marginBottom="3.47rem"
+          <CircleDesignHeader
+            title="Create an account to start your free trial"
+            headingWidth={{ md: "20.25rem", lg: "23.375rem" }}
+            display={{
+              base: "none",
+              md: "flex",
+              xl: "none",
+            }}
+          />
+
+          <Flex
+            display={{ base: "flex", md: "none" }}
+            width="full"
+            justify="left"
+            marginTop="1.75rem"
+            marginBottom="3.05rem"
           >
-            <Link href="/">
-              <a>
-                <Circle
-                  display={{ base: "flex", md: "none" }}
-                  size="2.125em"
-                  borderWidth="1px"
-                  borderColor="grayScale.500"
-                  bg="transparent"
-                  color="white"
-                  cursor="pointer"
-                >
-                  <ArrowLeft color="grayScale.100" />
-                </Circle>
-              </a>
-            </Link>
-            <Link href="/">
-              <a>
-                <Logo prefixId="logo" display={{ base: "flex", lg: "none" }} />
-              </a>
-            </Link>
-          </HStack>
+            <HStack
+              spacing="1.875rem"
+              align="start"
+              marginLeft={{ base: "1.75rem", md: "2.56rem" }}
+            >
+              <Link href="/">
+                <a>
+                  <Circle
+                    display={{ base: "flex" }}
+                    size="2.125em"
+                    borderWidth="1px"
+                    borderColor="grayScale.500"
+                    bg="transparent"
+                    color="white"
+                    cursor="pointer"
+                  >
+                    <ArrowLeft color="grayScale.100" />
+                  </Circle>
+                </a>
+              </Link>
+              <Link href="/">
+                <a>
+                  <Logo
+                    prefixId="signup-above-logo"
+                    display={{ base: "flex", xl: "none" }}
+                  />
+                </a>
+              </Link>
+            </HStack>
+          </Flex>
+
           <SignUpForm
+            paddingX="1.75rem"
             width="full"
             marginBottom={{ base: "1.75rem", lg: "5.875rem" }}
           />
@@ -73,3 +99,5 @@ export default function Signup() {
     </div>
   );
 }
+
+export default publicRoute(Signup);
