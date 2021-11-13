@@ -67,7 +67,7 @@ export default function SignUpForm({ ...props }) {
             type="text"
             id="name"
             label="Name"
-            placeholder="Enter name"
+            placeholder="Enter first and last name"
             {...register("name")}
             ref={register("name").ref}
           />

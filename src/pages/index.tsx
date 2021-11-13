@@ -1,7 +1,6 @@
 import Head from "next/head";
 
 import Navbar from "@root/common/components/elements/Navbar";
-import LogoHeader from "@root/common/components/elements/LogoHeader";
 import Footer from "@common/components/elements/Footer";
 import Logo from "@common/components/elements/Logo/Logo";
 
