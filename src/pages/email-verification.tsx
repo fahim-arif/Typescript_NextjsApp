@@ -4,8 +4,43 @@ import Link from "next/link";
 import { Box, Flex, HStack, Heading, Text, Button } from "@chakra-ui/react";
 
 import Logo from "@common/components/elements/Logo/Logo";
+import CircleDesignBottom from "@common/components/elements/CircleDesignBottom";
+import FormErrorSummary from "@common/components/elements/FormErrorSummary";
+import EmailIcon from "@common/components/elements/EmailIcon";
+import { useRouter } from "next/router";
 
 export default function EmailVerification() {
+  const router = useRouter();
+  const [email, setEmail] = useState<string>();
+  const [serverError, setServerError] = useState<string>();
+  const [message, setMessage] = useState<string>();
+
+  const resendEmail = () => {
+    try {
+      setServerError("");
+      setMessage("");
+
+      if (!email) {
+        throw "No email was found";
+      }
+      // call api to send email with email of user
+
+      setMessage("The verification email has been resent to your email.");
+    } catch (error) {
+      console.log(error);
+      setServerError(
+        "We’re having trouble saving your changes. Please try again later."
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (router.isReady) {
+      const { email } = router.query;
+      Array.isArray(email) ? setEmail(email[0]) : setEmail(email);
+    }
+  }, [router]);
+
   return (
     <Box className="app w-full h-screen">
       <Head>
@@ -59,7 +94,15 @@ export default function EmailVerification() {
               You need to verify your email to complete the registration. An
               email has been sent to:
             </Text>
-            
+            <Heading
+              fontSize={{ sm: "mh6", md: "th6", xl: "h6" }}
+              fontWeight="400"
+              color="grayScale.100"
+              lineHeight="1.75rem"
+              marginBottom="2.75rem"
+            >
+              {email}
+            </Heading>
             <Text
               width={{ base: "20rem", md: "24.5rem" }}
               textAlign="center"
@@ -72,9 +115,66 @@ export default function EmailVerification() {
             </Text>
           </Flex>
 
-          
+          <Flex direction={{ base: "column", md: "row" }}>
+            <Button
+              width={{ base: "20rem", md: "16.25rem" }}
+              height="3.75rem"
+              fontWeight="400"
+              marginRight={{ base: "0", md: "0.375rem" }}
+              marginBottom={{ base: "0.75rem", md: "0" }}
+              onClick={() => resendEmail()}
+            >
+              Resend Email
+            </Button>
+            <Button
+              width={{ base: "20rem", md: "16.25rem" }}
+              height="3.75rem"
+              color="grayScale.100"
+              backgroundColor="transparent"
+              borderWidth="1px"
+              borderColor={{ base: "#fff", md: "grayScale.500" }}
+              fontWeight="400"
+              marginLeft={{ base: "0", md: "0.375rem" }}
+            >
+              Contact Support
+            </Button>
+          </Flex>
         </Flex>
 
+        <CircleDesignBottom />
+
+        <Flex
+          justify="center"
+          zIndex="1"
+          position="absolute"
+          bottom="0rem"
+          width="full"
+          backgroundColor="white"
+          paddingX="1.5rem"
+        >
+          {serverError && (
+            <FormErrorSummary errors={{}} serverError={serverError} />
+          )}
+          {message && (
+            <HStack alignItems={{ base: "center", sm: "center" }}>
+              <EmailIcon
+                color="grayScale.100"
+                marginY={{ base: "0.75rem", sm: 0 }}
+                marginRight="1rem"
+              />
+              <Text
+                data-testid="form-error-summary"
+                color="grayScale.100"
+                fontSize="0.9375rem"
+                lineHeight="1.375rem"
+                marginBottom={4}
+                paddingY={2}
+              >
+                {message}
+              </Text>
+            </HStack>
+          )}
+        </Flex>
       </Flex>
     </Box>
   );
