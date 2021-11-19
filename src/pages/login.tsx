@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 
 import publicRoute from "@common/components/elements/publicRoute";
 import DesignSection from "@common/components/elements/DesignSection";
@@ -8,7 +8,7 @@ import LoginForm from "@modules/Login/components/LoginForm/LoginForm";
 
 function Login() {
   return (
-    <div className="app h-screen">
+    <Box className="app h-screen">
       <Head>
         <title>twoMatches - login</title>
         <meta name="description" content="twoMatches login" />
@@ -44,7 +44,7 @@ function Login() {
           />
         </Flex>
       </Flex>
-    </div>
+    </Box>
   );
 }
 

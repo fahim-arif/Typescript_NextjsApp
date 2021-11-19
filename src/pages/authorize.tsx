@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { Text } from "@chakra-ui/react";
 
 import useAuth from "@root/common/hooks/useAuth";
 
@@ -8,23 +9,27 @@ export default function Callback() {
   const { isLoading, parseSessionFromUrl } = useAuth();
   const router = useRouter();
 
-  const getSessionAndRedirect = async () => {
+  const getSessionAndRedirect = useCallback(async () => {
     try {
       await parseSessionFromUrl();
       router.replace("/");
     } catch (error) {
-      console.log(error);
       if (error.error === "unauthorized") {
-        router.replace("/email-not-verified");
+        const description = error.errorDescription;
+        const email = description.match(/email=(.*)/)[1];
+        router.replace(`/email-verification?email=${email}`);
+      } else {
+        const errorDescription = error.errorDescription;
+        router.replace(`/login-error?error=${errorDescription}`);
       }
     }
-  };
+  }, [router, parseSessionFromUrl]);
 
   useEffect(() => {
-    if (!isLoading && router) {
+    if (!isLoading && router.isReady) {
       getSessionAndRedirect();
     }
-  }, [isLoading, router]);
+  }, [isLoading, router, getSessionAndRedirect]);
 
   return (
     <div className="app">
@@ -34,7 +39,7 @@ export default function Callback() {
       </Head>
 
       <main className="flex flex-col justify-center items-center pt-8">
-        <p className="text-xl">Redirecting...</p>
+        <Text>Redirecting...</Text>
       </main>
     </div>
   );

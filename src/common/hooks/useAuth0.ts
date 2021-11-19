@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import auth0, { Auth0Result, WebAuth, Auth0UserProfile } from "auth0-js";
 
 function useAuth0({
@@ -13,37 +13,86 @@ function useAuth0({
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const audience = globalAudience;
-  const scope = globalScope;
+  const checkSession = useCallback(
+    (audience?: string, scope?: string) => {
+      return new Promise((resolve, reject) => {
+        const options = {
+          responseType: "id_token token",
+          audience: audience ? audience : globalAudience,
+          scope: scope ? scope : globalScope,
+        };
 
-  const renewSession = async () => {
+        webAuth.checkSession(options, function (error, authResult) {
+          if (error) {
+            return reject(error);
+          }
+
+          webAuth.client.userInfo(
+            authResult.accessToken,
+            function (error: any, user: Auth0UserProfile) {
+              if (error) {
+                return reject(error);
+              }
+
+              setUser({
+                ...user,
+                accessToken: authResult.accessToken,
+              });
+              // sessionStorage.setItem(
+              //   "my-session",
+              //   JSON.stringify({
+              //     ...user,
+              //     accessToken: authResult.accessToken,
+              //   })
+              // );
+              setIsAuthenticated(true);
+
+              resolve(authResult.accessToken);
+            }
+          );
+        });
+      });
+    },
+    [webAuth, globalAudience, globalScope]
+  );
+
+  const renewSession = useCallback(async () => {
     try {
-      await checkSession(audience, scope);
+      await checkSession();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [checkSession]);
 
   useEffect(() => {
     if (webAuth) {
+      // if (sessionStorage.getItem("my-session")) {
+      //   console.log("Used existing session");
+      //   setUser(JSON.parse(sessionStorage.getItem("my-session")));
+      //   setIsLoading(false);
+      //   setIsAuthenticated(true);
+      //   return;
+      // }
+
+      console.log("Calling renew session");
       renewSession();
     }
-  }, [webAuth]);
+  }, [webAuth, renewSession]);
 
   useEffect(() => {
     const webAuth: WebAuth = new auth0.WebAuth({
       domain,
       clientID,
       redirectUri,
-      audience,
-      scope,
+      audience: globalAudience,
+      scope: globalScope,
       responseType: "id_token token",
     });
 
     setWebAuth(webAuth);
-  }, [domain, clientID, redirectUri, audience, scope]);
+  }, [domain, clientID, redirectUri, globalAudience, globalScope]);
 
   const login = async (email: string, password: string) => {
     return new Promise((resolve, reject) => {
@@ -63,7 +112,7 @@ function useAuth0({
     });
   };
 
-  const parseSessionFromUrl = () => {
+  const parseSessionFromUrl = useCallback(() => {
     return new Promise((resolve, reject) => {
       webAuth.parseHash(
         { hash: window.location.hash },
@@ -71,6 +120,8 @@ function useAuth0({
           if (error) {
             return reject(error);
           }
+
+          // console.log("authResult:", authResult);
 
           webAuth.client.userInfo(
             authResult.accessToken,
@@ -86,23 +137,25 @@ function useAuth0({
         }
       );
     });
-  };
+  }, [webAuth]);
 
   const getAccessTokenSilently = async ({ audience, scope }) => {
     try {
-      const accessToken = await checkSession(audience, scope);
+      const accessToken = await getAccessTokenFromSession(audience, scope);
+      console.log("Got Token:", accessToken);
+
       return accessToken;
     } catch (error) {
       console.log(error);
     }
   };
 
-  const checkSession = (audience?: string, scope?: string) => {
+  const getAccessTokenFromSession = (audience: string, scope: string) => {
     return new Promise((resolve, reject) => {
       const options = {
         responseType: "id_token token",
-        audience,
-        scope,
+        audience: "api.twomatches.xyz",
+        scope: "read:accounts",
       };
 
       webAuth.checkSession(options, function (error, authResult) {
@@ -110,28 +163,36 @@ function useAuth0({
           return reject(error);
         }
 
-        webAuth.client.userInfo(
-          authResult.accessToken,
-          function (error: any, user: Auth0UserProfile) {
-            if (error) {
-              return reject(error);
-            }
+        console.log("authResult:", authResult);
 
-            setUser({
-              ...user,
-              accessToken: authResult.accessToken,
-            });
-            setIsAuthenticated(true);
-
-            resolve(authResult.accessToken);
-          }
-        );
+        return resolve(authResult.accessToken);
       });
+    });
+  };
+
+  const changePassword = (email: string) => {
+    return new Promise((resolve, reject) => {
+      webAuth.changePassword(
+        {
+          connection: "Username-Password-Authentication",
+          email,
+        },
+        function (err, response) {
+          if (err) {
+            console.log(err.message);
+            reject(err.message);
+          } else {
+            console.log(response);
+            resolve(response);
+          }
+        }
+      );
     });
   };
 
   const logout = () => {
     return new Promise((resolve, reject) => {
+      // sessionStorage.removeItem("my-session");
       webAuth.logout({
         returnTo: process.env.NEXT_PUBLIC_HOST,
         clientID: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID,
@@ -147,6 +208,7 @@ function useAuth0({
     logout,
     getAccessTokenSilently,
     parseSessionFromUrl,
+    changePassword,
   };
 }
 

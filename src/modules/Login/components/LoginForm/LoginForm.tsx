@@ -15,7 +15,7 @@ import {
 
 import useAuth from "@common/hooks/useAuth";
 
-import auth0LoginErrors from "@common/utils/auth0LoginErrors.json";
+import auth0LoginErrors from "@common/resources/auth0LoginErrors.json";
 import LoginSchema from "@modules/Login/schema/LoginSchema";
 import { LoginCreate } from "@modules/Login/types/Login";
 import FormField from "@common/components/elements/FormField";

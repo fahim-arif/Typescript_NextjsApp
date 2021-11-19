@@ -37,7 +37,7 @@ export default function SignUpForm({ ...props }) {
   const onSubmit = async (values: UserCreate) => {
     try {
       await signUpUser(values);
-      router.push("/email_verification");
+      router.push("/email-verification?email=" + values.email);
     } catch (error) {
       setServerError("Something went wrong. Try again later.");
     }

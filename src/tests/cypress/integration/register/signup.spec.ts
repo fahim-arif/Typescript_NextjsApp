@@ -224,7 +224,7 @@ describe("Sign Up Network Requests", () => {
     cy.get("#password").type("Random@abc#123");
     cy.get("[data-testid=sign-up-btn]").click();
 
-    cy.url().should("contain", "/email_verification");
+    cy.url().should("contain", "/email-verification");
   });
 
   it("fails sign up due to server error", () => {

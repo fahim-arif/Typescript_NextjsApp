@@ -7,17 +7,7 @@ const LoginSchema = yup.object().shape({
     .required()
     .max(320)
     .email()
-    .label("email"),
-  password: yup
-    .string()
-    .required()
-    .min(8)
-    .max(255)
-    .matches(
-      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
-      "password must contain at least one lowercase, one uppercase, one number, one special character (e.g. !@#$%^&*)"
-    )
-    .label("password"),
+    .label("email")
 });
 
 export default LoginSchema;
