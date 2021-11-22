@@ -23,10 +23,8 @@ import FormField from "@common/components/elements/FormField";
 import EmailSchema from "@modules/ResetPassword/schema/EmailSchema";
 import { ForgotPasswordType } from "@modules/ResetPassword/types/ResetPassword";
 import { sendForgotPasswordRequest } from "@root/modules/ResetPassword/services/resetPassword";
-// import useAuth from "@root/common/hooks/useAuth";
 
 export default function ForgotPassword() {
-  // const { changePassword } = useAuth();
   const {
     handleSubmit,
     register,
@@ -43,13 +41,14 @@ export default function ForgotPassword() {
       setServerError("");
       setMessage("");
 
-      await sendForgotPasswordRequest(values);
+      const { email } = values;  
 
-      const { email } = values;
+      await sendForgotPasswordRequest(email);
+
       setMessage(`A password recovery instruction has been sent to ${email}.`);
       
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setServerError(
         "We’re having trouble sending password reset email. Please try again later."
       );
@@ -66,6 +65,7 @@ export default function ForgotPassword() {
       <Flex
         position="relative"
         direction="column"
+        paddingBottom="250px"
         align="start"
         minHeight="100%"
         background="radial-gradient(37.11% 37.11% at 100% 1.28%, rgba(191, 195, 231, 0.2) 0%, rgba(207, 210, 237, 0) 100%), radial-gradient(76.35% 25.03% at 0% 59.45%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%), radial-gradient(107.59% 39.88% at 88.75% 60.12%, rgba(255, 235, 225, 0.4) 0%, rgba(255, 235, 225, 0.4) 100%), linear-gradient(357.01deg, rgba(249, 101, 7, 0.6) 2.91%, rgba(249, 106, 7, 0) 52.54%)"

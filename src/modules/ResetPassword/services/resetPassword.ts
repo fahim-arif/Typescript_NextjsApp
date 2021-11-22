@@ -1,11 +1,11 @@
 import { AxiosRequestConfig, AxiosResponse, Method } from "axios";
 
 import axiosInstance from "@common/utils/axiosInstance";
-import { ForgotPasswordType } from "@modules/ResetPassword/types/ResetPassword";
+import { ForgotPasswordType, TicketWithUser } from "@modules/ResetPassword/types/ResetPassword";
 
 const path = "/user-tickets";
 
-const sendForgotPasswordRequest = async (email: ForgotPasswordType): Promise<AxiosResponse> => {
+const sendForgotPasswordRequest = async (email: string): Promise<AxiosResponse> => {
   try {
     const options: AxiosRequestConfig = {
       method: "POST" as Method,
@@ -23,7 +23,7 @@ const sendForgotPasswordRequest = async (email: ForgotPasswordType): Promise<Axi
   }
 };
 
-const verifyTicket = async (ticket: string): Promise<AxiosResponse> => {
+const verifyTicket = async (ticket: string): Promise<TicketWithUser> => {
   try {
     const options: AxiosRequestConfig = {
       method: "GET" as Method,
@@ -31,10 +31,29 @@ const verifyTicket = async (ticket: string): Promise<AxiosResponse> => {
     };
 
     const response: AxiosResponse = await axiosInstance.request(options);
-    return response;
+    const data = response.data;
+    return data;
   } catch (error) {
     throw error;
   }
 };
 
-export { sendForgotPasswordRequest, verifyTicket };
+const resetPassword = async (ticket: string, password: string): Promise<AxiosResponse> => {
+  try {
+    const options: AxiosRequestConfig = {
+      method: "POST" as Method,
+      url: `${path}/reset-password`,
+      data: {
+        id: ticket,
+        password
+      }
+    };
+
+    const response: AxiosResponse = await axiosInstance.request(options);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export { sendForgotPasswordRequest, verifyTicket, resetPassword };

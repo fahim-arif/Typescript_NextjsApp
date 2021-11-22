@@ -11,19 +11,19 @@ function Protected() {
     useAuth();
   const [token, setToken] = useState();
 
-  const getToken = async () => {
-    try {
-      const token = await getAccessTokenSilently({
-        audience: "api.twomatches.xyz",
-        scope: "read:accounts",
-      });
+  // const getToken = async () => {
+  //   try {
+  //     const token = await getAccessTokenSilently({
+  //       audience: "api.twomatches.xyz",
+  //       scope: "read:accounts",
+  //     });
 
-      console.log("Access Token:", token);
-      setToken(token);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     console.log("Access Token:", token);
+  //     setToken(token);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -44,10 +44,10 @@ function Protected() {
             {JSON.stringify(user, null, 2)}
           </pre>
 
-          <Button marginY="1rem" onClick={getToken}>
+          {/* <Button marginY="1rem" onClick={getToken}>
             Get Token
           </Button>
-          <Text>{token}</Text>
+          <Text>{token}</Text> */}
         </div>
       )}
     </div>

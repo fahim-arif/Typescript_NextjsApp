@@ -51,6 +51,7 @@ export default function EmailVerification() {
       <Flex
         position="relative"
         direction="column"
+        paddingBottom="250px"
         align="start"
         minHeight="100%"
         background="radial-gradient(37.11% 37.11% at 100% 1.28%, rgba(191, 195, 231, 0.2) 0%, rgba(207, 210, 237, 0) 100%), radial-gradient(76.35% 25.03% at 0% 59.45%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%), radial-gradient(107.59% 39.88% at 88.75% 60.12%, rgba(255, 235, 225, 0.4) 0%, rgba(255, 235, 225, 0.4) 100%), linear-gradient(357.01deg, rgba(249, 101, 7, 0.6) 2.91%, rgba(249, 106, 7, 0) 52.54%)"
@@ -132,9 +133,11 @@ export default function EmailVerification() {
               color="grayScale.100"
               backgroundColor="transparent"
               borderWidth="1px"
-              borderColor={{ base: "#fff", md: "grayScale.500" }}
+              borderColor={{ md: "grayScale.500" }}
               fontWeight="400"
               marginLeft={{ base: "0", md: "0.375rem" }}
+              _hover={{
+              }}
             >
               Contact Support
             </Button>
