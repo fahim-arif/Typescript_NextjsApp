@@ -1,10 +1,9 @@
+import { useEffect, useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
-import { Flex, Text, Button } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { Flex, Text } from "@chakra-ui/react";
 
 import Navbar from "@common/components/elements/Navbar";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 
 export default function LoginError() {
   const router = useRouter();

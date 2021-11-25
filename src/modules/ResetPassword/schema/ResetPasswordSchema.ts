@@ -51,6 +51,7 @@ const ResetPasswordSchema = yup.object().shape({
     .test('passwords-match', 'Repeat password does not match with password', function(value){
       return this.parent.newPassword === value
     })
+    .label("repeat password"),
 });
 
 export default ResetPasswordSchema;

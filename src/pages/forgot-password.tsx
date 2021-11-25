@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
@@ -15,14 +14,14 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 
+import { sendForgotPasswordRequest } from "@modules/ResetPassword/services/resetPassword";
+import { ForgotPasswordType } from "@modules/ResetPassword/types/ResetPassword";
+import EmailSchema from "@modules/ResetPassword/schema/EmailSchema";
 import Logo from "@common/components/elements/Logo/Logo";
 import CircleDesignBottom from "@common/components/elements/CircleDesignBottom";
 import FormErrorSummary from "@common/components/elements/FormErrorSummary";
 import EmailIcon from "@common/components/elements/EmailIcon";
 import FormField from "@common/components/elements/FormField";
-import EmailSchema from "@modules/ResetPassword/schema/EmailSchema";
-import { ForgotPasswordType } from "@modules/ResetPassword/types/ResetPassword";
-import { sendForgotPasswordRequest } from "@root/modules/ResetPassword/services/resetPassword";
 
 export default function ForgotPassword() {
   const {
@@ -42,16 +41,17 @@ export default function ForgotPassword() {
       setMessage("");
 
       const { email } = values;  
-
       await sendForgotPasswordRequest(email);
 
       setMessage(`A password recovery instruction has been sent to ${email}.`);
-      
     } catch (error) {
-      // console.log(error);
-      setServerError(
-        "We’re having trouble sending password reset email. Please try again later."
-      );
+      if (error.response && error.response.status !== 500) {
+        setServerError(error.response.data.detail);
+      } else {
+        setServerError(
+          "We’re having trouble sending password reset email. Please try again later."
+        );
+      }
     }
   };
 
@@ -163,7 +163,7 @@ export default function ForgotPassword() {
         <Flex
           justify="center"
           zIndex="1"
-          position="absolute"
+          position="fixed"
           bottom="0rem"
           width="full"
           backgroundColor="white"

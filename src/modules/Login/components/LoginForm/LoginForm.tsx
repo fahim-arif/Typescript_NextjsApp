@@ -40,7 +40,7 @@ export default function LoginForm({ ...props }) {
       const { email, password } = values;
       await auth0.login(email, password);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       if (auth0LoginErrors.hasOwnProperty(error.code))
         setServerError(auth0LoginErrors[error.code]);
       else {

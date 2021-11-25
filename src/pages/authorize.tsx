@@ -20,7 +20,7 @@ export default function Callback() {
         router.replace(`/email-verification?email=${email}`);
       } else {
         const errorDescription = error.errorDescription;
-        router.replace(`/login-error?error=${errorDescription}`);
+        router.replace(`/error?error=${errorDescription}`);
       }
     }
   }, [router, parseSessionFromUrl]);

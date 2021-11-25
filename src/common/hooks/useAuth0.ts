@@ -38,13 +38,7 @@ function useAuth0({
                 ...user,
                 accessToken: authResult.accessToken,
               });
-              // sessionStorage.setItem(
-              //   "my-session",
-              //   JSON.stringify({
-              //     ...user,
-              //     accessToken: authResult.accessToken,
-              //   })
-              // );
+
               setIsAuthenticated(true);
 
               resolve(authResult.accessToken);
@@ -68,15 +62,6 @@ function useAuth0({
 
   useEffect(() => {
     if (webAuth) {
-      // if (sessionStorage.getItem("my-session")) {
-      //   console.log("Used existing session");
-      //   setUser(JSON.parse(sessionStorage.getItem("my-session")));
-      //   setIsLoading(false);
-      //   setIsAuthenticated(true);
-      //   return;
-      // }
-
-      console.log("Calling renew session");
       renewSession();
     }
   }, [webAuth, renewSession]);
@@ -121,8 +106,6 @@ function useAuth0({
             return reject(error);
           }
 
-          // console.log("authResult:", authResult);
-
           webAuth.client.userInfo(
             authResult.accessToken,
             function (error: any, user: Auth0UserProfile) {
@@ -142,8 +125,6 @@ function useAuth0({
   const getAccessTokenSilently = async ({ audience, scope }) => {
     try {
       const accessToken = await getAccessTokenFromSession(audience, scope);
-      console.log("Got Token:", accessToken);
-
       return accessToken;
     } catch (error) {
       console.log(error);
@@ -163,36 +144,13 @@ function useAuth0({
           return reject(error);
         }
 
-        console.log("authResult:", authResult);
-
         return resolve(authResult.accessToken);
       });
     });
   };
 
-  const changePassword = (email: string) => {
-    return new Promise((resolve, reject) => {
-      webAuth.changePassword(
-        {
-          connection: "Username-Password-Authentication",
-          email,
-        },
-        function (err, response) {
-          if (err) {
-            console.log(err.message);
-            reject(err.message);
-          } else {
-            console.log(response);
-            resolve(response);
-          }
-        }
-      );
-    });
-  };
-
   const logout = () => {
     return new Promise((resolve, reject) => {
-      // sessionStorage.removeItem("my-session");
       webAuth.logout({
         returnTo: process.env.NEXT_PUBLIC_HOST,
         clientID: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID,
@@ -208,7 +166,6 @@ function useAuth0({
     logout,
     getAccessTokenSilently,
     parseSessionFromUrl,
-    changePassword,
   };
 }
 

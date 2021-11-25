@@ -1,36 +1,47 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Box, Flex, HStack, Heading, Text, Button } from "@chakra-ui/react";
 
+import { sendEmailVerificationRequest } from "@modules/EmailVerification/services/emailVerification";
 import Logo from "@common/components/elements/Logo/Logo";
 import CircleDesignBottom from "@common/components/elements/CircleDesignBottom";
 import FormErrorSummary from "@common/components/elements/FormErrorSummary";
 import EmailIcon from "@common/components/elements/EmailIcon";
-import { useRouter } from "next/router";
 
 export default function EmailVerification() {
   const router = useRouter();
   const [email, setEmail] = useState<string>();
   const [serverError, setServerError] = useState<string>();
   const [message, setMessage] = useState<string>();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const resendEmail = () => {
+  const resendEmail = async () => {
     try {
+      setIsSubmitting(true);
       setServerError("");
       setMessage("");
 
-      if (!email) {
-        throw "No email was found";
+      if (!email || email.trim().length === 0) {
+        throw new Error("No email was found");
       }
-      // call api to send email with email of user
+
+      await sendEmailVerificationRequest(email);
 
       setMessage("The verification email has been resent to your email.");
     } catch (error) {
-      console.log(error);
-      setServerError(
-        "We’re having trouble saving your changes. Please try again later."
-      );
+      if (error.response && error.response.status === 404) {
+        setServerError(`No user with the email ${email} exists.`);
+      } else if (error.message) {
+        setServerError(error.message);
+      } else {
+        setServerError(
+          "We’re having trouble saving your changes. Please try again later."
+        );
+      }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -118,6 +129,7 @@ export default function EmailVerification() {
 
           <Flex direction={{ base: "column", md: "row" }}>
             <Button
+              isLoading={isSubmitting}
               width={{ base: "20rem", md: "16.25rem" }}
               height="3.75rem"
               fontWeight="400"
@@ -136,8 +148,7 @@ export default function EmailVerification() {
               borderColor={{ md: "grayScale.500" }}
               fontWeight="400"
               marginLeft={{ base: "0", md: "0.375rem" }}
-              _hover={{
-              }}
+              _hover={{}}
             >
               Contact Support
             </Button>
@@ -149,7 +160,7 @@ export default function EmailVerification() {
         <Flex
           justify="center"
           zIndex="1"
-          position="absolute"
+          position="fixed"
           bottom="0rem"
           width="full"
           backgroundColor="white"

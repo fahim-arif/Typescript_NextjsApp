@@ -1,14 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { Box, Flex, HStack, Heading, Text, Button } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { Box, Flex, Heading, Text, Button } from "@chakra-ui/react";
 
 import Logo from "@common/components/elements/Logo/Logo";
 import CircleDesignBottom from "@common/components/elements/CircleDesignBottom";
-import FormErrorSummary from "@common/components/elements/FormErrorSummary";
-import EmailIcon from "@common/components/elements/EmailIcon";
+
 
 export default function AccountActivation() {
+
+  const router = useRouter();
+  const [serverError, setServerError] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (router.isReady) {
+      let { success, message } = router.query;
+      success = Array.isArray(success) ? success[0] : success;
+      message = Array.isArray(message) ? message[0] : message;
+      
+      if (success === 'false') {
+        setServerError(message);
+      }
+
+      setLoading(false);
+    }
+  }, [router])
+
+  if (loading) {
+    return <p>Loading...</p>
+  }
+
   return (
     <Box className="app w-full h-screen">
       <Head>
@@ -51,7 +74,11 @@ export default function AccountActivation() {
               color="grayScale.100"
               marginBottom="1.75rem"
             >
-              Account Activated
+              {
+                serverError
+                  ? "Error"
+                  : "Account Activated"
+              } 
             </Heading>
             <Text
               width={{ base: "20rem", md: "18rem" }}
@@ -60,8 +87,11 @@ export default function AccountActivation() {
               lineHeight="1.375rem"
               marginBottom="3.75rem"
             >
-              Thank you, your email has been verified. Your account is now
-              active.
+              {
+                serverError 
+                  ? serverError 
+                  : "Thank you, your email has been verified. Your account is now active."
+              }
             </Text>
           </Flex>
 

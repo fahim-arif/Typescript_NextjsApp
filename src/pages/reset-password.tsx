@@ -1,66 +1,71 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import {
-  Box,
-  Flex,
-  HStack,
-  Text,
-} from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { Box, Flex, HStack, Heading, Text } from "@chakra-ui/react";
 
+import { TicketWithUser } from "@modules/ResetPassword/types/ResetPassword";
+import { verifyTicket } from "@modules/ResetPassword/services/resetPassword";
+import ResetPasswordForm from "@modules/ResetPassword/components/ResetPasswordForm";
 import Logo from "@common/components/elements/Logo/Logo";
 import CircleDesignBottom from "@common/components/elements/CircleDesignBottom";
 import FormErrorSummary from "@common/components/elements/FormErrorSummary";
-import { TicketWithUser } from "@root/modules/ResetPassword/types/ResetPassword";
-import { verifyTicket } from "@root/modules/ResetPassword/services/resetPassword";
-import ResetPasswordForm from "@root/modules/ResetPassword/components/ResetPasswordForm";
 
 export default function ResetPassword() {
-
   const router = useRouter();
+  const [error, setError] = useState<string>();
   const [serverError, setServerError] = useState<string>();
   const [message, setMessage] = useState<string>();
   const [ticket, setTicket] = useState<string>();
   const [user, setUser] = useState<any>();
   const [isProcessingTicket, setIsProcessingTicket] = useState<boolean>(true);
 
-  const processTicket = async (ticket: string) => {
-    try {
-      const ticketWithUser: TicketWithUser = await verifyTicket(ticket);
-      console.log("Ticket with user:", ticketWithUser);
-      setTicket(ticketWithUser.id);
-      setUser(ticketWithUser.user);
-    } catch (error) {
-      console.log(error);
-      const errorMessage = "Ticket is invalid"
-      router.replace(`/error?error=${errorMessage}`)
-    } finally {
+  const processTicket = useCallback(
+    async (ticket: string) => {
+      try {
+        const ticketWithUser: TicketWithUser = await verifyTicket(ticket);
+        setTicket(ticketWithUser.id);
+        setUser(ticketWithUser.user);
+      } catch (error) {
+        let errorMessage: string;
+        if (error.response && error.response.status !== 500) {
+          errorMessage = error.response.data.detail;
+        } else {
+          errorMessage = "Something went wrong. Please try again later";
+        }
+
+        setError(errorMessage);
+      }
+    },
+    []
+  );
+
+  useEffect(() => {
+    if ((user && ticket) || error) {
       setIsProcessingTicket(false);
     }
-  }
+  }, [user, ticket, error]);
 
   useEffect(() => {
     if (router.isReady) {
-      let {ticket} = router.query;
+      let { ticket } = router.query;
       if (!ticket) {
-        console.log("Error no ticket");
-        setIsProcessingTicket(false);
-        return;
+        setError("Invalid Ticket");
+      } else {
+        ticket = Array.isArray(ticket) ? ticket[0] : ticket;
+        processTicket(ticket);
       }
-      ticket = Array.isArray(ticket) ? ticket[0] : ticket;
-      processTicket(ticket);  
     }
-  }, [router])
+  }, [router, processTicket]);
 
   if (isProcessingTicket) {
-    return <p>Loading...</p>
+    return <p>Loading...</p>;
   }
 
   return (
     <Box className="app w-full h-screen">
       <Head>
-        <title>twoMatches - forgot password</title>
+        <title>twoMatches - reset password</title>
         <meta name="description" content="twomatches next app" />
       </Head>
 
@@ -82,14 +87,54 @@ export default function ResetPassword() {
           </a>
         </Link>
 
-        { user && ticket && <ResetPasswordForm user={user} ticket={ticket} setServerError={setServerError} setMessage={setMessage} />}
+        {error && (
+          <Flex
+            flex={{ base: "1", md: "none" }}
+            direction="column"
+            align="center"
+            width="full"
+            marginTop={{ base: "4.25rem", md: "8.875rem" }}
+            paddingX="1rem"
+            paddingBottom="2.75rem"
+            zIndex="1"
+          >
+            <Flex flex="1" direction="column" align="center" width="full">
+              <Heading
+                textAlign="center"
+                fontSize={{ base: "mh3", md: "th3", xl: "h3" }}
+                color="grayScale.100"
+                marginBottom="1.75rem"
+              >
+                Error
+              </Heading>
+              <Text
+                width={{ base: "20rem", md: "18rem" }}
+                textAlign="center"
+                color="grayScale.300"
+                lineHeight="1.375rem"
+                marginBottom="3.75rem"
+              >
+                {error}
+              </Text>
+            </Flex>
+          </Flex>
+        )}
+
+        {!error && (
+          <ResetPasswordForm
+            user={user}
+            ticket={ticket}
+            setServerError={setServerError}
+            setMessage={setMessage}
+          />
+        )}
 
         <CircleDesignBottom />
 
         <Flex
           justify="center"
           zIndex="1"
-          position="absolute"
+          position="fixed"
           bottom="0rem"
           width="full"
           backgroundColor="white"

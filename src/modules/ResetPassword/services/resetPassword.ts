@@ -1,9 +1,9 @@
 import { AxiosRequestConfig, AxiosResponse, Method } from "axios";
 
+import { TicketWithUser } from "@modules/ResetPassword/types/ResetPassword";
 import axiosInstance from "@common/utils/axiosInstance";
-import { ForgotPasswordType, TicketWithUser } from "@modules/ResetPassword/types/ResetPassword";
 
-const path = "/user-tickets";
+const path = "/tickets";
 
 const sendForgotPasswordRequest = async (email: string): Promise<AxiosResponse> => {
   try {
@@ -15,9 +15,10 @@ const sendForgotPasswordRequest = async (email: string): Promise<AxiosResponse> 
         ticketType: 'CHANGE_PASSWORD'
       }
     };
-
+    
     const response: AxiosResponse = await axiosInstance.request(options);
     return response;
+    
   } catch (error) {
     throw error;
   }
@@ -33,6 +34,7 @@ const verifyTicket = async (ticket: string): Promise<TicketWithUser> => {
     const response: AxiosResponse = await axiosInstance.request(options);
     const data = response.data;
     return data;
+
   } catch (error) {
     throw error;
   }
@@ -51,6 +53,7 @@ const resetPassword = async (ticket: string, password: string): Promise<AxiosRes
 
     const response: AxiosResponse = await axiosInstance.request(options);
     return response;
+
   } catch (error) {
     throw error;
   }

@@ -10,11 +10,10 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 
-import { ResetPasswordCreate } from "@root/modules/ResetPassword/types/ResetPassword";
-import ResetPasswordSchema from "@root/modules/ResetPassword/schema/ResetPasswordSchema";
-import PasswordFormField from "@root/common/components/elements/PasswordFormField";
-
-import { resetPassword } from "@root/modules/ResetPassword/services/resetPassword";
+import { ResetPasswordCreate } from "@modules/ResetPassword/types/ResetPassword";
+import ResetPasswordSchema from "@modules/ResetPassword/schema/ResetPasswordSchema";
+import { resetPassword } from "@modules/ResetPassword/services/resetPassword";
+import PasswordFormField from "@common/components/elements/PasswordFormField";
 
 
 export default function ResetPasswordForm({ user, ticket, setServerError,setMessage }) {
@@ -33,16 +32,17 @@ export default function ResetPasswordForm({ user, ticket, setServerError,setMess
       setMessage("");
 
       const { newPassword } = values;
-
       await resetPassword(ticket, newPassword);
 
       setMessage(`Password reset successfull.`);
     } catch (error) {
-      // console.log(error);
-      // setServerError(error)
-      setServerError(
-        "We’re having trouble resetting your password. Please try again later."
-      );
+      if (error.response && error.response.status !== 500) {
+        setServerError(error.response.data.detail);
+      } else {
+        setServerError(
+          "We’re having trouble resetting your password. Please try again later."
+        );
+      }
     }
   };
 
