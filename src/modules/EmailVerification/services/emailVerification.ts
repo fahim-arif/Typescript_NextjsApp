@@ -19,7 +19,11 @@ const sendEmailVerificationRequest = async (email: string): Promise<AxiosRespons
     return response;
     
   } catch (error) {
-    throw error;
+    if (error.response && error.response.status !== 500) {
+      throw new Error(error.response.data.detail);
+    } else {
+      throw new Error("We’re having trouble sending email verification request email. Please try again later.");
+    }
   }
 };
 

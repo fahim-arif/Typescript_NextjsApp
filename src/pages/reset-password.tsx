@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Box, Flex, HStack, Heading, Text } from "@chakra-ui/react";
+import { Box, Flex, HStack, Heading, Text, Button } from "@chakra-ui/react";
 
 import { TicketWithUser } from "@modules/ResetPassword/types/ResetPassword";
 import { verifyTicket } from "@modules/ResetPassword/services/resetPassword";
@@ -26,15 +26,8 @@ export default function ResetPassword() {
         const ticketWithUser: TicketWithUser = await verifyTicket(ticket);
         setTicket(ticketWithUser.id);
         setUser(ticketWithUser.user);
-      } catch (error) {
-        let errorMessage: string;
-        if (error.response && error.response.status !== 500) {
-          errorMessage = error.response.data.detail;
-        } else {
-          errorMessage = "Something went wrong. Please try again later";
-        }
-
-        setError(errorMessage);
+      } catch (error) {     
+        setError(error.message);
       }
     },
     []
@@ -72,7 +65,6 @@ export default function ResetPassword() {
       <Flex
         position="relative"
         direction="column"
-        paddingBottom="250px"
         align="start"
         minHeight="100%"
         background="radial-gradient(37.11% 37.11% at 100% 1.28%, rgba(191, 195, 231, 0.2) 0%, rgba(207, 210, 237, 0) 100%), radial-gradient(76.35% 25.03% at 0% 59.45%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%), radial-gradient(107.59% 39.88% at 88.75% 60.12%, rgba(255, 235, 225, 0.4) 0%, rgba(255, 235, 225, 0.4) 100%), linear-gradient(357.01deg, rgba(249, 101, 7, 0.6) 2.91%, rgba(249, 106, 7, 0) 52.54%)"
@@ -87,47 +79,69 @@ export default function ResetPassword() {
           </a>
         </Link>
 
-        {error && (
-          <Flex
-            flex={{ base: "1", md: "none" }}
-            direction="column"
-            align="center"
-            width="full"
-            marginTop={{ base: "4.25rem", md: "8.875rem" }}
-            paddingX="1rem"
-            paddingBottom="2.75rem"
-            zIndex="1"
-          >
-            <Flex flex="1" direction="column" align="center" width="full">
-              <Heading
-                textAlign="center"
-                fontSize={{ base: "mh3", md: "th3", xl: "h3" }}
-                color="grayScale.100"
-                marginBottom="1.75rem"
-              >
-                Error
-              </Heading>
-              <Text
-                width={{ base: "20rem", md: "18rem" }}
-                textAlign="center"
-                color="grayScale.300"
-                lineHeight="1.375rem"
-                marginBottom="3.75rem"
-              >
-                {error}
-              </Text>
-            </Flex>
-          </Flex>
-        )}
+        <Flex
+          width="full"
+          justify="center"
+          paddingX={{ base: "0.625rem", md: "2rem", lg: "0rem" }}
+        >
+          {error && (
+            <Flex
+              backgroundColor="white"
+              flex={{ base: "1", md: "none" }}
+              direction="column"
+              align="center"
+              width={{ base: "full", lg: "47.6rem" }}
+              marginTop={{ base: "2.375rem", md: "6.875rem" }}
+              marginBottom={{ base: "2.375rem", md: "6.875rem", lg: "10.625rem" }}
+              paddingX="1rem"
+              paddingTop={{ base: "1.875rem", lg: "5rem" }}
+              paddingBottom="3.75rem"
+              zIndex="1"
+            >
+              <Flex flex="1" direction="column" align="center" width="full">
+                <Heading
+                  textAlign="center"
+                  fontSize={{ base: "mh3", md: "th3", xl: "h3" }}
+                  color="grayScale.100"
+                  marginBottom="1.75rem"
+                >
+                  Error
+                </Heading>
+                <Text
+                  width={{ base: "20rem", md: "24rem" }}
+                  textAlign="center"
+                  color="grayScale.300"
+                  lineHeight="1.375rem"
+                  marginBottom="3.75rem"
+                >
+                  {error}<br />
+                  Please try again later or contact support below.
+                </Text>
 
-        {!error && (
-          <ResetPasswordForm
-            user={user}
-            ticket={ticket}
-            setServerError={setServerError}
-            setMessage={setMessage}
-          />
-        )}
+                <Link href="/contact-support">
+                  <a>
+                    <Button
+                      width={{ base: "20rem", md: "16.25rem" }}
+                      height="3.75rem"
+                      fontWeight="400"
+                    >
+                      Contact support
+                    </Button>
+                  </a>
+                </Link>
+              </Flex>
+            </Flex>
+          )}
+
+          {!error && (
+            <ResetPasswordForm
+              user={user}
+              ticket={ticket}
+              setServerError={setServerError}
+              setMessage={setMessage}
+            />
+          )}
+        </Flex>
 
         <CircleDesignBottom />
 

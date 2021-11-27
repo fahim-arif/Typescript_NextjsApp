@@ -34,27 +34,24 @@ export default function ResetPasswordForm({ user, ticket, setServerError,setMess
       const { newPassword } = values;
       await resetPassword(ticket, newPassword);
 
-      setMessage(`Password reset successfull.`);
+      setMessage(`Password reset successfully.`);
     } catch (error) {
-      if (error.response && error.response.status !== 500) {
-        setServerError(error.response.data.detail);
-      } else {
-        setServerError(
-          "We’re having trouble resetting your password. Please try again later."
-        );
-      }
+      setServerError(error.message);
     }
   };
 
   return (
     <Flex
+      backgroundColor="white"
       flex={{ base: "1", md: "none" }}
       direction="column"
       align="center"
-      width="full"
-      marginTop={{ base: "4.25rem", md: "8.875rem" }}
+      width={{ base: "full", lg: "47.6rem" }}
+      marginTop={{ base: "2.375rem", md: "6.875rem" }}
+      marginBottom={{ base: "2.375rem", md: "6.875rem", lg: "10.625rem" }}
       paddingX="1rem"
-      paddingBottom="1.75rem"
+      paddingTop={{ base: "1.875rem", lg: "5rem" }}
+      paddingBottom="3.75rem"
       zIndex="1"
     >
       <Flex flex="1" direction="column" align="center" width="full">
@@ -90,7 +87,6 @@ export default function ResetPasswordForm({ user, ticket, setServerError,setMess
             <PasswordFormField
               id="password"
               label="New password"
-              labelbg={{ base: "#FFF7F3", md: "#FEF9F7" }}
               width={{ base: "20rem", md: "24.5rem" }}
               placeholder="New password"
               {...register("newPassword")}
@@ -111,12 +107,11 @@ export default function ResetPasswordForm({ user, ticket, setServerError,setMess
           <FormControl
             isInvalid={errors.repeatPassword && true}
             minHeight={{ base: "4.3rem", md: "5.0625rem" }}
-            marginBottom="3.75rem"
+            marginBottom="2.25rem"
           >
             <PasswordFormField
               id="repeatPassword"
               label="Repeat password"
-              labelbg={{ base: "#FFF7F3", md: "#FEF6F1" }}
               width={{ base: "20rem", md: "24.5rem" }}
               placeholder="Repeat password"
               {...register("repeatPassword")}
@@ -144,8 +139,6 @@ export default function ResetPasswordForm({ user, ticket, setServerError,setMess
           width={{ base: "20rem", md: "16.25rem" }}
           height="3.75rem"
           fontWeight="400"
-          marginRight={{ base: "0", md: "0.375rem" }}
-          marginBottom={{ base: "0.75rem", md: "0" }}
         >
           Create
         </Button>

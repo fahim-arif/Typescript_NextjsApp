@@ -20,7 +20,11 @@ const sendForgotPasswordRequest = async (email: string): Promise<AxiosResponse> 
     return response;
     
   } catch (error) {
-    throw error;
+    if (error.response && error.response.status !== 500) {
+      throw new Error(error.response.data.detail);
+    } else {
+      throw new Error("We’re having trouble sending password reset email. Please try again later.");
+    }
   }
 };
 
@@ -28,7 +32,7 @@ const verifyTicket = async (ticket: string): Promise<TicketWithUser> => {
   try {
     const options: AxiosRequestConfig = {
       method: "GET" as Method,
-      url: `${path}/verify/${ticket}`,
+      url: `${path}/${ticket}`,
     };
 
     const response: AxiosResponse = await axiosInstance.request(options);
@@ -36,7 +40,11 @@ const verifyTicket = async (ticket: string): Promise<TicketWithUser> => {
     return data;
 
   } catch (error) {
-    throw error;
+    if (error.response && error.response.status !== 500) {
+      throw new Error(error.response.data.detail);
+    } else {
+      throw new Error("Something went wrong. Please try again later");
+    }
   }
 };
 
@@ -55,7 +63,11 @@ const resetPassword = async (ticket: string, password: string): Promise<AxiosRes
     return response;
 
   } catch (error) {
-    throw error;
+    if (error.response && error.response.status !== 500) {
+      throw new Error(error.response.data.detail);
+    } else {
+      throw new Error("We’re having trouble resetting your password. Please try again later.");
+    }
   }
 }
 

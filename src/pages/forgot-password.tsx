@@ -40,18 +40,12 @@ export default function ForgotPassword() {
       setServerError("");
       setMessage("");
 
-      const { email } = values;  
+      const { email } = values;
       await sendForgotPasswordRequest(email);
 
       setMessage(`A password recovery instruction has been sent to ${email}.`);
     } catch (error) {
-      if (error.response && error.response.status !== 500) {
-        setServerError(error.response.data.detail);
-      } else {
-        setServerError(
-          "We’re having trouble sending password reset email. Please try again later."
-        );
-      }
+      setServerError(error.message);
     }
   };
 
@@ -65,7 +59,7 @@ export default function ForgotPassword() {
       <Flex
         position="relative"
         direction="column"
-        paddingBottom="250px"
+        // paddingBottom="250px"
         align="start"
         minHeight="100%"
         background="radial-gradient(37.11% 37.11% at 100% 1.28%, rgba(191, 195, 231, 0.2) 0%, rgba(207, 210, 237, 0) 100%), radial-gradient(76.35% 25.03% at 0% 59.45%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%), radial-gradient(107.59% 39.88% at 88.75% 60.12%, rgba(255, 235, 225, 0.4) 0%, rgba(255, 235, 225, 0.4) 100%), linear-gradient(357.01deg, rgba(249, 101, 7, 0.6) 2.91%, rgba(249, 106, 7, 0) 52.54%)"
@@ -81,80 +75,90 @@ export default function ForgotPassword() {
         </Link>
 
         <Flex
-          flex={{ base: "1", md: "none" }}
-          direction="column"
-          align="center"
           width="full"
-          marginTop={{ base: "4.25rem", md: "8.875rem" }}
-          paddingX="1rem"
-          paddingBottom="1.75rem"
-          zIndex="1"
+          justify="center"
+          paddingX={{ base: "0.625rem", md: "2rem", lg: "0rem" }}
         >
-          <Flex flex="1" direction="column" align="center" width="full">
-            <Heading
-              textAlign="center"
-              fontSize={{ base: "mh3", md: "th3", xl: "h3" }}
-              color="grayScale.100"
-              marginBottom="1.75rem"
-            >
-              Forgot your password?
-            </Heading>
-            <Text
-              width={{ base: "20rem", md: "24.5rem" }}
-              textAlign="center"
-              color="grayScale.300"
-              lineHeight="1.375rem"
-              marginBottom={{ base: "2.56rem", md: "4rem" }}
-            >
-              Please enter your email address and {"we'll"} send you a link to
-              reset your password.
-            </Text>
-
-            <form
-              id="password-reset-form"
-              data-testid="login-form"
-              onSubmit={handleSubmit(onSubmit)}
-              noValidate
-            >
-              <FormControl
-                isInvalid={errors.email && true}
-                minHeight={{ base: "4.3rem", md: "5.0625rem" }}
-                marginBottom="3.75rem"
+          <Flex
+            backgroundColor="white"
+            flex={{ base: "1", md: "none" }}
+            direction="column"
+            align="center"
+            width={{ base: "full", lg: "47.6rem" }}
+            marginTop={{ base: "2.375rem", lg: "6.875rem" }}
+            marginBottom={{ base: "2.375rem", md: "6.875rem", lg: "14.68rem" }}
+            paddingX="1rem"
+            paddingTop={{ base: "1.875rem", lg: "5rem" }}
+            paddingBottom="3.75rem"
+            zIndex="1"
+          >
+            <Flex flex="1" direction="column" align="center" width="full">
+              <Heading
+                textAlign="center"
+                fontSize={{ base: "mh3", md: "th3", xl: "h3" }}
+                color="grayScale.100"
+                marginBottom="1.75rem"
               >
-                <FormField
-                  type="email"
-                  id="email"
-                  width={{ base: "20rem", md: "30.875rem" }}
-                  placeholder="Enter email address"
-                  {...register("email")}
-                  ref={register("email").ref}
-                />
+                Forgot your password?
+              </Heading>
+              <Text
+                width={{ base: "20rem", md: "24.5rem" }}
+                textAlign="center"
+                color="grayScale.300"
+                lineHeight="1.375rem"
+                marginBottom={{ base: "1.5rem", md: "3rem" }}
+              >
+                Please enter your email address and {"we'll"} send you a link to
+                reset your password.
+              </Text>
 
-                <FormErrorMessage
-                  m={0}
-                  color="orange.200"
-                  fontSize="0.8125rem"
-                  lineHeight="1.125rem"
+              <form
+                id="password-reset-form"
+                data-testid="login-form"
+                onSubmit={handleSubmit(onSubmit)}
+                noValidate
+              >
+                <FormControl
+                  isInvalid={errors.email && true}
+                  minHeight={{ base: "4.3rem", md: "5.0625rem" }}
+                  marginBottom={{ base: "3rem", lg: "2.5rem" }}
                 >
-                  {errors.email && errors.email.message}
-                </FormErrorMessage>
-              </FormControl>
-            </form>
-          </Flex>
+                  <FormField
+                    type="email"
+                    id="email"
+                    label="Email"
+                    width={{ base: "20rem", md: "30.875rem" }}
+                    placeholder="Enter email address"
+                    {...register("email")}
+                    ref={register("email").ref}
+                  />
 
-          <Flex direction={{ base: "column", md: "row" }}>
-            <Button
-              form="password-reset-form"
-              type="submit"
-              isLoading={isSubmitting}
-              width={{ base: "20rem", md: "16.25rem" }}
-              height="3.75rem"
-              fontWeight="400"
-              marginRight={{ base: "0", md: "0.375rem" }}
-              marginBottom={{ base: "0.75rem", md: "0" }}
+                  <FormErrorMessage
+                    m={0}
+                    color="orange.200"
+                    fontSize="0.8125rem"
+                    lineHeight="1.125rem"
+                  >
+                    {errors.email && errors.email.message}
+                  </FormErrorMessage>
+                </FormControl>
+              </form>
+            </Flex>
+
+            <Flex
+              direction={{ base: "column", md: "row" }}
             >
-              Send
-            </Button>
+              <Button
+                form="password-reset-form"
+                type="submit"
+                isLoading={isSubmitting}
+                width={{ base: "20rem", md: "16.25rem" }}
+                height="3.75rem"
+                fontWeight="400"
+              >
+                Send
+              </Button>
+            </Flex>
           </Flex>
         </Flex>
 

@@ -8,9 +8,9 @@ export interface ResetPasswordCreate {
 }
 
 export interface TicketWithUser {
-  id: string,
+  id: string;
   user: {
     name: string;
-    emaile: string;
-  }
+    email: string;
+  };
 }
