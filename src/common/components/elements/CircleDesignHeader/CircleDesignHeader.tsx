@@ -74,11 +74,8 @@ export default function CircleDesignHeader({ title, headingWidth, ...props }) {
           </a>
         </Link>
 
-        <Link href="/">
-          <a>
-            <Logo prefixId="logo" display={{ base: "flex", xl: "none" }} />
-          </a>
-        </Link>
+        <Logo display={{ base: "flex", xl: "none" }} />
+
       </HStack>
 
       <Heading

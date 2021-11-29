@@ -14,7 +14,7 @@ export default function Home() {
 
       <Navbar />
 
-      <Logo prefixId="logo" justify="center" marginTop="10" />
+      <Logo justify="center" marginTop="10" />
 
       <Footer />
     </div>

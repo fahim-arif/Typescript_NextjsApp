@@ -33,13 +33,13 @@ export default function DesignSection({
         marginBottom={{ base: "0rem", sm: "8rem", md: "20rem" }}
       >
         <HStack
-          spacing="1.875rem"
+          spacing={{ base: "1.875rem", lg: "0rem" }}
           marginBottom={{ base: "3.1875rem", lg: "7.1875rem" }}
         >
           <Link href="/">
             <a>
               <Circle
-                display={{ base: "flex", lg: "none" }}
+                display={{ base: "flex", xl: "none" }}
                 size="2.125em"
                 borderWidth="1px"
                 borderColor="grayScale.500"
@@ -52,11 +52,8 @@ export default function DesignSection({
             </a>
           </Link>
 
-          <Link href="/">
-            <a>
-              <Logo prefixId="designLogo" />
-            </a>
-          </Link>
+          <Logo prefixId="designLogo" />
+
         </HStack>
 
         <Heading

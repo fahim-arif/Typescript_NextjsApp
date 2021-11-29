@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
@@ -14,6 +13,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 
+import publicRoute from "@common/components/elements/publicRoute";
 import { sendForgotPasswordRequest } from "@modules/ResetPassword/services/resetPassword";
 import { ForgotPasswordType } from "@modules/ResetPassword/types/ResetPassword";
 import EmailSchema from "@modules/ResetPassword/schema/EmailSchema";
@@ -23,7 +23,7 @@ import FormErrorSummary from "@common/components/elements/FormErrorSummary";
 import EmailIcon from "@common/components/elements/EmailIcon";
 import FormField from "@common/components/elements/FormField";
 
-export default function ForgotPassword() {
+function ForgotPassword() {
   const {
     handleSubmit,
     register,
@@ -64,15 +64,10 @@ export default function ForgotPassword() {
         minHeight="100%"
         background="radial-gradient(37.11% 37.11% at 100% 1.28%, rgba(191, 195, 231, 0.2) 0%, rgba(207, 210, 237, 0) 100%), radial-gradient(76.35% 25.03% at 0% 59.45%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%), radial-gradient(107.59% 39.88% at 88.75% 60.12%, rgba(255, 235, 225, 0.4) 0%, rgba(255, 235, 225, 0.4) 100%), linear-gradient(357.01deg, rgba(249, 101, 7, 0.6) 2.91%, rgba(249, 106, 7, 0) 52.54%)"
       >
-        <Link href="/">
-          <a>
-            <Logo
-              prefixId="email-verify-logo"
-              marginX={{ base: "1.75rem", md: "3.125rem" }}
-              marginTop={{ base: "1.75rem", md: "2.75rem" }}
-            />
-          </a>
-        </Link>
+        <Logo
+          marginX={{ base: "1.75rem", md: "3.125rem" }}
+          marginTop={{ base: "1.75rem", md: "2.75rem" }}
+        />
 
         <Flex
           width="full"
@@ -145,9 +140,7 @@ export default function ForgotPassword() {
               </form>
             </Flex>
 
-            <Flex
-              direction={{ base: "column", md: "row" }}
-            >
+            <Flex direction={{ base: "column", md: "row" }}>
               <Button
                 form="password-reset-form"
                 type="submit"
@@ -200,3 +193,5 @@ export default function ForgotPassword() {
     </Box>
   );
 }
+
+export default publicRoute(ForgotPassword);

@@ -78,14 +78,11 @@ function Signup() {
                   </Circle>
                 </a>
               </Link>
-              <Link href="/">
-                <a>
-                  <Logo
-                    prefixId="signup-above-logo"
-                    display={{ base: "flex", xl: "none" }}
-                  />
-                </a>
-              </Link>
+
+              <Logo
+                prefixId="signup-above-logo"
+                display={{ base: "flex", xl: "none" }}
+              />
             </HStack>
           </Flex>
 

@@ -36,13 +36,7 @@ export default function Home() {
         borderBottom="1px"
         borderColor="gray.100"
       >
-        <Box>
-          <Link href="/">
-            <a>
-              <Logo prefixId="nav" />
-            </a>
-          </Link>
-        </Box>
+        <Logo prefixId="nav" />
         <Spacer />
       </Flex>
 
