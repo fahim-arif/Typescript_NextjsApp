@@ -2,6 +2,7 @@ import { AxiosRequestConfig, AxiosResponse, Method } from "axios";
 
 import { TicketWithUser } from "@modules/ResetPassword/types/ResetPassword";
 import axiosInstance from "@common/utils/axiosInstance";
+import auth0UpdateErrors from "@common/resources/auth0UpdateErrors.json";
 
 const path = "/tickets";
 
@@ -63,8 +64,15 @@ const resetPassword = async (ticket: string, password: string): Promise<AxiosRes
     return response;
 
   } catch (error) {
-    if (error.response && error.response.status !== 500) {
+    if (error.response.status === 400) {
+      // extract auth0 error code from response message and map to custom error message
+      const errorCode = error.response.data.detail.split(':')[0];
+      if (errorCode && auth0UpdateErrors.hasOwnProperty(errorCode)) {
+        throw new Error(auth0UpdateErrors[errorCode]);
+      }
       throw new Error(error.response.data.detail);
+    } else if (error.response && error.response.status !== 500) {
+        throw new Error(error.response.data.detail);
     } else {
       throw new Error("We’re having trouble resetting your password. Please try again later.");
     }
