@@ -33,7 +33,7 @@ const PasswordFormField = (props: any, ref: any) => {
         />
         <Box
           alignSelf="start"
-          bg="white"
+          backgroundColor={props.labelbg ? props.labelbg : "#fff"}
           position="absolute"
           top="0rem"
           left="0.7rem"

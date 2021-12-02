@@ -3,11 +3,21 @@ import Link from "next/link";
 import { HStack, Box, Heading, Circle } from "@chakra-ui/react";
 
 import { Logo } from "@common/components/elements/Logo";
+import ArrowLeft from "../ArrowLeft";
 import ArrowRight from "../ArrowRight";
 import { BigCircles } from "../Circles";
-import ArrowLeft from "../ArrowLeft";
 
-export default function DesignSection({ hide, ...props }) {
+interface DesignSectionProps {
+  title: string;
+  hide?: () => void;
+  display: any;
+}
+
+export default function DesignSection({
+  title,
+  hide,
+  ...props
+}: DesignSectionProps) {
   return (
     <Box
       position="relative"
@@ -23,13 +33,13 @@ export default function DesignSection({ hide, ...props }) {
         marginBottom={{ base: "0rem", sm: "8rem", md: "20rem" }}
       >
         <HStack
-          spacing="1.875rem"
+          spacing={{ base: "1.875rem", lg: "0rem" }}
           marginBottom={{ base: "3.1875rem", lg: "7.1875rem" }}
         >
           <Link href="/">
             <a>
               <Circle
-                display={{ base: "flex", lg: "none" }}
+                display={{ base: "flex", xl: "none" }}
                 size="2.125em"
                 borderWidth="1px"
                 borderColor="grayScale.500"
@@ -41,11 +51,9 @@ export default function DesignSection({ hide, ...props }) {
               </Circle>
             </a>
           </Link>
-          <Link href="/">
-            <a>
-              <Logo prefixId="designLogo" />
-            </a>
-          </Link>
+
+          <Logo prefixId="designLogo" />
+
         </HStack>
 
         <Heading
@@ -59,7 +67,7 @@ export default function DesignSection({ hide, ...props }) {
             lg: "3.75rem",
           }}
         >
-          Create an account to start your free trial
+          {title}
         </Heading>
 
         <Circle

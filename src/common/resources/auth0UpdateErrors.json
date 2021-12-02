@@ -1,0 +1,4 @@
+{
+  "PasswordHistoryError": "Password has been used before. Please try again with a new password.",
+  "PasswordNoUserInfoError": "Password contains user's name or first part of email - firstpart@example.com."
+}

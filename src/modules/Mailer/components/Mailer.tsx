@@ -37,7 +37,7 @@ export default function Mailer() {
       await createSubscriber(values);
       setMessage("You've subscribed to the newsletter successfully");
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setServerError("Something went wrong. Try again later.");
     }
   };
