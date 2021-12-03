@@ -7,6 +7,7 @@ function useAuth0({
   redirectUri,
   audience: globalAudience,
   scope: globalScope,
+  realm,
 }) {
   const [webAuth, setWebAuth] = useState(null);
   const [user, setUser] = useState(null);
@@ -85,7 +86,7 @@ function useAuth0({
         {
           username: email,
           password: password,
-          realm: "Username-Password-Authentication",
+          realm: realm,
           onRedirecting: function (done: any) {
             resolve(done());
           },

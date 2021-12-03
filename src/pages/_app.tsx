@@ -24,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       redirectUri={process.env.NEXT_PUBLIC_AUTH0_REDIRECT_URI}
       audience={process.env.NEXT_PUBLIC_AUTH0_AUDIENCE}
       scope={process.env.NEXT_PUBLIC_AUTH0_SCOPE}
+      realm={process.env.NEXT_PUBLIC_AUTH0_REALM}
     >
       <ChakraProvider theme={theme}>
         <CSSReset />

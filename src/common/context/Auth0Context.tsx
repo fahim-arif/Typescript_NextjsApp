@@ -11,8 +11,9 @@ function Auth0Provider({
   redirectUri,
   audience,
   scope,
+  realm,
 }) {
-  const auth = useAuth0({ domain, clientID, redirectUri, audience, scope });
+  const auth = useAuth0({ domain, clientID, redirectUri, audience, scope, realm });
   return <Auth0Context.Provider value={auth}>{children}</Auth0Context.Provider>;
 }
 
