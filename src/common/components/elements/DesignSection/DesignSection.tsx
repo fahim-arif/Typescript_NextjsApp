@@ -1,11 +1,9 @@
 import React from "react";
-import Link from "next/link";
 import { HStack, Box, Heading, Circle } from "@chakra-ui/react";
 
 import { Logo } from "@common/components/elements/Logo";
-import ArrowLeft from "../ArrowLeft";
-import ArrowRight from "../ArrowRight";
-import { BigCircles } from "../Circles";
+import ArrowRight from "@common/components/elements/ArrowRight";
+import { BigCircles } from "@common/components/elements/Circles";
 
 interface DesignSectionProps {
   title: string;
@@ -36,24 +34,7 @@ export default function DesignSection({
           spacing={{ base: "1.875rem", lg: "0rem" }}
           marginBottom={{ base: "3.1875rem", lg: "7.1875rem" }}
         >
-          <Link href="/">
-            <a>
-              <Circle
-                display={{ base: "flex", xl: "none" }}
-                size="2.125em"
-                borderWidth="1px"
-                borderColor="grayScale.500"
-                bg="transparent"
-                color="white"
-                cursor="pointer"
-              >
-                <ArrowLeft color="grayScale.100" />
-              </Circle>
-            </a>
-          </Link>
-
           <Logo prefixId="designLogo" />
-
         </HStack>
 
         <Heading

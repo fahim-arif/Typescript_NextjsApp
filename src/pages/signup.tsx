@@ -1,14 +1,12 @@
 import { useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
-import { Flex, HStack, Circle } from "@chakra-ui/react";
+import { Flex, HStack } from "@chakra-ui/react";
 
 import publicRoute from "@common/components/elements/publicRoute";
 import { Logo } from "@common/components/elements/Logo";
 import DesignSection from "@common/components/elements/DesignSection";
-import SignUpForm from "@modules/Register/components/SignUpForm";
-import ArrowLeft from "@common/components/elements/ArrowLeft";
 import CircleDesignHeader from "@common/components/elements/CircleDesignHeader";
+import SignUpForm from "@modules/Register/components/SignUpForm";
 
 function Signup() {
   const [showContent, setShowContent] = useState(false);
@@ -63,22 +61,6 @@ function Signup() {
               align="start"
               marginLeft={{ base: "1.75rem", md: "2.56rem" }}
             >
-              <Link href="/">
-                <a>
-                  <Circle
-                    display={{ base: "flex" }}
-                    size="2.125em"
-                    borderWidth="1px"
-                    borderColor="grayScale.500"
-                    bg="transparent"
-                    color="white"
-                    cursor="pointer"
-                  >
-                    <ArrowLeft color="grayScale.100" />
-                  </Circle>
-                </a>
-              </Link>
-
               <Logo
                 prefixId="signup-above-logo"
                 display={{ base: "flex", xl: "none" }}

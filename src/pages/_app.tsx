@@ -3,6 +3,8 @@ import "@public/styles/globals.css";
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 import "@fontsource/barlow/400.css";
 import "@fontsource/barlow/500.css";
+import "@fontsource/inter/300.css";
+import "@fontsource/inter/400.css";
 
 import { Auth0Provider } from "@common/context/Auth0Context";
 import theme from "@common/theme";

@@ -1,9 +1,7 @@
 import React from "react";
-import Link from "next/link";
-import { Flex, HStack, Box, Heading, Circle } from "@chakra-ui/react";
+import { Flex, HStack, Box, Heading } from "@chakra-ui/react";
 
 import { Logo } from "@common/components/elements/Logo";
-import ArrowLeft from "../ArrowLeft";
 import {
   LaptopCircles,
   TabletCircles,
@@ -58,24 +56,7 @@ export default function CircleDesignHeader({ title, headingWidth, ...props }) {
         align="start"
         marginLeft={{ base: "1.75rem", md: "2.56rem" }}
       >
-        <Link href="/">
-          <a>
-            <Circle
-              display={{ base: "flex" }}
-              size="2.125em"
-              borderWidth="1px"
-              borderColor="grayScale.500"
-              bg="transparent"
-              color="white"
-              cursor="pointer"
-            >
-              <ArrowLeft color="grayScale.100" />
-            </Circle>
-          </a>
-        </Link>
-
         <Logo display={{ base: "flex", xl: "none" }} />
-
       </HStack>
 
       <Heading
