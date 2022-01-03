@@ -2,6 +2,7 @@ import { createServer, Model } from "miragejs";
 import mailerHandlers from "./handlers/mailerHandlers";
 import registerHandlers from "./handlers/registerHandlers";
 
+
 export function makeServer({ environment = "development" } = {}) {
   let server = createServer({
     environment,
@@ -17,7 +18,7 @@ export function makeServer({ environment = "development" } = {}) {
     // },
 
     routes() {
-      this.urlPrefix = "http://localhost:5000";
+      this.urlPrefix = 'http://localhost:5000';
 
       // this.get("/users", (schema) => {
       //   return schema.all("users");
@@ -26,6 +27,8 @@ export function makeServer({ environment = "development" } = {}) {
       this.passthrough();
       this.passthrough((request) => {
         if (request.url === "/_next/static/development/_devPagesManifest.json")
+          return true;
+        if (request.url === "/_next/static/css/597ef3d539d5d76a7668.css") 
           return true;
       });
     },

@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { Box, Flex, HStack, Heading, Text, Button } from "@chakra-ui/react";
 
+import allowRoute from "@common/components/elements/allowRoute";
 import { sendEmailVerificationRequest } from "@modules/EmailVerification/services/emailVerification";
 import Logo from "@common/components/elements/Logo/Logo";
 import CircleDesignBottom from "@common/components/elements/CircleDesignBottom";
 import FormErrorSummary from "@common/components/elements/FormErrorSummary";
 import EmailIcon from "@common/components/elements/EmailIcon";
 
-export default function EmailVerification() {
+function EmailVerification() {
   const router = useRouter();
   const [email, setEmail] = useState<string>();
   const [serverError, setServerError] = useState<string>();
@@ -195,3 +195,5 @@ export default function EmailVerification() {
     </Box>
   );
 }
+
+export default allowRoute(EmailVerification);

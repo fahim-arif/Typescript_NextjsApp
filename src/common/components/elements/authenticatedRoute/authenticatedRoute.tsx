@@ -17,7 +17,7 @@ export default function authenticatedRoute(
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      if (isLoading) {
+      if (isLoading || !router.isReady) {
         return;
       }
 

@@ -34,7 +34,7 @@ const MailerSchema = yup.object().shape(
             .max(15)
             .matches(
               /^\+[0-9]{1,14}$/,
-              "contact number must be of valid format +[country-code][number]"
+              "contact number must be of valid format +[country-code][number] with no spaces"
             )
             .label("contact number"),
       }),

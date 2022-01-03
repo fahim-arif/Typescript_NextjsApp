@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Box, Flex, HStack, Heading, Text, Button } from "@chakra-ui/react";
 
+import allowRoute from "@common/components/elements/allowRoute";
 import publicRoute from "@common/components/elements/publicRoute";
 import { TicketWithUser } from "@modules/ResetPassword/types/ResetPassword";
 import { verifyTicket } from "@modules/ResetPassword/services/resetPassword";
@@ -173,4 +174,4 @@ function ResetPassword() {
   );
 }
 
-export default publicRoute(ResetPassword);
+export default allowRoute(publicRoute(ResetPassword));

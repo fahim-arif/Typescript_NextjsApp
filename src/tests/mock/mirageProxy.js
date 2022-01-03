@@ -23,7 +23,6 @@ export function initMirageProxyForCypress() {
 
         // If your central server has any calls to passthrough(), you'll need to duplicate them here
         // this.passthrough('https://analytics.google.com')
-        // this.passthrough("http://localhost:5000");
       },
     });
   }

@@ -17,7 +17,7 @@ const sendForgotPasswordRequest = async (email: string): Promise<AxiosResponse> 
       }
     };
     
-    const response: AxiosResponse = await axiosInstance.request(options);
+    const response: AxiosResponse = await axiosInstance(process.env.NEXT_PUBLIC_API_SERVER_HOST).request(options);
     return response;
     
   } catch (error) {
@@ -36,7 +36,7 @@ const verifyTicket = async (ticket: string): Promise<TicketWithUser> => {
       url: `${path}/${ticket}`,
     };
 
-    const response: AxiosResponse = await axiosInstance.request(options);
+    const response: AxiosResponse = await axiosInstance(process.env.NEXT_PUBLIC_API_SERVER_HOST).request(options);
     const data = response.data;
     return data;
 
@@ -60,7 +60,7 @@ const resetPassword = async (ticket: string, password: string): Promise<AxiosRes
       }
     };
 
-    const response: AxiosResponse = await axiosInstance.request(options);
+    const response: AxiosResponse = await axiosInstance(process.env.NEXT_PUBLIC_API_SERVER_HOST).request(options);
     return response;
 
   } catch (error) {

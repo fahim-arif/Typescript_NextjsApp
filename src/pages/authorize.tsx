@@ -3,9 +3,10 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Text } from "@chakra-ui/react";
 
-import useAuth from "@root/common/hooks/useAuth";
+import allowRoute from "@common/components/elements/allowRoute";
+import useAuth from "@common/hooks/useAuth";
 
-export default function Callback() {
+function Callback() {
   const { isLoading, parseSessionFromUrl } = useAuth();
   const router = useRouter();
 
@@ -44,3 +45,5 @@ export default function Callback() {
     </div>
   );
 }
+
+export default allowRoute(Callback);

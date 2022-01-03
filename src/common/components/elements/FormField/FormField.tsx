@@ -1,23 +1,23 @@
-import React from "react";
-import { Box, Flex, Input, Text } from "@chakra-ui/react";
+import React from 'react';
+import {Box, Flex, Input, Text} from '@chakra-ui/react';
 
 const FormField = (props: any, ref: any) => {
   return (
     <Flex direction="column" position="relative">
       <Input
         {...props}
-        borderRadius="sm"
-        p="1.4rem"
-        lineHeight="1.375"
         color="grayScale.200"
+        lineHeight="1.375"
+        padding="1.4rem"
+        marginTop="0.9rem"
         borderColor="grayScale.500"
-        mt="0.9rem"
-        _placeholder={{ color: "grayScale.500" }}
+        borderRadius="sm"
+        _placeholder={{color: 'grayScale.500'}}
       />
       {props.label && (
         <Box
           alignSelf="start"
-          bg="white"
+          backgroundColor="white"
           position="absolute"
           top="0rem"
           left="0.7rem"
@@ -25,8 +25,8 @@ const FormField = (props: any, ref: any) => {
           padding="0.25rem 0.625rem"
         >
           <Text
-            p="0"
-            m="0"
+            padding="0"
+            margin="0"
             fontWeight="500"
             fontSize="0.875rem"
             lineHeight="1.3125rem"

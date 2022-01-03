@@ -13,7 +13,7 @@ const signUpUser = async (userCreate: UserCreate): Promise<AxiosResponse> => {
       data: userCreate,
     };
 
-    const response: AxiosResponse = await axiosInstance.request(options);
+    const response: AxiosResponse = await axiosInstance(process.env.NEXT_PUBLIC_API_SERVER_HOST).request(options);
     return response;
   } catch (error) {
     throw error;

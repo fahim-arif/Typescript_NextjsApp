@@ -2,6 +2,7 @@ import { useState } from "react";
 import Head from "next/head";
 import { Flex, HStack } from "@chakra-ui/react";
 
+import allowRoute from "@common/components/elements/allowRoute";
 import publicRoute from "@common/components/elements/publicRoute";
 import { Logo } from "@common/components/elements/Logo";
 import DesignSection from "@common/components/elements/DesignSection";
@@ -79,4 +80,4 @@ function Signup() {
   );
 }
 
-export default publicRoute(Signup);
+export default allowRoute(publicRoute(Signup));

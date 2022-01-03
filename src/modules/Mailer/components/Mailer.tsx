@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import React, {useRef, useState} from 'react';
+import {useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
 import {
   Button,
   Text,
@@ -9,27 +9,27 @@ import {
   Input,
   FormErrorMessage,
   FormControl,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
-import { SubscriberCreate } from "../types/Mailer";
-import MailerSchema from "../schema/Mailer";
-import { createSubscriber } from "../services/mailer";
-import removeEmptyFields from "@common/utils/removeEmptyFields";
-import Message from "@common/components/elements/Message";
-import FormErrorSummary from "@common/components/elements/FormErrorSummary";
+import {SubscriberCreate} from '../types/Mailer';
+import MailerSchema from '../schema/Mailer';
+import {createSubscriber} from '../services/mailer';
+import removeEmptyFields from '@common/utils/removeEmptyFields';
+import Message from '@common/components/elements/Message';
+import FormErrorSummary from '@common/components/elements/FormErrorSummary';
 
 export default function Mailer() {
   const initialRef = useRef();
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: {errors, isSubmitting},
   } = useForm<SubscriberCreate>({
     resolver: yupResolver(MailerSchema),
   });
 
-  const [message, setMessage] = useState<string>("");
-  const [serverError, setServerError] = useState<string>("");
+  const [message, setMessage] = useState<string>('');
+  const [serverError, setServerError] = useState<string>('');
 
   const onSubmit = async (values: SubscriberCreate) => {
     try {
@@ -38,13 +38,13 @@ export default function Mailer() {
       setMessage("You've subscribed to the newsletter successfully");
     } catch (error) {
       // console.log(error);
-      setServerError("Something went wrong. Try again later.");
+      setServerError('Something went wrong. Try again later.');
     }
   };
 
   return (
     <Flex
-      width={["full", "full", 2 / 3]}
+      width={['full', 'full', 2 / 3]}
       maxWidth="md"
       direction="column"
       border="1px"
@@ -71,7 +71,7 @@ export default function Mailer() {
             id="first_name"
             type="text"
             placeholder="Enter First Name"
-            {...register("first_name")}
+            {...register('first_name')}
             maxWidth="sm"
           />
           <FormErrorMessage>
@@ -84,7 +84,7 @@ export default function Mailer() {
             id="last_name"
             type="text"
             placeholder="Enter Last Name"
-            {...register("last_name")}
+            {...register('last_name')}
             maxWidth="sm"
           />
           <FormErrorMessage>
@@ -97,7 +97,7 @@ export default function Mailer() {
             id="contact_no"
             type="text"
             placeholder="Enter Contact No."
-            {...register("contact_no")}
+            {...register('contact_no')}
             maxWidth="sm"
           />
           <FormErrorMessage>
@@ -111,7 +111,7 @@ export default function Mailer() {
             ref={initialRef}
             type="email"
             placeholder="Enter email address"
-            {...register("email")}
+            {...register('email')}
             maxWidth="sm"
           />
           <FormErrorMessage>
@@ -125,7 +125,7 @@ export default function Mailer() {
           type="submit"
           bg="red.400"
           color="white"
-          _hover={{ bg: "red.300" }}
+          _hover={{bg: 'red.300'}}
           mr={3}
         >
           Subscribe

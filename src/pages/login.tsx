@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { Box, Flex } from "@chakra-ui/react";
 
+import allowRoute from "@common/components/elements/allowRoute";
 import publicRoute from "@common/components/elements/publicRoute";
 import DesignSection from "@common/components/elements/DesignSection";
 import CircleDesignHeader from "@common/components/elements/CircleDesignHeader";
@@ -48,4 +49,4 @@ function Login() {
   );
 }
 
-export default publicRoute(Login);
+export default allowRoute(publicRoute(Login));

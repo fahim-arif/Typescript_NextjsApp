@@ -3,9 +3,10 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Flex, Text } from "@chakra-ui/react";
 
+import allowRoute from "@common/components/elements/allowRoute";
 import Navbar from "@common/components/elements/Navbar";
 
-export default function LoginError() {
+function LoginError() {
   const router = useRouter();
   const [error, setError] = useState<string>();
 
@@ -31,3 +32,5 @@ export default function LoginError() {
     </div>
   );
 }
+
+export default allowRoute(LoginError); 

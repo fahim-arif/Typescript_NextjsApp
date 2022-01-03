@@ -13,6 +13,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 
+import allowRoute from "@common/components/elements/allowRoute";
 import publicRoute from "@common/components/elements/publicRoute";
 import { sendForgotPasswordRequest } from "@modules/ResetPassword/services/resetPassword";
 import { ForgotPasswordType } from "@modules/ResetPassword/types/ResetPassword";
@@ -194,4 +195,4 @@ function ForgotPassword() {
   );
 }
 
-export default publicRoute(ForgotPassword);
+export default allowRoute(publicRoute(ForgotPassword));

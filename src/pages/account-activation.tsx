@@ -4,10 +4,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Box, Flex, Heading, Text, Button } from "@chakra-ui/react";
 
+import allowRoute from "@common/components/elements/allowRoute";
 import Logo from "@common/components/elements/Logo/Logo";
 import CircleDesignBottom from "@common/components/elements/CircleDesignBottom";
 
-export default function AccountActivation() {
+function AccountActivation() {
   const router = useRouter();
   const [serverError, setServerError] = useState<string>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -137,3 +138,5 @@ export default function AccountActivation() {
     </Box>
   );
 }
+
+export default allowRoute(AccountActivation);
