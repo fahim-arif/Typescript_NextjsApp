@@ -25,16 +25,16 @@ export default function DescriptionSection() {
 
   return (
     <Box
-      mt={{base: '3.125rem', md: 10, lg: 20}}
-      // mb={{base: '-6.25rem', sm: '-6.25rem', lg: '0'}}
-      mb={{base: '8rem'}}
-      w="100%"
-      // px={{base: '1.75rem', md: '5rem', lg: '7.25rem', xl: '13.625rem'}}
+      width="full"
+      marginBottom={{base: '6rem', md: '8rem', lg: '12rem'}}
       paddingX={{base: '1.75rem', md: '3rem', xl: '7.25rem'}}
+      // marginTop={{base: '3.125rem', md: 10, lg: 20}}
+      // mb={{base: '-6.25rem', sm: '-6.25rem', lg: '0'}}
+      // px={{base: '1.75rem', md: '5rem', lg: '7.25rem', xl: '13.625rem'}}
     >
       <Flex
-        pt={10}
-        borderTop={{base: '1px solid #dbdbdb', md: 'none'}}
+        // pt={10}
+        // borderTop={{base: '1px solid #dbdbdb', md: 'none'}}
         display={{base: 'block', lg: 'flex'}}
         width="full"
         justifyContent="space-between"

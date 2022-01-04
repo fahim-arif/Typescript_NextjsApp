@@ -5,13 +5,13 @@ import {motion} from 'framer-motion';
 
 const MotionBox = motion(Box);
 
-const FeatureProducts = () => {
+const FeatureProducts = ({onOpenNewsletter}) => {
   return (
     <Box
       backgroundSize="cover"
-      w="100%"
-      mt={{base: '4.375rem'}}
-      minH={{base: '700', sm: '800', md: '900'}}
+      width="full"
+      marginTop={{base: '4.375rem'}}
+      minHeight={{base: '700', sm: '800', md: '900'}}
       position="relative"
     >
       <MotionBox animate={{y: 0, opacity: [0, 0, 0, 1]}}>
@@ -25,7 +25,7 @@ const FeatureProducts = () => {
         </MotionBox>
       </MotionBox>
       <Box>
-        <ProductCarousel />
+        <ProductCarousel onOpenNewsletter={onOpenNewsletter} />
       </Box>
     </Box>
   );

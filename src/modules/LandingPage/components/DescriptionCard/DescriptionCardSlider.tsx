@@ -56,18 +56,8 @@ class DescriptionCardCarousel extends React.Component<{}, GetDescriptionCard> {
       ],
     };
     return (
-      <Box
-        // px={20}
-        mt={{base: '0', xl: '10rem'}}
-        mb={{
-          base: '12.5rem',
-          sm: '18.75rem',
-          md: '30rem',
-          lg: '20rem',
-          xl: '14rem',
-        }}
-      >
-        <Box display="flex" justifyContent="center" mb="20">
+      <Box marginBottom={{base: '16rem', md: '30rem', lg: '15.125rem'}}>
+        <Box display="flex" justifyContent="center">
           {this.state.data.map((cardInfo, idx) => (
             <Box display={{base: 'none', xl: 'block'}} key={idx}>
               <DescriptionCards

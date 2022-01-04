@@ -8,7 +8,7 @@ import CarouselBtn from '@root/common/components/elements/Button/CarouselBtn';
 import {ProductGet} from '@modules/LandingPage/types/Product';
 import {getProducts} from '@modules/LandingPage/services/Products';
 
-class ProductCarousel extends React.Component<{}, ProductGet> {
+class ProductCarousel extends React.Component<any, ProductGet> {
   slider: any;
 
   constructor(props) {
@@ -83,6 +83,7 @@ class ProductCarousel extends React.Component<{}, ProductGet> {
                     image={product.attributes.image}
                     categories={product.attributes.categories}
                     index={idx}
+                    onOpenNewsletter={this.props.onOpenNewsletter}
                   />
                 </div>
               ))}
@@ -97,7 +98,7 @@ class ProductCarousel extends React.Component<{}, ProductGet> {
             lg: '7.25rem',
           }}
           textAlign="center"
-          mt={{base: '3.125rem', sm: '5rem', md: '6.25rem'}}
+          mt={{base: '3.125rem', sm: '5rem', md: '7.25rem'}}
         >
           <Box
             display="flex"
@@ -112,6 +113,7 @@ class ProductCarousel extends React.Component<{}, ProductGet> {
                 px={{base: '6.25rem', sm: '2.25rem'}}
                 py={{base: '1.1875rem'}}
                 height={{base: '3.75rem'}}
+                onClick={this.props.onOpenNewsletter}
               >
                 See all products
               </Button>

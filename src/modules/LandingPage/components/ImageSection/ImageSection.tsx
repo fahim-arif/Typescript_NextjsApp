@@ -1,7 +1,8 @@
 import {useEffect, useState} from 'react';
-import {Box, Text} from '@chakra-ui/react';
 import Image from 'next/image';
-import {getImageContent} from '@modules/LandingPage/services/ImageContent'
+import {Box, Heading, Text} from '@chakra-ui/react';
+
+import {getImageContent} from '@modules/LandingPage/services/ImageContent';
 import ChangingGameSlider from '@common/components/elements/Slider';
 
 export default function ImageSection() {
@@ -17,58 +18,43 @@ export default function ImageSection() {
 
   return (
     <Box
-      mb={{base: 0, sm: '6.25rem', lg: '9.375rem'}}
-      px={{base: '1.75rem', sm: '1.5rem', md: '2rem', lg: '2.75rem'}}
-      h="70vh"
       position="relative"
+      marginBottom={{base: '5.5rem', lg: '15.125rem'}}
+      paddingX={{base: '0.625rem', sm: '1.5rem', md: '2rem', lg: '2.75rem'}}
     >
       <Box
-        bgImage="url('/images/Rectangle1209.svg')"
-        backgroundSize="cover"
-        backgroundPosition="center center"
-        borderRadius="4px"
-        w="100%"
-        minH={{base: '20rem', sm: '28.875rem'}}
         display="flex"
         justifyContent="space-between"
+        height={{base: '18.25rem', md: '28.875rem'}}
+        backgroundImage="url('/images/ChangingGame.svg')"
+        backgroundPosition={{base: '-100px -510px', md: 'left bottom'}}
+        borderRadius="0.25rem"
       >
-        <Box zIndex="1" left="0" top="0" position="absolute">
-          <Image
-            src="/images/MaskImageBg.svg"
-            layout="responsive"
-            width="440"
-            height="230"
-            alt=""
-          />
-        </Box>
-          <Box
-            minH={{base: '15.625rem', md: '16.875rem'}}
-            opacity=".92"
-            borderTop="1px solid linear-gradient(118.9deg, #FDAC33 17.79%, #FE9A6B 34.23%, #F42B03 82.21%);"
-            borderBottomRightRadius="16"
-            px={{base: '2.25rem', xl: '4.5rem'}}
-            pt={{base: '5.625rem', sm: '12.5rem', lg: '3.5rem'}}
-            minW={{base: '100%', lg: '100%', xl: '45%'}}
+        <Box
+          width={{base: 'full', lg: '27.5rem'}}
+          height={{base: '15.625rem', md: '16.875rem'}}
+          // borderTop="1px solid linear-gradient(118.9deg, #FDAC33 17.79%, #FE9A6B 34.23%, #F42B03 82.21%);"
+          // borderBottomRightRadius="16"
+          marginX={{base: '1.125rem', md: '3rem', xl: '4.5rem'}}
+          paddingTop={{base: '6rem', sm: '8rem', lg: '3.5rem'}}
+        >
+          <Heading
+            fontSize={{base: 'mh3', md: 'th3', lg: 'h3'}}
+            lineHeight={{base: '2.125rem', md: '2.75rem'}}
+            marginBottom={{base: '1rem', lg: '1.625rem'}}
           >
-            <Box maxW={{base: '100%', lg: '25rem', xl: '27.5rem'}}>
-              <Text
-                lineHeight="2.75rem"
-                textAlign={{base: 'center', md: 'inherit'}}
-                fontSize={{base: '1.375rem', sm: '1.75rem', lg: '2.25rem'}}
-              >
-                {data[0] && data[0].attributes.title}
-              </Text>
-              <Text
-                textAlign={{base: 'center', md: 'inherit'}}
-                pt={{base: 5, sm: 10}}
-                fontSize="1.125rem"
-                color="grayScale.300"
-              >
-                {data[0] && data[0].attributes.subtitle}
-              </Text>
-            </Box>
-          </Box>
-          <ChangingGameSlider data={data} />
+            {data[0] && data[0].attributes.title}
+          </Heading>
+
+          <Heading
+            fontSize={{base: 'mh6', md: 'th6', lg: 'h6'}}
+            color="grayScale.300"
+          >
+            {data[0] && data[0].attributes.subtitle}
+          </Heading>
+        </Box>
+
+        <ChangingGameSlider data={data} />
       </Box>
     </Box>
   );

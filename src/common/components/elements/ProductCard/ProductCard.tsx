@@ -16,6 +16,7 @@ type props = {
   categories: CategoryTypes;
   price: number;
   index: number;
+  onOpenNewsletter: () => void;
 };
 
 const MotionBox = motion(Box);
@@ -29,6 +30,7 @@ export default function ProductCard({
   categories,
   price,
   index,
+  onOpenNewsletter,
 }: props) {
   const [open, setOpen] = useState<boolean>(false);
 
@@ -127,24 +129,21 @@ export default function ProductCard({
           </Stack>
 
           {open && (
-            <Link href={`/product/${title}`}>
-              <a style={{border: 'none'}}>
-                <Box
-                  position="absolute"
-                  top="0"
-                  bottom="0"
-                  zIndex="100"
-                  bg="#fff"
-                  w="100%"
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  fontWeight="500"
-                >
-                  View
-                </Box>
-              </a>
-            </Link>
+            <Box
+              position="absolute"
+              top="0"
+              bottom="0"
+              zIndex="100"
+              bg="#fff"
+              w="100%"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              fontWeight="500"
+              onClick={onOpenNewsletter}
+            >
+              View
+            </Box>
           )}
         </Box>
       </Box>

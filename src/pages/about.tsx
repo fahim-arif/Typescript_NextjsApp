@@ -32,6 +32,15 @@ function About() {
     fetchAboutContent();
   }, []);
 
+  if (!data) {
+    return (
+      <>
+        <MailerModal isOpen={isOpen} onClose={onClose} />
+        <MainMenuStatic onOpenNewsletter={onOpen} />
+      </>
+    );
+  }
+
   return (
     <Box>
       <Head>
@@ -81,7 +90,13 @@ function About() {
         position="relative"
         marginX={{xl: '13.625rem'}}
         marginTop={{base: '5rem', md: '10rem', lg: '20rem'}}
-        marginBottom={{base: '-16rem', md: '-16rem', xl: '8.75rem'}}
+        marginBottom={{
+          base: '-16rem',
+          md: '-16rem',
+          lg: '-10rem',
+          xl: '8.75rem',
+        }}
+        paddingBottom={{base: '16rem', md: '16rem', lg: '10rem', xl: '8.75rem'}}
       >
         {data && (
           <Box
@@ -127,7 +142,9 @@ function About() {
         </Flex>
       </Flex>
 
-      <Footer />
+      <Box>
+        <Footer onOpenNewsletter={onOpen} />
+      </Box>
     </Box>
   );
 }

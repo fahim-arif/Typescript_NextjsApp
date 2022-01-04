@@ -3,8 +3,9 @@ import {Box} from '@chakra-ui/react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import ImageCard from '@root/modules/LandingPage/components/ImageSection/ImageCard';
-import {GetImageContent} from '@root/modules/LandingPage/types/ImageSection';
+import ImageCard from '@modules/LandingPage/components/ImageSection/ImageCard';
+import {GetImageContent} from '@modules/LandingPage/types/ImageSection';
+
 class ChangingGameSlider extends React.Component<GetImageContent, {}> {
   slider: any;
   constructor(props) {
@@ -16,9 +17,11 @@ class ChangingGameSlider extends React.Component<GetImageContent, {}> {
   next() {
     this.slider.slickNext();
   }
+
   previous() {
     this.slider.slickPrev();
   }
+
   render() {
     const settings = {
       dots: true,
@@ -41,19 +44,34 @@ class ChangingGameSlider extends React.Component<GetImageContent, {}> {
         },
       ],
     };
+
     return (
-      <div id='image_section_slider'>
+      <div id="image_section_slider">
         <Box
-          px={{base: '0.625rem', sm: '1.5rem', md: '2rem', lg: '2.75rem'}}
+          position="absolute"
           display="flex"
           justifyContent="end"
-          position="absolute"
-          top={['-9.75rem', '-12.8125rem', '-25rem', '-1.5rem', '-1.5rem', '0.625rem']}
-          right={['0px', '0px', '0px', '0px', '0px', '44px']}
+          px={{base: '0.625rem', sm: '1.5rem', md: '2rem', lg: '2.75rem'}}
+          top={[
+            '-9.75rem',
+            '-12.8125rem',
+            '-25rem',
+            '-1.5rem',
+            '0.5rem',
+            '0.625rem',
+          ]}
+          right={{base: '0rem', '2xl': '44px'}}
           width="48.125rem"
         >
           <Box
-            maxWidth={['18.125rem', '25.6875rem', '37.5rem', '28.125rem', '37.5rem', '47.5rem']}
+            maxWidth={[
+              '18.125rem',
+              '25.6875rem',
+              '37.5rem',
+              '28.125rem',
+              '47.5rem',
+              '47.5rem',
+            ]}
           >
             <Slider ref={(c) => (this.slider = c)} {...settings}>
               {this.props.data.map((imageData, index) => (
