@@ -6,6 +6,7 @@ const FormTextareaField = (props: any, ref: any) => {
     <Flex direction="column" position="relative">
       <Textarea
         {...props}
+        ref={ref}
         borderRadius="sm"
         padding="1.4rem"
         lineHeight="1.375"

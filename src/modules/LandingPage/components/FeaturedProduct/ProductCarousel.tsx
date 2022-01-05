@@ -75,14 +75,14 @@ class ProductCarousel extends React.Component<any, ProductGet> {
                   className="hero_container_right"
                 >
                   <ProductCard
-                    id={product.attributes.id}
+                    index={idx}
+                    id={product.id}
                     title={product.attributes.title}
                     price={product.attributes.price}
                     rating={product.attributes.rating}
                     sold={product.attributes.sold}
                     image={product.attributes.image}
                     categories={product.attributes.categories}
-                    index={idx}
                     onOpenNewsletter={this.props.onOpenNewsletter}
                   />
                 </div>

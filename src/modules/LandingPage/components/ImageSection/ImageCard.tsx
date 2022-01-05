@@ -12,11 +12,11 @@ export default function ImageCard({image}: props) {
     <Box
       minWidth={{base: '18.125rem', sm: '30.625rem', lg: '47.5rem'}}
       height={{base: '13.875rem', sm: '21.875rem', md: '34.375rem'}}
-      bgImage={`url(${
+      backgroundImage={`url(${
         process.env.NEXT_PUBLIC_STRAPI_HOST + image.data.attributes.url
       })`}
       backgroundSize="contain"
-      backgroundPosition="center"
+      backgroundPosition={{base: 'center', lg: '-8.75rem top', xl: 'center'}}
       backgroundRepeat="no-repeat"
       borderRadius="0.5rem"
     ></Box>

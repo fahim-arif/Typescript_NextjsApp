@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {
@@ -26,6 +26,7 @@ export default function MailerModal({isOpen, onClose}) {
   const {
     handleSubmit,
     register,
+    reset,
     formState: {errors, isSubmitting},
   } = useForm<SubscriberCreate>({
     resolver: yupResolver(MailerSchema),
@@ -33,6 +34,7 @@ export default function MailerModal({isOpen, onClose}) {
 
   const [message, setMessage] = useState<string>('');
   const [serverError, setServerError] = useState<string>('');
+  const [canReset, setCanReset] = useState<boolean>(false);
 
   const isNewSubscription = (subscribe_date: Date) => {
     const today = new Date();
@@ -44,33 +46,45 @@ export default function MailerModal({isOpen, onClose}) {
   };
 
   const formatDate = (date: Date) => {
-    const month = date.getMonth() > 8 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
+    const month =
+      date.getMonth() > 8 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
     const day = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
     const year = date.getFullYear();
 
     return `${month}/${day}/${year}`;
-  }
+  };
 
   const onSubmit = async (values: SubscriberCreate) => {
     try {
       setMessage('');
       setServerError('');
-      
+
       const subscriber = await createSubscriber(values);
       const subscribe_date = new Date(subscriber.subscribe_date);
 
       if (isNewSubscription(subscribe_date)) {
         setMessage("You've subscribed to the newsletter successfully");
       } else {
-        setMessage(`You're currently subscribed to our newsletter since ${formatDate(subscribe_date)}`);
+        setMessage(
+          `You're currently subscribed to our newsletter since ${formatDate(
+            subscribe_date
+          )}`
+        );
       }
 
+      setCanReset(true);
     } catch (error) {
       setServerError(
         'We’re sorry, we’re having trouble getting your email address added. Please try again at a later time.'
       );
     }
   };
+
+  useEffect(() => {
+    if (!canReset) return;
+    reset({first_name: '', last_name: '', contact_no: '', email: ''});
+    setCanReset(false);
+  }, [reset, canReset]);
 
   return (
     <Modal

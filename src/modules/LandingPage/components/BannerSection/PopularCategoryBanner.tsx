@@ -11,7 +11,7 @@ export default function PopularCategoryBanner({onOpenNewsletter}) {
   useEffect(() => {
     const fetchFooterContent = async () => {
       const {data} = await getFooterContent();
-      setData(data[0].attributes);
+      setData(data.attributes);
     };
     fetchFooterContent();
   }, []);
@@ -25,9 +25,12 @@ export default function PopularCategoryBanner({onOpenNewsletter}) {
       paddingX={{base: '1.25rem', lg: '2.5rem'}}
       paddingY={{base: '1.25rem', lg: '2.25rem'}}
       borderRadius="1rem"
-      backgroundImage="url('/images/Banner.svg')"
+      backgroundImage={{
+        base: "url('/images/banner-mobile.svg')",
+        md: "url('/images/Banner.svg')",
+      }}
       backgroundSize="cover"
-      backgroundPosition={{base: 'bottom center', lg: 'center center'}}
+      backgroundPosition="center center"
     >
       <Heading
         maxWidth="17.31rem"

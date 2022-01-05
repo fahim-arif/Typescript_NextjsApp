@@ -21,7 +21,7 @@ export default function allowRoute(Component = null) {
     useEffect(() => {
       if (router.isReady) {
         if (blockedPages.includes(router.pathname)) {
-          router.replace('/404');
+          router.replace('/');
         } else {
           setLoading(false);
         }

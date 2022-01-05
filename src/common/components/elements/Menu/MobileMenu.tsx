@@ -35,27 +35,16 @@ const MobileMenu: React.FC<props> = ({setIsOpen, isOpen, onOpenNewsletter}) => {
           left="0"
           zIndex="1"
         >
-          <Box display="flex" justifyContent="center">
-            <Input
-              width={{base: '80%', sm: '80%', md: '90%'}}
-              mt={10}
-              px={5}
-              mx={5}
-              placeholder="Search"
-              size="md"
-            />
-          </Box>
           <Stack maxW="90%" mt={5} pl={{base: '50px', sm: 20}} spacing={3}>
             <Link href="/about">
               <a>
                 <Text>About</Text>
               </a>
             </Link>
-            
+
             <Text onClick={onOpenNewsletter}>Newsletter</Text>
             <Text onClick={onOpenNewsletter}>Login</Text>
             <Text onClick={onOpenNewsletter}>Register</Text>
-
           </Stack>
         </Box>
       )}

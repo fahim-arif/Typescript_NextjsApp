@@ -15,8 +15,7 @@ export type DescriptionContent = {
 };
 
 export type GetDescription = {
-    data: {
-    id?: number;
+  data: {
     attributes: DescriptionContent;
-  }[];
-}
+  };
+};

@@ -1,9 +1,8 @@
 import {useEffect, useState} from 'react';
-import Image from 'next/image';
-import {Box, Heading, Text} from '@chakra-ui/react';
-
-import {getImageContent} from '@modules/LandingPage/services/ImageContent';
+import {Box, Heading} from '@chakra-ui/react';
+        
 import ChangingGameSlider from '@common/components/elements/Slider';
+import {getImageContent} from '@modules/LandingPage/services/ImageContent';
 
 export default function ImageSection() {
   const [data, setData] = useState([]);
@@ -33,15 +32,13 @@ export default function ImageSection() {
         <Box
           width={{base: 'full', lg: '27.5rem'}}
           height={{base: '15.625rem', md: '16.875rem'}}
-          // borderTop="1px solid linear-gradient(118.9deg, #FDAC33 17.79%, #FE9A6B 34.23%, #F42B03 82.21%);"
-          // borderBottomRightRadius="16"
           marginX={{base: '1.125rem', md: '3rem', xl: '4.5rem'}}
           paddingTop={{base: '6rem', sm: '8rem', lg: '3.5rem'}}
         >
           <Heading
             fontSize={{base: 'mh3', md: 'th3', lg: 'h3'}}
             lineHeight={{base: '2.125rem', md: '2.75rem'}}
-            marginBottom={{base: '1rem', lg: '1.625rem'}}
+            marginBottom={{base: '0.5rem', sm: '1rem', lg: '1.625rem'}}
           >
             {data[0] && data[0].attributes.title}
           </Heading>

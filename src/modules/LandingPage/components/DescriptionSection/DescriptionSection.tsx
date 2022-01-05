@@ -18,7 +18,7 @@ export default function DescriptionSection() {
   useEffect(() => {
     const fetchImageContent = async () => {
       const {data} = await getDescriptionContent();
-      setData(data[0].attributes);
+      setData(data.attributes);
     };
     fetchImageContent();
   }, []);

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {
@@ -21,6 +21,7 @@ export default function AboutForm() {
   const {
     handleSubmit,
     register,
+    reset,
     formState: {errors, isSubmitting},
   } = useForm<ContactUsType>({
     resolver: yupResolver(AboutFormSchema),
@@ -28,6 +29,7 @@ export default function AboutForm() {
 
   const [serverError, setServerError] = useState<string>('');
   const [message, setMessage] = useState<string>('');
+  const [canReset, setCanReset] = useState<boolean>(false);
 
   const onSubmit = async (values: ContactUsType) => {
     try {
@@ -35,10 +37,17 @@ export default function AboutForm() {
       setMessage('');
       await sendQuestion({...values, identifier: 'about-page'});
       setMessage('Your message has been sent. We will reply soon.');
+      setCanReset(true);
     } catch (error) {
       setServerError('Something went wrong. Try again later.');
     }
   };
+
+  useEffect(() => {
+    if (!canReset) return;
+    reset({name: '', email: '', message: ''});
+    setCanReset(false);
+  }, [reset, canReset]);
 
   return (
     <Box>

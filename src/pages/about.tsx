@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import {GetStaticProps} from 'next';
 import {Box, Flex, Button, Text, useDisclosure} from '@chakra-ui/react';
 
 import Footer from '@common/components/elements/Footer';
@@ -42,7 +43,7 @@ function About() {
   }
 
   return (
-    <Box>
+    <Flex direction="column">
       <Head>
         <title>twoMatches - About</title>
         <meta name="description" content="twoMatches About" />
@@ -51,7 +52,7 @@ function About() {
       <MailerModal isOpen={isOpen} onClose={onClose} />
       <MainMenuStatic onOpenNewsletter={onOpen} />
 
-      {data && data.sections && data.sections.length > 0 && (
+      {data.sections && data.sections.length > 0 && (
         <Box paddingTop={{base: '2rem', md: '8rem'}}>
           {data.sections.map(({title, subtitle, body}, index) => (
             <Section
@@ -64,25 +65,33 @@ function About() {
         </Box>
       )}
 
-      {data && (
-        <Box
-          paddingX={{base: '1.75rem', md: '4rem', lg: '8rem', xl: '13.625rem'}}
+      <Box
+        paddingX={{base: '1.75rem', md: '4rem', lg: '8rem', xl: '13.625rem'}}
+      >
+        <Text
+          as="pre"
+          wordBreak="break-word"
+          whiteSpace="pre-wrap"
+          width={{base: 'full', lg: '48rem', xl: '50rem'}}
+          fontSize={{base: 'mbody', md: 'th6', lg: 'h6'}}
+          color="grayScale.300"
+          marginBottom="3.75rem"
         >
-          <Text
-            as="pre"
-            wordBreak="break-word"
-            whiteSpace="pre-wrap"
-            width={{base: 'full', lg: '48rem', xl: '50rem'}}
-            fontSize={{base: 'mbody', md: 'th6', lg: 'h6'}}
-            color="grayScale.300"
-            marginBottom="3.75rem"
-          >
-            {data.additional_information}
-          </Text>
+          {data.additional_information}
+        </Text>
 
-          <Button onClick={onOpen}>Sign up for newsletter</Button>
-        </Box>
-      )}
+        <Button onClick={onOpen}>Sign up for newsletter</Button>
+      </Box>
+
+      <Box
+        position="absolute"
+        bottom={{base: '27.5rem', md: '27.5rem', lg: '9.375rem'}}
+        width="full"
+        height={{base: '50rem', md: '50rem', lg: '68.75rem'}}
+        marginTop={{base: '5rem', md: '10rem', lg: '20rem'}}
+        backgroundImage="url('/images/about-bg.png')"
+        backgroundSize="cover"
+      ></Box>
 
       <Flex
         direction="column"
@@ -96,29 +105,34 @@ function About() {
           lg: '-10rem',
           xl: '8.75rem',
         }}
-        paddingBottom={{base: '16rem', md: '16rem', lg: '10rem', xl: '8.75rem'}}
+        paddingBottom={{
+          base: '16rem',
+          md: '16rem',
+          lg: '10rem',
+          xl: '8.75rem',
+        }}
       >
-        {data && (
-          <Box
-            position="relative"
-            width={{base: 'full', xl: '50rem'}}
-            height={{
-              base: '15.625rem',
-              sm: '25rem',
-              md: '43.75rem',
-              xl: '33.5rem',
-            }}
-          >
-            {data && (
-              <Image
-                src={`${process.env.NEXT_PUBLIC_STRAPI_HOST}${data?.Image.data.attributes.url}`}
-                layout="fill"
-                objectFit="cover"
-                alt="about-image"
-              />
-            )}
-          </Box>
-        )}
+        <Box
+          position="relative"
+          width={{base: 'full', xl: '50rem'}}
+          height={{
+            base: '15.625rem',
+            sm: '25rem',
+            md: '43.75rem',
+            xl: '33.5rem',
+          }}
+          borderRadius="0.25rem"
+          overflow="hidden"
+        >
+          {data.Image?.data?.attributes?.url && (
+            <Image
+              src={`${process.env.NEXT_PUBLIC_STRAPI_HOST}${data.Image.data.attributes.url}`}
+              layout="fill"
+              objectFit="cover"
+              alt="about-image"
+            />
+          )}
+        </Box>
 
         <Flex
           direction="column"
@@ -128,6 +142,7 @@ function About() {
           marginTop={{base: data ? '0rem' : '10rem', lg: '0rem'}}
         >
           <Box
+            id="contact-us"
             position={{base: 'relative', xl: 'absolute'}}
             top={{base: '-3.125rem', md: '-8.75rem', xl: '-10.5rem'}}
             left={{xl: '25.625rem'}}
@@ -145,8 +160,26 @@ function About() {
       <Box>
         <Footer onOpenNewsletter={onOpen} />
       </Box>
-    </Box>
+    </Flex>
   );
 }
 
 export default About;
+
+// export const getStaticProps: GetStaticProps = async () => {
+//   let data: AboutContent | null = null;
+
+//   try {
+//     const aboutContent: AboutContentGet = await getAboutContent();
+//     if (aboutContent && aboutContent.data) {
+//       data = aboutContent.data.attributes;
+//     }
+//   } catch (error) {
+//     // console.log(error);
+//   }
+
+//   return {
+//     props: {data},
+//     revalidate: 60,
+//   };
+// };

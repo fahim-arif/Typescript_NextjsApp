@@ -1,8 +1,7 @@
 export type GetHeroContent = {
   data: {
-    id?: number;
     attributes: HeroContent;
-  }[];
+  };
 };
 
 export type HeroContent = {

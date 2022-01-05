@@ -1,11 +1,9 @@
 import {useState, useEffect} from 'react';
-import {useMediaQuery} from '@chakra-ui/react';
+import {Box, Flex, Button, useMediaQuery} from '@chakra-ui/react';
+import {motion, useViewportScroll, useTransform} from 'framer-motion';
+
 import {getHeroContent} from '@modules/LandingPage/services/HeroContent';
 import {HeroContent} from '@modules/LandingPage/types/Hero';
-import Link from 'next/link';
-import {Box, Flex, Button} from '@chakra-ui/react';
-import {motion} from 'framer-motion';
-import {useViewportScroll, useTransform} from 'framer-motion';
 import FeatureProducts from '@modules/LandingPage/components/FeaturedProduct/FeatureProducts';
 
 const MotionBox = motion(Box);
@@ -20,7 +18,7 @@ export default function HeroSection({heroShrink, onOpenNewsletter}) {
   useEffect(() => {
     const fetchHeroContent = async () => {
       const {data} = await getHeroContent();
-      setData(data[0].attributes);
+      setData(data.attributes);
     };
     fetchHeroContent();
   }, []);

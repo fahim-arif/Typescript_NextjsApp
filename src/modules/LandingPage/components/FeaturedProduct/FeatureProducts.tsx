@@ -1,7 +1,8 @@
 import React from 'react';
 import {Box} from '@chakra-ui/react';
-import ProductCarousel from './ProductCarousel';
 import {motion} from 'framer-motion';
+
+import ProductCarousel from './ProductCarousel';
 
 const MotionBox = motion(Box);
 

@@ -2,7 +2,7 @@ import {AxiosRequestConfig, AxiosResponse, Method} from 'axios';
 import axiosInstance from '@root/common/utils/axiosInstance';
 import {GetHeroContent} from '../types/Hero';
 
-const path = '/hero-sections';
+const path = '/hero-section';
 
 export const getHeroContent = async (): Promise<GetHeroContent> => {
   try {
@@ -11,9 +11,9 @@ export const getHeroContent = async (): Promise<GetHeroContent> => {
       url: path,
     };
 
-    const response: AxiosResponse<GetHeroContent> = await axiosInstance(process.env.NEXT_PUBLIC_STRAPI_SERVER).request(
-      options
-    );
+    const response: AxiosResponse<GetHeroContent> = await axiosInstance(
+      process.env.NEXT_PUBLIC_STRAPI_SERVER
+    ).request(options);
 
     return response.data;
   } catch (error) {

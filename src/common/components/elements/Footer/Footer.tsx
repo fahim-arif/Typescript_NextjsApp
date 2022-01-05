@@ -1,85 +1,110 @@
 import Link from 'next/link';
-import {Box, Stack, HStack, Flex, Text} from '@chakra-ui/react';
+import {Box, Flex, Stack, Text} from '@chakra-ui/react';
 
-import SocialIcons from '../SocialIcons';
-import Logo from '../Logo/LogoIcon';
+import Logo from '@common/components/elements/Logo/LogoIcon';
+import SocialIcons from '@common/components/elements/SocialIcons';
 
 export default function Footer({onOpenNewsletter}) {
   return (
     <Box
-      // mt={{base: 80, sm: 60, md: 60, xl: 40}}
-      bg="grayScale.100"
+      width="full"
       color="grayScale.900"
-      borderTopRadius={15}
+      backgroundColor="grayScale.100"
+      borderTopRadius="1rem"
     >
-      <Box
-        as={Stack}
-        px={{base: '1.75rem', sm: '1.875rem', md: '5rem', lg: '7.25rem'}}
-        py={{base: 8, lg: 30}}
-        mx="auto"
-        mt={{base: 10, lg: 30}}
+      <Flex
+        direction={{base: 'column', lg: 'row'}}
+        justifyContent="space-between"
+        paddingX={{
+          base: '1.75rem',
+          sm: '1.875rem',
+          md: '5rem',
+          lg: '7.25rem',
+        }}
+        paddingY={{base: '2rem', lg: '1.875rem'}}
+        marginTop={{base: '2.5rem', lg: '1.875rem'}}
       >
         <Flex
-          display={{base: 'block', lg: 'flex'}}
-          justifyContent="space-between"
+          width={{lg: '36rem'}}
+          direction={{base: 'column', lg: 'row'}}
+          justify="space-between"
+          align={{lg: 'center'}}
         >
-          <HStack
-            spacing={{base: 0, lg: 20}}
-            display={{base: 'block', lg: 'flex'}}
-            justifyContent="space-between"
-          >
-            <Stack>
-              <Box>
-                <Logo prefixId="footer-logo" />
-              </Box>
-            </Stack>
+          <Logo prefixId="footer-logo" />
 
-            <Stack pt={{base: 8, lg: 0}} align={'flex-start'}>
-              <Link href="/about">
-                <a>
-                  <Text as="h6">About</Text>
-                </a>
-              </Link>
-            </Stack>
+          <Box alignSelf={{base: 'start', lg: 'center'}}>
+            <Link href="/about">
+              <a>
+                <Text
+                  color="grayScale.500"
+                  fontWeight="500"
+                  marginTop={{base: '2rem', lg: '0rem'}}
+                >
+                  About
+                </Text>
+              </a>
+            </Link>
+          </Box>
 
-            <Stack pt={{base: 8, lg: 0}} align={'flex-start'}>
-              <Text as="h6" cursor="pointer" onClick={onOpenNewsletter}>
-                Contact
-              </Text>
-            </Stack>
+          <Box alignSelf={{base: 'start', lg: 'center'}}>
+            <Link href="/about#contact-us">
+              <a>
+                <Text
+                  color="grayScale.500"
+                  fontWeight="500"
+                  marginTop={{base: '2rem', lg: '0rem'}}
+                >
+                  Contact
+                </Text>
+              </a>
+            </Link>
+          </Box>
 
-            <Stack pt={{base: 8, lg: 0}} align={'flex-start'}>
-              <Link href="/privacy-policy">
-                <a>
-                  <Text as="h6">Privacy policy</Text>
-                </a>
-              </Link>
-            </Stack>
+          <Box alignSelf={{base: 'start', lg: 'center'}}>
+            <Link href="/privacy-policy">
+              <a>
+                <Text
+                  color="grayScale.500"
+                  fontWeight="500"
+                  marginTop={{base: '2rem', lg: '0rem'}}
+                >
+                  Privacy policy
+                </Text>
+              </a>
+            </Link>
+          </Box>
 
-            <Stack pt={{base: 8, lg: 0}} align={'flex-start'}>
-              <Link href="/terms-and-conditions">
-                <a>
-                  <Text as="h6">Legal</Text>
-                </a>
-              </Link>
-            </Stack>
-          </HStack>
-          <Box>
-            <Stack pt={{base: 8, lg: 0}} align={'flex-start'}>
-              <Flex>
-                <SocialIcons />
-              </Flex>
-            </Stack>
+          <Box alignSelf={{base: 'start', lg: 'center'}}>
+            <Link href="/terms-and-conditions">
+              <a>
+                <Text
+                  color="grayScale.500"
+                  fontWeight="500"
+                  marginTop={{base: '2rem', lg: '0rem'}}
+                >
+                  Legal
+                </Text>
+              </a>
+            </Link>
           </Box>
         </Flex>
-      </Box>
+
+        <Box>
+          <Stack pt={{base: '2rem', lg: '0rem'}} align={'flex-start'}>
+            <Flex>
+              <SocialIcons />
+            </Flex>
+          </Stack>
+        </Box>
+      </Flex>
 
       <Box
-        py={4}
-        px={{base: '1.75rem', sm: '1.875rem', md: '5rem', lg: '7.25rem'}}
-        borderTop="1px solid #3A3D53"
+        paddingX={{base: '1.75rem', sm: '1.875rem', md: '5rem', lg: '7.25rem'}}
+        paddingY="1rem"
+        borderTopWidth="1px"
+        borderTopColor="grayScale.200"
       >
-        <Text color="#9D9EA9">© twoMatches 2021.</Text>
+        <Text color="grayScale.400">&copy; twoMatches 2021.</Text>
       </Box>
     </Box>
   );

@@ -6,9 +6,8 @@ export type BannerContent = {
   publishedAt?: Date;
 };
 
-export type GetBannerContent= {
+export type GetBannerContent = {
   data: {
-    id?: number;
     attributes: BannerContent;
-  }[];
+  };
 };

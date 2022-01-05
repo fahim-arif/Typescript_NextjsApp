@@ -35,7 +35,11 @@ export default function MainMenu({onOpenNewsletter, navShrink}) {
       fontFamily="Barlow"
       fontWeight="500"
       position="fixed"
-      maxH={{base: '3.4375rem', sm: '3.75rem', md: `${navShrink ? '4.5rem' : '5.75rem'}`}}
+      maxH={{
+        base: '3.4375rem',
+        sm: '3.75rem',
+        md: `${navShrink ? '4.5rem' : '5.75rem'}`,
+      }}
       w="100%"
       backgroundSize="cover"
       zIndex="100"
@@ -123,7 +127,7 @@ export default function MainMenu({onOpenNewsletter, navShrink}) {
                 fontFamily="Barlow"
                 onClick={onOpenNewsletter}
                 animate={
-                 navShrink 
+                  navShrink
                     ? {
                         padding: '0.3125rem',
                         paddingLeft: '1.25rem',
@@ -158,7 +162,7 @@ export default function MainMenu({onOpenNewsletter, navShrink}) {
                 color="#ffffff"
                 cursor="pointer"
                 animate={
-                 navShrink 
+                  navShrink
                     ? {
                         padding: '0.3125rem',
                         paddingLeft: '1.25rem',
@@ -172,7 +176,7 @@ export default function MainMenu({onOpenNewsletter, navShrink}) {
                       }
                 }
                 _hover={{
-                  backgroundColor: 'greyScale.200',
+                  backgroundColor: 'grayScale.200',
                 }}
                 transition={{
                   type: 'spring',

@@ -123,7 +123,9 @@ export default function ProductCard({
               </Flex>
 
               <Text fontSize="0.8125rem" fontFamily="inter">
-                {categories.data[0].attributes.name}
+                {categories.data &&
+                  categories.data.length > 0 &&
+                  categories.data[0].attributes.name}
               </Text>
             </Flex>
           </Stack>

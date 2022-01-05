@@ -4,8 +4,6 @@ import Link from 'next/link';
 import {Logo} from '@common/components/elements/Logo';
 import {Box, Flex, Button, HStack, Text} from '@chakra-ui/react';
 
-
-
 export default function MainMenuStatic({onOpenNewsletter}) {
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
@@ -37,7 +35,11 @@ export default function MainMenuStatic({onOpenNewsletter}) {
         </Box>
         {/* Mobile & Tablet Hambergur Menu */}
         <Box display={{base: 'block', md: 'none'}} onClick={toggle}>
-          <MobileMenu  isOpen={isOpen} setIsOpen={setIsOpen} onOpenNewsletter={onOpenNewsletter} />
+          <MobileMenu
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            onOpenNewsletter={onOpenNewsletter}
+          />
         </Box>
         <HStack
           spacing={{base: '10px', lg: '60px'}}
@@ -49,7 +51,9 @@ export default function MainMenuStatic({onOpenNewsletter}) {
               <a>About</a>
             </Link>
 
-            <Text as="button" onClick={onOpenNewsletter}>Newsletter</Text>
+            <Text as="button" onClick={onOpenNewsletter}>
+              Newsletter
+            </Text>
           </HStack>
 
           <HStack spacing="12px">

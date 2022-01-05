@@ -1,16 +1,9 @@
 import Head from 'next/head';
-import {
-  Box,
-  Heading,
-  Text,
-  useDisclosure,
-  UnorderedList,
-  ListItem,
-} from '@chakra-ui/react';
+import {Box, Heading, Text, useDisclosure} from '@chakra-ui/react';
 
 import {MainMenuStatic} from '@common/components/elements/Menu';
+import Footer from '@common/components/elements/Footer';
 import MailerModal from '@modules/Mailer/components/MailerModal';
-import Footer from '@root/common/components/elements/Footer';
 
 function TermsAndConditions() {
   const {isOpen, onOpen, onClose} = useDisclosure();

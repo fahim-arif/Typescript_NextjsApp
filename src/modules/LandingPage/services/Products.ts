@@ -2,7 +2,6 @@ import {AxiosRequestConfig, AxiosResponse, Method} from 'axios';
 import axiosInstance from '@root/common/utils/axiosInstance';
 import {ProductCreate, ProductGet} from '../types/Product';
 
-
 const path = '/products?populate=*';
 
 const getProducts = async (): Promise<ProductGet> => {
@@ -12,10 +11,10 @@ const getProducts = async (): Promise<ProductGet> => {
       url: path,
     };
 
-    const response: AxiosResponse<ProductGet> = await axiosInstance(process.env.NEXT_PUBLIC_STRAPI_SERVER).request(
-      options
-    );   
-    
+    const response: AxiosResponse<ProductGet> = await axiosInstance(
+      process.env.NEXT_PUBLIC_STRAPI_SERVER
+    ).request(options);
+
     return response.data;
   } catch (error) {
     throw error;
@@ -29,9 +28,9 @@ const getProductById = async (id: string): Promise<ProductGet> => {
       url: `${path}/${id}`,
     };
 
-    const response: AxiosResponse<ProductGet> = await axiosInstance(process.env.NEXT_PUBLIC_STRAPI_SERVER).request(
-      options
-    );
+    const response: AxiosResponse<ProductGet> = await axiosInstance(
+      process.env.NEXT_PUBLIC_STRAPI_SERVER
+    ).request(options);
     return response.data;
   } catch (error) {
     throw error;
@@ -48,8 +47,9 @@ const createProduct = async (
       data: productCreate,
     };
 
-    const response: AxiosResponse<ProductGet> =
-      await axiosInstance(process.env.NEXT_PUBLIC_STRAPI_SERVER).request(options);
+    const response: AxiosResponse<ProductGet> = await axiosInstance(
+      process.env.NEXT_PUBLIC_STRAPI_SERVER
+    ).request(options);
     return response.data;
   } catch (error) {
     throw error;

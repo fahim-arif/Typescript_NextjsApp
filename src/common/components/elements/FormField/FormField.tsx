@@ -5,6 +5,7 @@ const FormField = (props: any, ref: any) => {
   return (
     <Flex direction="column" position="relative">
       <Input
+        ref={ref}
         {...props}
         color="grayScale.200"
         lineHeight="1.375"
