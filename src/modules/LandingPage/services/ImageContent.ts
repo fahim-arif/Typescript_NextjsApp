@@ -1,7 +1,9 @@
 import {AxiosRequestConfig, AxiosResponse, Method} from 'axios';
-import axiosInstance from '@root/common/utils/axiosInstance';
-import {GetImageContent} from '../types/ImageSection';
 
+import axiosInstance from '@common/utils/axiosInstance';
+import {GetImageContent} from '@modules/LandingPage/types/ImageSection';
+
+const STRAPI_API = `${process.env.NEXT_PUBLIC_STRAPI_HOST}/api`;
 const path = '/image-sections?populate=*';
 
 export const getImageContent = async (): Promise<GetImageContent> => {
@@ -11,9 +13,9 @@ export const getImageContent = async (): Promise<GetImageContent> => {
       url: path,
     };
 
-    const response: AxiosResponse<GetImageContent> = await axiosInstance(process.env.NEXT_PUBLIC_STRAPI_SERVER).request(
-      options
-    );
+    const response: AxiosResponse<GetImageContent> = await axiosInstance(
+      STRAPI_API
+    ).request(options);
 
     return response.data;
   } catch (error) {

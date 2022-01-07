@@ -1,7 +1,9 @@
 import {AxiosRequestConfig, AxiosResponse, Method} from 'axios';
-import axiosInstance from '@root/common/utils/axiosInstance';
-import {GetDescription} from '../types/Description';
 
+import axiosInstance from '@common/utils/axiosInstance';
+import {GetDescription} from '@modules/LandingPage/types/Description';
+
+const STRAPI_API = `${process.env.NEXT_PUBLIC_STRAPI_HOST}/api`;
 const path = '/description-section';
 
 export const getDescriptionContent = async (): Promise<GetDescription> => {
@@ -12,7 +14,7 @@ export const getDescriptionContent = async (): Promise<GetDescription> => {
     };
 
     const response: AxiosResponse<GetDescription> = await axiosInstance(
-      process.env.NEXT_PUBLIC_STRAPI_SERVER
+      STRAPI_API
     ).request(options);
 
     return response.data;

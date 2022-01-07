@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import {Box, Heading, Text, useDisclosure} from '@chakra-ui/react';
+import {Box, Flex, Heading, Text, useDisclosure} from '@chakra-ui/react';
 
 import {MainMenuStatic} from '@common/components/elements/Menu';
 import Footer from '@common/components/elements/Footer';
@@ -9,7 +9,7 @@ function TermsAndConditions() {
   const {isOpen, onOpen, onClose} = useDisclosure();
 
   return (
-    <Box>
+    <Flex direction="column" align={{'2xl': 'center'}}>
       <Head>
         <title>twoMatches - Terms and Conditions</title>
         <meta name="description" content="twoMatches Terms and Conditions" />
@@ -19,6 +19,7 @@ function TermsAndConditions() {
       <MainMenuStatic onOpenNewsletter={onOpen} />
 
       <Box
+        maxWidth="90rem"
         paddingTop={{base: '2rem', md: '8rem'}}
         paddingBottom={{base: '4rem', md: '7.375rem'}}
         paddingX={{base: '1.75rem', md: '4rem', lg: '8rem', xl: '13.625rem'}}
@@ -642,8 +643,6 @@ function TermsAndConditions() {
                 twoMatches Corporation
               </Text>
               <br />
-              1432 Da Vinci Trail
-              <br />
               Leander, Texas 78641
               <br />
               <br />
@@ -667,8 +666,8 @@ function TermsAndConditions() {
         </Box>
       </Box>
 
-      <Footer onOpenNewsletter={onOpen} />
-    </Box>
+      <Footer />
+    </Flex>
   );
 }
 

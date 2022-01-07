@@ -1,21 +1,8 @@
-import {useState, useEffect} from 'react';
 import {Flex, Heading, Text, Button} from '@chakra-ui/react';
 
 import ArrowRight from '@common/components/elements/ArrowRight';
-import {BannerContent} from '@modules/LandingPage/types/Footer';
-import {getFooterContent} from '@modules/LandingPage/services/FooterContent';
 
-export default function PopularCategoryBanner({onOpenNewsletter}) {
-  const [data, setData] = useState<BannerContent>();
-
-  useEffect(() => {
-    const fetchFooterContent = async () => {
-      const {data} = await getFooterContent();
-      setData(data.attributes);
-    };
-    fetchFooterContent();
-  }, []);
-
+export default function PopularCategoryBanner({data, onOpenNewsletter}) {
   return (
     <Flex
       direction={{base: 'column', md: 'row'}}
@@ -27,7 +14,7 @@ export default function PopularCategoryBanner({onOpenNewsletter}) {
       borderRadius="1rem"
       backgroundImage={{
         base: "url('/images/banner-mobile.svg')",
-        md: "url('/images/Banner.svg')",
+        md: "url('/images/banner.svg')",
       }}
       backgroundSize="cover"
       backgroundPosition="center center"
@@ -44,9 +31,10 @@ export default function PopularCategoryBanner({onOpenNewsletter}) {
         display="flex"
         alignItems="center"
         alignSelf={{md: 'end'}}
+        paddingX="1.5rem"
         onClick={onOpenNewsletter}
       >
-        <Text marginRight="0.625rem">See all products</Text>
+        <Text marginRight="0.625rem">Sell Now</Text>
         <ArrowRight marginTop="0.25rem" />
       </Button>
     </Flex>

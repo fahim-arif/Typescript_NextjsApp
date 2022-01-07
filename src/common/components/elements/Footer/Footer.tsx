@@ -4,7 +4,7 @@ import {Box, Flex, Stack, Text} from '@chakra-ui/react';
 import Logo from '@common/components/elements/Logo/LogoIcon';
 import SocialIcons from '@common/components/elements/SocialIcons';
 
-export default function Footer({onOpenNewsletter}) {
+export default function Footer() {
   return (
     <Box
       width="full"
@@ -22,7 +22,6 @@ export default function Footer({onOpenNewsletter}) {
           lg: '7.25rem',
         }}
         paddingY={{base: '2rem', lg: '1.875rem'}}
-        marginTop={{base: '2.5rem', lg: '1.875rem'}}
       >
         <Flex
           width={{lg: '36rem'}}
@@ -90,7 +89,7 @@ export default function Footer({onOpenNewsletter}) {
         </Flex>
 
         <Box>
-          <Stack pt={{base: '2rem', lg: '0rem'}} align={'flex-start'}>
+          <Stack paddingTop={{base: '2rem', lg: '0rem'}} align={'flex-start'}>
             <Flex>
               <SocialIcons />
             </Flex>
@@ -104,7 +103,7 @@ export default function Footer({onOpenNewsletter}) {
         borderTopWidth="1px"
         borderTopColor="grayScale.200"
       >
-        <Text color="grayScale.400">&copy; twoMatches 2021.</Text>
+        <Text color="grayScale.400">&copy; twoMatches 2022.</Text>
       </Box>
     </Box>
   );

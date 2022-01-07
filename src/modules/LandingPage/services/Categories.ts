@@ -1,8 +1,9 @@
 import {AxiosRequestConfig, AxiosResponse, Method} from 'axios';
-import axiosInstance from '@common/utils/axiosInstance';
 
+import axiosInstance from '@common/utils/axiosInstance';
 import {TopCategoryGet} from '@modules/LandingPage/types/Category';
 
+const STRAPI_API = `${process.env.NEXT_PUBLIC_STRAPI_HOST}/api`;
 const path = '/top-categories';
 
 const getTopCategories = async (): Promise<TopCategoryGet> => {
@@ -13,7 +14,7 @@ const getTopCategories = async (): Promise<TopCategoryGet> => {
     };
 
     const response: AxiosResponse<TopCategoryGet> = await axiosInstance(
-      process.env.NEXT_PUBLIC_STRAPI_SERVER
+      STRAPI_API
     ).request(options);
 
     return response.data;

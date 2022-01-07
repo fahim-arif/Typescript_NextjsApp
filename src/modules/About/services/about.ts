@@ -4,6 +4,8 @@ import axiosInstance from '@common/utils/axiosInstance';
 import {ContactUsType} from '@modules/About/types/ContactUs';
 import {AboutContentGet} from '@modules/About/types/AboutContent';
 
+const STRAPI_API = `${process.env.NEXT_PUBLIC_STRAPI_HOST}/api`;
+
 const getAboutContent = async (): Promise<AboutContentGet> => {
   try {
     const options: AxiosRequestConfig = {
@@ -11,8 +13,9 @@ const getAboutContent = async (): Promise<AboutContentGet> => {
       url: '/about-page/?populate=*',
     };
 
-    const response: AxiosResponse<AboutContentGet> =
-      await axiosInstance(process.env.NEXT_PUBLIC_STRAPI_SERVER).request(options);
+    const response: AxiosResponse<AboutContentGet> = await axiosInstance(
+      STRAPI_API
+    ).request(options);
 
     return response.data;
   } catch (error) {
@@ -28,7 +31,9 @@ const sendQuestion = async (data: ContactUsType): Promise<AxiosResponse> => {
       data,
     };
 
-    const response: AxiosResponse = await axiosInstance(process.env.NEXT_PUBLIC_API_SERVER_HOST).request(options);
+    const response: AxiosResponse = await axiosInstance(
+      process.env.NEXT_PUBLIC_API_SERVER_HOST
+    ).request(options);
     return response;
   } catch (error) {
     throw error;

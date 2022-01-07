@@ -1,7 +1,9 @@
 import {AxiosRequestConfig, AxiosResponse, Method} from 'axios';
-import axiosInstance from '@root/common/utils/axiosInstance';
-import {GetBannerContent} from '../types/Footer';
 
+import axiosInstance from '@common/utils/axiosInstance';
+import {GetBannerContent} from '@modules/LandingPage/types/Footer';
+
+const STRAPI_API = `${process.env.NEXT_PUBLIC_STRAPI_HOST}/api`;
 const path = '/footer';
 
 export const getFooterContent = async (): Promise<GetBannerContent> => {
@@ -12,7 +14,7 @@ export const getFooterContent = async (): Promise<GetBannerContent> => {
     };
 
     const response: AxiosResponse<GetBannerContent> = await axiosInstance(
-      process.env.NEXT_PUBLIC_STRAPI_SERVER
+      STRAPI_API
     ).request(options);
 
     return response.data;

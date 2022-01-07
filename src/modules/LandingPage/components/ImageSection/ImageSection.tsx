@@ -1,20 +1,8 @@
-import {useEffect, useState} from 'react';
 import {Box, Heading} from '@chakra-ui/react';
-        
+
 import ChangingGameSlider from '@common/components/elements/Slider';
-import {getImageContent} from '@modules/LandingPage/services/ImageContent';
 
-export default function ImageSection() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const fetchImageContent = async () => {
-      const {data} = await getImageContent();
-      setData(data);
-    };
-    fetchImageContent();
-  }, []);
-
+export default function ImageSection({data}) {
   return (
     <Box
       position="relative"
@@ -25,7 +13,7 @@ export default function ImageSection() {
         display="flex"
         justifyContent="space-between"
         height={{base: '18.25rem', md: '28.875rem'}}
-        backgroundImage="url('/images/ChangingGame.svg')"
+        backgroundImage="url('/images/changing-game.svg')"
         backgroundPosition={{base: '-100px -510px', md: 'left bottom'}}
         borderRadius="0.25rem"
       >
@@ -40,14 +28,14 @@ export default function ImageSection() {
             lineHeight={{base: '2.125rem', md: '2.75rem'}}
             marginBottom={{base: '0.5rem', sm: '1rem', lg: '1.625rem'}}
           >
-            {data[0] && data[0].attributes.title}
+            {data.length > 0 && data[0] && data[0].attributes.title}
           </Heading>
 
           <Heading
             fontSize={{base: 'mh6', md: 'th6', lg: 'h6'}}
             color="grayScale.300"
           >
-            {data[0] && data[0].attributes.subtitle}
+            {data.length > 0 && data[0] && data[0].attributes.subtitle}
           </Heading>
         </Box>
 

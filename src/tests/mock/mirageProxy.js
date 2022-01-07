@@ -1,16 +1,19 @@
-import { createServer, Response } from "miragejs";
+import {createServer, Response} from 'miragejs';
 
 export function initMirageProxyForCypress() {
-  if (typeof window !== "undefined" && window.Cypress) {
+  if (typeof window !== 'undefined' && window.Cypress) {
     // If your app makes requests to domains other than / (the current domain), add them
     // here so that they are also proxied from your app to the handleFromCypress function.
-    let otherDomains = ["http://localhost:5000/"];
-    let methods = ["get", "put", "patch", "post", "delete"];
+    let otherDomains = [
+      'http://localhost:5000/',
+      'https://dev.visualwebsiteoptimizer.com/',
+    ];
+    let methods = ['get', 'put', 'patch', 'post', 'delete'];
 
     createServer({
-      environment: "test",
+      environment: 'test',
       routes() {
-        for (const domain of ["/", ...otherDomains]) {
+        for (const domain of ['/', ...otherDomains]) {
           for (const method of methods) {
             this[method](`${domain}*`, async (schema, request) => {
               let [status, headers, body] = await window.handleFromCypress(

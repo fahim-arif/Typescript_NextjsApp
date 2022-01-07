@@ -1,5 +1,4 @@
-import * as React from "react";
-import { Icon } from "@chakra-ui/react";
+import {Icon} from '@chakra-ui/react';
 
 function ArrowLeftIcon(props: any) {
   return (

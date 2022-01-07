@@ -1,29 +1,23 @@
 import {Box, Text} from '@chakra-ui/react';
 import Image from 'next/image';
-import {ImageTypes} from '@modules/LandingPage/types/Product';
 import {motion} from 'framer-motion';
+
+import {ImageTypes} from '@modules/LandingPage/types/Product';
 
 type props = {
   title: string;
   content: string;
   image: ImageTypes;
-  index: number;
 };
 
 const MotionBox = motion(Box);
 
-export default function DescriptionCards({
-  title,
-  content,
-  image,
-  index,
-}: props) {
+export default function DescriptionCards({title, content, image}: props) {
   return (
     <MotionBox animate={{opacity: [0, 0, 1]}}>
       <Box
         marginRight="1.25rem"
         width={{base: '20rem', lg: '24.5rem'}}
-        // h="30.125rem"
         bg="#fff"
         color="grayScale.100"
         boxShadow={{xl: '0px 50px 100px 0px rgba(151,156,203,0.4)'}}
@@ -40,6 +34,7 @@ export default function DescriptionCards({
             }
             height={293}
             width={392}
+            priority={true}
             alt="img"
             objectFit="cover"
           />

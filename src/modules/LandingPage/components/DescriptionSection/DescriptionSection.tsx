@@ -1,47 +1,23 @@
-import {useState, useEffect} from 'react';
-import Image from 'next/image';
-import {VStack, Flex, Box, Text, Heading} from '@chakra-ui/react';
+import {Box, Flex, VStack, Text, Heading} from '@chakra-ui/react';
 
-import {getDescriptionContent} from '@modules/LandingPage/services/DescriptionContent';
-import {DescriptionContent} from '@modules/LandingPage/types/Description';
+import Earth from '@common/components/elements/Earth';
+import AnchorIcon from '@common/components/elements/AnchorIcon';
+import CartIcon from '@common/components/elements/CartIcon';
 
-import earth from '@public/images/icons/earth_logo.svg';
-import cart from '@public/images/icons/cart_icon.svg';
-import arrowDown from '@public/images/icons/arrow_down.svg';
-import Earth from '@root/common/components/elements/Earth';
-import AnchorIcon from '@root/common/components/elements/AnchorIcon';
-import CartIcon from '@root/common/components/elements/CartIcon';
-
-export default function DescriptionSection() {
-  const [data, setData] = useState<DescriptionContent>();
-
-  useEffect(() => {
-    const fetchImageContent = async () => {
-      const {data} = await getDescriptionContent();
-      setData(data.attributes);
-    };
-    fetchImageContent();
-  }, []);
-
+export default function DescriptionSection({data}) {
   return (
     <Box
       width="full"
       marginBottom={{base: '6rem', md: '8rem', lg: '12rem'}}
       paddingX={{base: '1.75rem', md: '3rem', xl: '7.25rem'}}
-      // marginTop={{base: '3.125rem', md: 10, lg: 20}}
-      // mb={{base: '-6.25rem', sm: '-6.25rem', lg: '0'}}
-      // px={{base: '1.75rem', md: '5rem', lg: '7.25rem', xl: '13.625rem'}}
     >
       <Flex
-        // pt={10}
-        // borderTop={{base: '1px solid #dbdbdb', md: 'none'}}
         display={{base: 'block', lg: 'flex'}}
         width="full"
         justifyContent="space-between"
       >
         <VStack width={{base: 'full', lg: '30.875rem'}} paddingBottom="3.5rem">
           <Text
-            // textAlign={{base: 'left', sm: 'center', xl: 'left'}}
             display="block"
             fontSize={{base: '1.1875rem', lg: '1.75rem'}}
             fontWeight={{base: '400', lg: '300'}}
@@ -50,7 +26,6 @@ export default function DescriptionSection() {
           </Text>
 
           <Text
-            // textAlign={{base: 'center', xl: 'left'}}
             fontWeight="400"
             color="gray.500"
             pt="2rem"
@@ -61,12 +36,10 @@ export default function DescriptionSection() {
           </Text>
 
           <Text
-            // textAlign={{base: 'center', xl: 'left'}}
             fontWeight="400"
             color="gray.500"
             pt="2rem"
             fontSize={{base: '1rem', md: '1.125rem'}}
-            // display={{base: 'none', sm: 'block'}}
           >
             {data && data.content2}
           </Text>

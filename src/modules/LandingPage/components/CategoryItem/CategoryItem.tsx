@@ -7,7 +7,7 @@ export default function CategoryItem({name}) {
     <HStack
       spacing="1.25rem"
       justify="center"
-      paddingX={{base: '3rem'}}
+      paddingX={{base: '1.5rem'}}
       paddingY={{base: '1.625rem'}}
       backgroundColor="grayScale.800"
     >

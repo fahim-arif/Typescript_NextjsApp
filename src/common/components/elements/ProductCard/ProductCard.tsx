@@ -1,11 +1,10 @@
 import {useState} from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
-import {useViewportScroll, useTransform} from 'framer-motion';
 import {Box, Stack, Text, Flex} from '@chakra-ui/react';
 import {motion} from 'framer-motion';
-import Star from '@public/images/icons/star.svg';
+
 import {CategoryTypes, ImageTypes} from '@modules/LandingPage/types/Product';
+import Star from '@common/components/elements/Star';
 
 type props = {
   id: number;
@@ -15,7 +14,6 @@ type props = {
   image: ImageTypes;
   categories: CategoryTypes;
   price: number;
-  index: number;
   onOpenNewsletter: () => void;
 };
 
@@ -29,21 +27,15 @@ export default function ProductCard({
   image,
   categories,
   price,
-  index,
   onOpenNewsletter,
 }: props) {
   const [open, setOpen] = useState<boolean>(false);
 
-  const {scrollY} = useViewportScroll();
-  const y1 = useTransform(scrollY, [-100, 300], [-200, 100]);
-  const y2 = useTransform(scrollY, [0, -300], [0, -100]);
-  const y4 = useTransform(scrollY, [100, 300], [-200, 100]);
-
-  const handleMouseEnter = (id) => {
+  const handleMouseEnter = (id: number) => {
     setOpen(true);
   };
 
-  const handleMouseLeave = (id) => {
+  const handleMouseLeave = (id: number) => {
     setOpen(false);
   };
 
@@ -54,15 +46,14 @@ export default function ProductCard({
       cursor="pointer"
       position="relative"
       margin="auto"
-      minW={{base: '18.125rem'}}
-      // minH={{base: '30vh'}}
+      minWidth={{base: '18.125rem'}}
       onMouseEnter={() => handleMouseEnter(id)}
       onMouseLeave={() => handleMouseLeave(id)}
       animate={open ? {y: 0} : {y: 10}}
     >
       <Box>
         <Box h="12.125rem">
-          <MotionBox top="0" left="0" objectFit="contain">
+          <Box top="0" left="0" objectFit="contain">
             <Image
               width="290"
               height="194"
@@ -70,9 +61,10 @@ export default function ProductCard({
               src={
                 process.env.NEXT_PUBLIC_STRAPI_HOST + image.data.attributes.url
               }
+              priority={true}
               alt="feature product"
             />
-          </MotionBox>
+          </Box>
         </Box>
 
         <Box
@@ -96,7 +88,7 @@ export default function ProductCard({
               <Text fontWeight="400">{title}</Text>
 
               <Flex minW="2.8125rem" alignItems="center">
-                <Image src={Star} alt="star" />
+                <Star color="#fff" />
                 <Text pl={2}>{rating}</Text>
               </Flex>
             </Flex>

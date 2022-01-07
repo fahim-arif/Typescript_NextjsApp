@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import {
   Box,
+  Flex,
   Heading,
   Text,
   UnorderedList,
@@ -16,7 +17,7 @@ function PrivacyPolicy() {
   const {isOpen, onOpen, onClose} = useDisclosure();
 
   return (
-    <Box>
+    <Flex direction="column" align={{'2xl': 'center'}}>
       <Head>
         <title>twoMatches - Privacy Policy</title>
         <meta name="description" content="twoMatches Privacy Policy" />
@@ -26,6 +27,7 @@ function PrivacyPolicy() {
       <MainMenuStatic onOpenNewsletter={onOpen} />
 
       <Box
+        maxWidth="90rem"
         paddingTop={{base: '2rem', md: '8rem'}}
         paddingBottom={{base: '4rem', md: '7.375rem'}}
         paddingX={{base: '1.75rem', md: '4rem', lg: '8rem', xl: '13.625rem'}}
@@ -352,8 +354,6 @@ function PrivacyPolicy() {
               <br />
               twoMatches Corporation
               <br />
-              1432 Da Vinci Trail
-              <br />
               Leander, Texas 78641
               <br />
               <br />
@@ -368,14 +368,17 @@ function PrivacyPolicy() {
                 Telephone number:
               </Text>
               <br />
-              (888) 326-2824 Effective as of January 07, 2022
+              (888) 326-2824
+              <br />
+              <br />
+              Effective as of January 07, 2022
             </Text>
           </Box>
         </Box>
       </Box>
 
-      <Footer onOpenNewsletter={onOpen} />
-    </Box>
+      <Footer />
+    </Flex>
   );
 }
 

@@ -1,7 +1,9 @@
 import {AxiosRequestConfig, AxiosResponse, Method} from 'axios';
-import axiosInstance from '@root/common/utils/axiosInstance';
-import {GetHeroContent} from '../types/Hero';
 
+import axiosInstance from '@common/utils/axiosInstance';
+import {GetHeroContent} from '@modules/LandingPage/types/Hero';
+
+const STRAPI_API = `${process.env.NEXT_PUBLIC_STRAPI_HOST}/api`;
 const path = '/hero-section';
 
 export const getHeroContent = async (): Promise<GetHeroContent> => {
@@ -12,7 +14,7 @@ export const getHeroContent = async (): Promise<GetHeroContent> => {
     };
 
     const response: AxiosResponse<GetHeroContent> = await axiosInstance(
-      process.env.NEXT_PUBLIC_STRAPI_SERVER
+      STRAPI_API
     ).request(options);
 
     return response.data;
