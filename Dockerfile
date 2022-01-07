@@ -11,6 +11,7 @@ FROM node:14.17-alpine3.14 AS builder
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
+ENV NEXT_PUBLIC_NODE_ENV production
 RUN npm run build
 
 # Production image, copy all the files and run next
