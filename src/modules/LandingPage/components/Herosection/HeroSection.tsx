@@ -70,6 +70,10 @@ export default function HeroSection({
       >
         <Box>
           <MotionBox
+            display="flex"
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
             initial={{opacity: 0}}
             animate={{opacity: 1}}
             transition={{
@@ -80,9 +84,9 @@ export default function HeroSection({
             marginBottom={{base: '1.75rem', md: '2.5rem'}}
           >
             <Heading
-              maxWidth="50rem"
+              width={{base: '18rem', sm: '30rem', md: '50rem'}}
               marginTop={{base: '8.75rem', sm: '11.25rem'}}
-              marginX={{base: '2rem', md: '2.5rem', lg: 'auto'}}
+              marginX={{base: 'auto', md: '2.5rem', lg: 'auto'}}
               fontFamily="inter"
               fontSize={{
                 base: 'mh1',

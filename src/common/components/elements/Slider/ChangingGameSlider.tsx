@@ -35,27 +35,25 @@ export default function ChangingGameSlider({data}) {
         position="absolute"
         display="flex"
         justifyContent="end"
-        px={{base: '0.625rem', sm: '1.5rem', md: '2rem', lg: '2.75rem'}}
         top={[
           '-9.75rem',
           '-12.8125rem',
           '-25rem',
-          '-1.5rem',
+          '1rem',
           '0.5rem',
           '0.625rem',
         ]}
-        right={{base: '0rem', '2xl': '44px'}}
-        width="48.125rem"
+        right={{base: '0rem', sm: '1rem', md: '1rem', lg: '2.75rem'}}
       >
         <Box
-          maxWidth={[
-            '18.125rem',
-            '25.6875rem',
-            '37.5rem',
-            '28.125rem',
-            '47.5rem',
-            '47.5rem',
-          ]}
+          height={{base: '13.875rem', sm: '21.875rem', md: '34.375rem'}}
+          width={{
+            base: '18.125rem',
+            sm: '25.6875rem',
+            md: '37.5rem',
+            lg: '28.125rem',
+            xl: '40rem',
+          }}
         >
           <Slider {...settings}>
             {data.length > 0 &&

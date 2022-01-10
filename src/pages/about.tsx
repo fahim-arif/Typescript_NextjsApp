@@ -1,7 +1,7 @@
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Script from 'next/script';
-import {GetStaticProps} from 'next';
 import {Box, Flex, Button, Text, useDisclosure} from '@chakra-ui/react';
 
 import Footer from '@common/components/elements/Footer';
@@ -12,8 +12,24 @@ import AboutForm from '@modules/About/components/AboutForm';
 import MailerModal from '@modules/Mailer/components/MailerModal';
 import Section from '@modules/About/components/Section';
 
-function About({data}) {
+function About() {
+  const [data, setData] = useState<AboutContent | null >();
   const {isOpen, onOpen, onClose} = useDisclosure();
+
+  const fetchAboutData = async () => {
+    try {
+      const aboutContent: AboutContentGet = await getAboutContent();
+      if (aboutContent && aboutContent.data) {
+        setData(aboutContent.data.attributes);
+      }
+    } catch (error) {
+      // console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchAboutData();
+  }, []);
 
   if (!data) {
     return (
@@ -99,7 +115,7 @@ function About({data}) {
           position="absolute"
           bottom="0"
           width="full"
-          height={{base: '50rem', md: '50rem', lg: '65.75rem'}}
+          height={{base: '50rem', md: '50rem', lg: '56.75rem'}}
           marginTop={{base: '5rem', md: '10rem', lg: '20rem'}}
           backgroundImage="url('/images/about-bg.png')"
           backgroundSize="cover"
@@ -112,15 +128,6 @@ function About({data}) {
           marginX={{xl: '13.625rem'}}
           marginTop={{base: '5rem', md: '10rem', lg: '20rem'}}
           marginBottom={{
-            base: '-16rem',
-            md: '-16rem',
-            lg: '-10rem',
-            xl: '8.75rem',
-          }}
-          paddingBottom={{
-            base: '16rem',
-            md: '16rem',
-            lg: '10rem',
             xl: '8.75rem',
           }}
         >
@@ -177,21 +184,3 @@ function About({data}) {
 }
 
 export default About;
-
-export const getStaticProps: GetStaticProps = async () => {
-  let data: AboutContent | null = null;
-
-  try {
-    const aboutContent: AboutContentGet = await getAboutContent();
-    if (aboutContent && aboutContent.data) {
-      data = aboutContent.data.attributes;
-    }
-  } catch (error) {
-    // console.log(error);
-  }
-
-  return {
-    props: {data},
-    revalidate: 60,
-  };
-};

@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
-import {GetStaticProps} from 'next';
 import {Flex, Box, Divider, useDisclosure} from '@chakra-ui/react';
 import {useViewportScroll} from 'framer-motion';
 
@@ -26,15 +25,16 @@ import {getFooterContent} from '@modules/LandingPage/services/FooterContent';
 import {BannerContent} from '@modules/LandingPage/types/Footer';
 import {getProducts} from '@modules/LandingPage/services/Products';
 
-export default function Home({
-  heroContent,
-  productList,
-  descriptionContent,
-  descriptionCardContent,
-  imageContent,
-  categories,
-  categoryBannerContent,
-}) {
+export default function Home() {
+
+  const [heroContent, setHeroContent] = useState<HeroContent | null>();
+  const [productList, setProductList] = useState([]);
+  const [descriptionContent, setDescriptionContent] = useState<DescriptionContent | null>();
+  const [descriptionCardContent, setDescriptionCardContent] = useState([]);
+  const [imageContent, setImageContent] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [categoryBannerContent, setCategoryBannerContent] = useState<BannerContent | null>();
+
   const [navShrink, setNavShrink] = useState<boolean>(false);
   const [heroShrink, setHeroShrink] = useState<boolean>(true);
   const {isOpen, onOpen, onClose} = useDisclosure();
@@ -60,6 +60,43 @@ export default function Home({
 
     return () => unsubscribe();
   }, [scrollY]);
+
+
+  const fetchLandingPageData = async () => {
+    let content = null;
+
+    try {
+      content = await getHeroContent();
+      setHeroContent(content.data.attributes);
+
+      content = await getDescriptionContent();
+      setDescriptionContent(content.data.attributes);
+
+      content = await getDescriptionCard();
+      setDescriptionCardContent(content.data);
+
+      content = await getImageContent();
+      setImageContent(content.data);
+
+      content = await getTopCategories();
+
+      setCategories(content.data.map((ele) => {
+        return ele.attributes.title;
+      }));
+
+      content = await getFooterContent();
+      setCategoryBannerContent(content.data.attributes);
+
+      content = await getProducts();
+      setProductList(content.data);
+    } catch (error) {
+      // console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchLandingPageData();
+  }, []);
 
   return (
     <Flex direction="column" align={{'2xl': 'center'}}>
@@ -140,55 +177,3 @@ export default function Home({
     </Flex>
   );
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-  let content = null;
-  let heroContent: HeroContent | null = null;
-  let productList = [];
-  let descriptionContent: DescriptionContent | null = null;
-  let descriptionCardContent = [];
-  let imageContent = [];
-  let categories: string[] = [];
-  let categoryBannerContent: BannerContent | null = null;
-
-  try {
-    content = await getHeroContent();
-    heroContent = content.data.attributes;
-
-    content = await getDescriptionContent();
-    descriptionContent = content.data.attributes;
-
-    content = await getDescriptionCard();
-    descriptionCardContent = content.data;
-
-    content = await getImageContent();
-    imageContent = content.data;
-
-    content = await getTopCategories();
-
-    categories = content.data.map((ele) => {
-      return ele.attributes.title;
-    });
-
-    content = await getFooterContent();
-    categoryBannerContent = content.data.attributes;
-
-    content = await getProducts();
-    productList = content.data;
-  } catch (error) {
-    // console.log(error);
-  }
-
-  return {
-    props: {
-      heroContent,
-      productList,
-      descriptionContent,
-      descriptionCardContent,
-      imageContent,
-      categories,
-      categoryBannerContent,
-    },
-    revalidate: 60,
-  };
-};

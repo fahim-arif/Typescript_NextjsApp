@@ -12,16 +12,17 @@ export default function ImageSection({data}) {
       <Box
         display="flex"
         justifyContent="space-between"
-        height={{base: '18.25rem', md: '28.875rem'}}
+        height={{base: '18.25rem', sm: '24rem', md: '28.875rem'}}
         backgroundImage="url('/images/changing-game.svg')"
-        backgroundPosition={{base: '-100px -510px', md: 'left bottom'}}
+        backgroundPosition={{base: '-6.25rem -31.875rem', md: 'left bottom'}}
         borderRadius="0.25rem"
       >
         <Box
+          id="image_section_content_box"
           width={{base: 'full', lg: '27.5rem'}}
           height={{base: '15.625rem', md: '16.875rem'}}
           marginX={{base: '1.125rem', md: '3rem', xl: '4.5rem'}}
-          paddingTop={{base: '6rem', sm: '8rem', lg: '3.5rem'}}
+          paddingTop={{base: '6rem', sm: '12rem', md: '12rem', lg: '3.5rem'}}
         >
           <Heading
             fontSize={{base: 'mh3', md: 'th3', lg: 'h3'}}

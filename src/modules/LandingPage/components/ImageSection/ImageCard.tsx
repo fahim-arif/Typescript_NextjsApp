@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import {Box} from '@chakra-ui/react';
 
 import {ImageTypes} from '@modules/LandingPage/types/Product';
@@ -10,15 +11,23 @@ type props = {
 export default function ImageCard({image}: props) {
   return (
     <Box
-      minWidth={{base: '18.125rem', sm: '30.625rem', lg: '47.5rem'}}
+      position="relative"
       height={{base: '13.875rem', sm: '21.875rem', md: '34.375rem'}}
-      backgroundImage={`url(${
-        process.env.NEXT_PUBLIC_STRAPI_HOST + image.data.attributes.url
-      })`}
-      backgroundSize="contain"
-      backgroundPosition={{base: 'center', lg: '-8.75rem top', xl: 'center'}}
-      backgroundRepeat="no-repeat"
-      borderRadius="0.5rem"
-    ></Box>
+      width={{
+        base: '18.125rem',
+        sm: '25.6875rem',
+        md: '37.5rem',
+        lg: '32.125rem',
+        xl: '48rem',
+      }}
+    >
+      <Image
+        src={`${process.env.NEXT_PUBLIC_STRAPI_HOST}${image.data.attributes.url}`}
+        layout="fill"
+        priority={true}
+        objectFit="cover"
+        alt="small businesses"
+      />
+    </Box>
   );
 }
