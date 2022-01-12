@@ -4,6 +4,7 @@ const MailerSchema = yup.object().shape(
   {
     first_name: yup
       .string()
+      .trim()
       .required()
       .min(2)
       .max(255)
@@ -11,6 +12,7 @@ const MailerSchema = yup.object().shape(
       .label("first name"),
     last_name: yup
       .string()
+      .trim()
       .required()
       .min(1)
       .max(255)
@@ -18,6 +20,7 @@ const MailerSchema = yup.object().shape(
       .label("last name"),
     email: yup
       .string()
+      .trim()
       .required()
       .email()
       .max(320)

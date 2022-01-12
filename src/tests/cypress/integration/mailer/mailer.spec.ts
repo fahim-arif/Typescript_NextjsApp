@@ -99,6 +99,10 @@ describe('Mailer Validations', () => {
         input: 'john@xyz.com',
         error: false,
       },
+      {
+        input: '    john@xyz.com    ',
+        error: false,
+      },
     ];
 
     for (let i = 0; i < emails.length; i++) {
