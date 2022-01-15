@@ -15,6 +15,8 @@ const settings = {
   slidesToScroll: 1,
   vertical: true,
   verticalSwiping: true,
+  autoplay: true,
+  autoplaySpeed: 5000,
   responsive: [
     {
       breakpoint: 480,

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import {motion, useTransform, useViewportScroll} from 'framer-motion';
 import {
   Box,
   Flex,
@@ -13,34 +14,74 @@ import {
 import {Logo} from '@common/components/elements/Logo';
 import Menubar from '@common/components/elements/Menubar';
 
-export default function MainMenu({onOpenNewsletter}) {
+const MotionBox = motion(Box);
+const MotionFlex = motion(Flex);
+const MotionHStack = motion(HStack);
+const MotionText = motion(Text);
+const MotionButton = motion(Button);
+
+const container = {
+  hidden: {opacity: 0},
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+      when: 'beforeChildren',
+      staggerDirection: -1,
+    },
+  },
+};
+
+const item = {
+  hidden: {opacity: 0, y: -25},
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {type: 'tween', ease: 'easeOut', duration: 0.4},
+  },
+};
+
+export default function AnimatedMainMenu({onOpenNewsletter}) {
   const {isOpen, onToggle} = useDisclosure();
+  const {scrollY} = useViewportScroll();
+
+  const buttonScaleX = useTransform(scrollY, [0, 100], ['2.25rem', '1.125rem']);
+  const buttonScaleY = useTransform(
+    scrollY,
+    [0, 100],
+    ['1.85rem', '0.5625rem']
+  );
 
   return (
-    <Box position="fixed" width="full" zIndex="100">
-      <Flex
+    <MotionBox position="fixed" width="full" zIndex="100">
+      <MotionFlex
         backgroundColor="white"
         minHeight="3.75rem"
         paddingY={{base: '1.125rem'}}
         paddingX={{base: '1.75rem', md: '3.5rem', lg: '7.25rem'}}
         align="center"
         justify="start"
+        variants={container}
         initial="hidden"
         animate="show"
       >
-        <Flex flex={{base: 1}} justify={{base: 'start', md: 'start'}}>
+        <MotionFlex
+          flex={{base: 1}}
+          justify={{base: 'start', md: 'start'}}
+          variants={item}
+        >
           <Logo prefixId="navbar-logo" />
-        </Flex>
+        </MotionFlex>
 
-        <Flex
+        <MotionFlex
           flex={{base: 1, md: 'auto'}}
           display={{base: 'flex', md: 'none'}}
           justify="end"
         >
           <Menubar color="grayScale.100" boxSize={5} onClick={onToggle} />
-        </Flex>
+        </MotionFlex>
 
-        <HStack
+        <MotionHStack
           display={{base: 'none', md: 'inline-flex'}}
           flex={{base: 1, md: 0}}
           justify={'flex-start'}
@@ -48,45 +89,60 @@ export default function MainMenu({onOpenNewsletter}) {
         >
           <Link href="/about">
             <a>
-              <Text color="grayScale.100" fontWeight="500">
+              <MotionText
+                color="grayScale.100"
+                fontWeight="500"
+                variants={item}
+              >
                 About
-              </Text>
+              </MotionText>
             </a>
           </Link>
 
-          <Text
+          <MotionText
             color="grayScale.100"
             fontWeight="500"
             cursor="pointer"
             onClick={onOpenNewsletter}
+            variants={item}
           >
             Newsletter
-          </Text>
-        </HStack>
+          </MotionText>
+        </MotionHStack>
 
-        <HStack
+        <MotionHStack
           marginLeft={{base: '2rem', lg: '3.75rem'}}
           display={{base: 'none', md: 'inline-flex'}}
           flex={{base: 1, md: 0}}
           spacing={{base: '1rem', lg: '1.5rem'}}
         >
-          <Button
+          <MotionButton
             variant="outline"
-            paddingX="2.25rem"
-            paddingY="1.85rem"
             onClick={onOpenNewsletter}
+            style={{
+              paddingLeft: buttonScaleX,
+              paddingRight: buttonScaleX,
+              paddingTop: buttonScaleY,
+              paddingBottom: buttonScaleY,
+            }}
+            variants={item}
           >
             Login
-          </Button>
-          <Button
-            paddingX="2.25rem"
-            paddingY="1.85rem"
+          </MotionButton>
+          <MotionButton
             onClick={onOpenNewsletter}
+            style={{
+              paddingLeft: buttonScaleX,
+              paddingRight: buttonScaleX,
+              paddingTop: buttonScaleY,
+              paddingBottom: buttonScaleY,
+            }}
+            variants={item}
           >
             <Text>Sell now</Text>
-          </Button>
-        </HStack>
-      </Flex>
+          </MotionButton>
+        </MotionHStack>
+      </MotionFlex>
 
       <Collapse in={isOpen}>
         <Stack
@@ -115,6 +171,6 @@ export default function MainMenu({onOpenNewsletter}) {
           <Text onClick={onOpenNewsletter}>Sell now</Text>
         </Stack>
       </Collapse>
-    </Box>
+    </MotionBox>
   );
 }

@@ -9,7 +9,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-import {MainMenuStatic} from '@common/components/elements/Menu';
+import {MainMenu} from '@common/components/elements/Menu';
 import Footer from '@common/components/elements/Footer';
 import MailerModal from '@modules/Mailer/components/MailerModal';
 
@@ -24,7 +24,7 @@ function PrivacyPolicy() {
       </Head>
 
       <MailerModal isOpen={isOpen} onClose={onClose} />
-      <MainMenuStatic onOpenNewsletter={onOpen} />
+      <MainMenu onOpenNewsletter={onOpen} />
 
       <Box
         maxWidth="90rem"

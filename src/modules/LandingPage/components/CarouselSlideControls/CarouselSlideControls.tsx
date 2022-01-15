@@ -1,25 +1,25 @@
 import React from 'react';
-import Image from 'next/image';
 import {Box} from '@chakra-ui/react';
-import ArrowLeft from '../ArrowLeft';
-import ArrowRight from '../ArrowRight';
+
+import ArrowLeft from '@common/components/elements/ArrowLeft';
+import ArrowRight from '@common/components/elements/ArrowRight';
 
 interface props {
   previous: () => void;
   next: () => void;
 }
 
-export default function CarouselBtn({previous, next}: props) {
+export default function CarouselSlideControls({previous, next}: props) {
   return (
     <Box
-      display={{base: 'none', lg: 'flex'}}
-      borderWidth="2px"
+      display={{base: 'none', md: 'flex'}}
+      borderWidth="1px"
       borderColor="grayScale.500"
       justifyContent="center"
-      width="6.5rem"
+      width="full"
       paddingY="1.2rem"
       paddingX="1.875rem"
-      borderRadius="60px"
+      borderRadius="3.75rem"
     >
       <ArrowLeft boxSize="1rem" cursor="pointer" onClick={previous} />
       <ArrowRight

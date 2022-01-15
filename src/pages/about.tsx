@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import Head from 'next/head';
+import {useRouter} from 'next/router';
 import Image from 'next/image';
 import Script from 'next/script';
 import {Box, Flex, Button, Text, useDisclosure} from '@chakra-ui/react';
 
 import Footer from '@common/components/elements/Footer';
-import {MainMenuStatic} from '@common/components/elements/Menu';
+import {MainMenu} from '@common/components/elements/Menu';
 import {AboutContent, AboutContentGet} from '@modules/About/types/AboutContent';
 import {getAboutContent} from '@modules/About/services/about';
 import AboutForm from '@modules/About/components/AboutForm';
@@ -13,7 +14,10 @@ import MailerModal from '@modules/Mailer/components/MailerModal';
 import Section from '@modules/About/components/Section';
 
 function About() {
-  const [data, setData] = useState<AboutContent | null >();
+  const router = useRouter();
+  const contactFormRef = useRef<any>();
+
+  const [data, setData] = useState<AboutContent | null>();
   const {isOpen, onOpen, onClose} = useDisclosure();
 
   const fetchAboutData = async () => {
@@ -25,7 +29,19 @@ function About() {
     } catch (error) {
       // console.log(error);
     }
-  }
+  };
+
+  useEffect(() => {
+    if (data && router.isReady && contactFormRef.current) {
+      if (router.asPath.includes('#contact-us')) {
+        window.scrollTo({
+          top: contactFormRef.current.offsetTop - 100,
+          left: 0,
+          behavior: 'smooth',
+        });
+      }
+    }
+  }, [data, router, contactFormRef]);
 
   useEffect(() => {
     fetchAboutData();
@@ -35,7 +51,7 @@ function About() {
     return (
       <>
         <MailerModal isOpen={isOpen} onClose={onClose} />
-        <MainMenuStatic onOpenNewsletter={onOpen} />
+        <MainMenu onOpenNewsletter={onOpen} />
       </>
     );
   }
@@ -77,7 +93,7 @@ function About() {
       )}
 
       <MailerModal isOpen={isOpen} onClose={onClose} />
-      <MainMenuStatic onOpenNewsletter={onOpen} />
+      <MainMenu onOpenNewsletter={onOpen} />
 
       <Box width={{xl: 'full', '2xl': '90rem'}} position="relative">
         {data.sections && data.sections.length > 0 && (
@@ -112,6 +128,7 @@ function About() {
         </Box>
 
         <Box
+          ref={contactFormRef}
           position="absolute"
           bottom="0"
           width="full"

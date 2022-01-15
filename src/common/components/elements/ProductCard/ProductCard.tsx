@@ -1,13 +1,11 @@
 import {useState} from 'react';
 import Image from 'next/image';
-import {Box, Stack, Text, Flex} from '@chakra-ui/react';
-import {motion} from 'framer-motion';
+import {Box, Flex, Center, HStack, Heading, Text} from '@chakra-ui/react';
 
-import {CategoryTypes, ImageTypes} from '@modules/LandingPage/types/Product';
 import Star from '@common/components/elements/Star';
+import {CategoryTypes, ImageTypes} from '@modules/LandingPage/types/Product';
 
 type props = {
-  id: number;
   title: string;
   rating: number;
   sold: number;
@@ -17,10 +15,7 @@ type props = {
   onOpenNewsletter: () => void;
 };
 
-const MotionBox = motion(Box);
-
 export default function ProductCard({
-  id,
   title,
   rating,
   sold,
@@ -31,116 +26,106 @@ export default function ProductCard({
 }: props) {
   const [open, setOpen] = useState<boolean>(false);
 
-  const handleMouseEnter = (id: number) => {
+  const handleMouseEnter = () => {
     setOpen(true);
   };
 
-  const handleMouseLeave = (id: number) => {
+  const handleMouseLeave = () => {
     setOpen(false);
   };
 
   return (
-    <MotionBox
-      borderBottomRightRadius="4"
-      borderBottomLeftRadius="10"
-      cursor="pointer"
+    <Box
       position="relative"
-      margin="auto"
-      minWidth={{base: '18.125rem'}}
-      onMouseEnter={() => handleMouseEnter(id)}
-      onMouseLeave={() => handleMouseLeave(id)}
-      animate={open ? {y: 0} : {y: 10}}
+      width={{base: '18.125rem'}}
+      cursor="pointer"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      borderRadius="0.25rem"
+      borderTopRightRadius="1rem"
+      borderBottomLeftRadius="1rem"
     >
-      <Box>
-        <Box h="12.125rem">
-          <Box top="0" left="0" objectFit="contain">
-            <Image
-              width="290"
-              height="194"
-              objectFit="contain"
-              src={
-                process.env.NEXT_PUBLIC_STRAPI_HOST + image.data.attributes.url
-              }
-              priority={true}
-              alt="feature product"
-            />
-          </Box>
-        </Box>
-
-        <Box
-          position="relative"
-          w={{base: '18.125rem'}}
-          h={{base: '7.5rem'}}
-          bgColor="gray.900"
-        >
-          <Stack
-            fontFamily="Inter"
-            color="#fff"
-            pt={2}
-            maxW="16.25rem"
-            marginX="auto"
-          >
-            <Flex
-              justifyContent="space-between"
-              alignItems="start"
-              color="#fff"
-            >
-              <Text fontWeight="400">{title}</Text>
-
-              <Flex minW="2.8125rem" alignItems="center">
-                <Star color="#fff" />
-                <Text pl={2}>{rating}</Text>
-              </Flex>
-            </Flex>
-
-            <Flex
-              minW="16.25rem"
-              bottom="1.25rem"
-              pt={3}
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Flex alignItems="center">
-                <Text fontSize="1.125rem" fontFamily="inter">
-                  ${price}
-                </Text>
-                <Text
-                  pl={2}
-                  fontFamily="inter"
-                  fontSize="0.8125rem"
-                  color="gray.400"
-                >
-                  {sold} sold
-                </Text>
-              </Flex>
-
-              <Text fontSize="0.8125rem" fontFamily="inter">
-                {categories.data &&
-                  categories.data.length > 0 &&
-                  categories.data[0].attributes.name}
-              </Text>
-            </Flex>
-          </Stack>
-
-          {open && (
-            <Box
-              position="absolute"
-              top="0"
-              bottom="0"
-              zIndex="100"
-              bg="#fff"
-              w="100%"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              fontWeight="500"
-              onClick={onOpenNewsletter}
-            >
-              View
-            </Box>
-          )}
-        </Box>
+      <Box
+        backgroundColor="white"
+        position="relative"
+        width="full"
+        height="12.125rem"
+        borderTopLeftRadius="0.25rem"
+        borderTopRightRadius="1rem"
+        overflow="hidden"
+      >
+        <Image
+          src={process.env.NEXT_PUBLIC_STRAPI_HOST + image.data.attributes.url}
+          layout="fill"
+          objectFit="contain"
+          priority={true}
+          alt="feature product"
+        />
       </Box>
-    </MotionBox>
+
+      <Flex
+        position="relative"
+        direction="column"
+        justify="space-between"
+        width="full"
+        height={{base: '7.5rem'}}
+        backgroundColor="gray.900"
+        paddingX="1rem"
+        paddingTop="0.5rem"
+        paddingBottom="0.8125rem"
+        borderBottomLeftRadius="1rem"
+        borderBottomRightRadius="0.25rem"
+      >
+        <Flex justify="space-between" align="start" color="#fff">
+          <Text noOfLines={2} marginRight="0.5rem">
+            {title}
+          </Text>
+
+          <HStack spacing="0.55rem">
+            <Star color="#fff" />
+            <Text>{rating}</Text>
+          </HStack>
+        </Flex>
+
+        <Flex justify="space-between">
+          <HStack spacing="0.5rem" alignItems="baseline">
+            <Heading
+              color="white"
+              fontSize={{base: 'mh6', md: 'th6', lg: 'h6'}}
+              fontWeight="400"
+            >
+              ${price}
+            </Heading>
+            <Text color="gray.400" fontSize="cap">
+              {sold} sold
+            </Text>
+          </HStack>
+
+          <Text fontSize="cap" color="grayScale.600">
+            {categories.data &&
+              categories.data.length > 0 &&
+              categories.data[0].attributes.name}
+          </Text>
+        </Flex>
+
+        {open && (
+          <Center
+            position="absolute"
+            left="0"
+            right="0"
+            top="0"
+            bottom="0"
+            zIndex="10"
+            backgroundColor="white"
+            fontWeight="500"
+            borderBottomLeftRadius="1rem"
+            borderBottomRightRadius="0.25rem"
+            onClick={onOpenNewsletter}
+          >
+            View
+          </Center>
+        )}
+      </Flex>
+    </Box>
   );
 }

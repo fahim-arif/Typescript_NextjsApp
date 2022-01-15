@@ -2,12 +2,11 @@ import {useEffect, useState} from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import {Flex, Box, Divider, useDisclosure} from '@chakra-ui/react';
-import {useViewportScroll} from 'framer-motion';
 
-import {MainMenu} from '@common/components/elements/Menu';
+import {AnimatedMainMenu} from '@common/components/elements/Menu';
 import Footer from '@common/components/elements/Footer';
 import MailerModal from '@modules/Mailer/components/MailerModal';
-import HeroSection from '@modules/LandingPage/components/Herosection/HeroSection';
+import HeroSection from '@modules/LandingPage/components/HeroSection';
 import DescriptionSection from '@modules/LandingPage/components/DescriptionSection';
 import DescriptionCardSlider from '@modules/LandingPage/components/DescriptionCard/DescriptionCardSlider';
 import ImageSection from '@modules/LandingPage/components/ImageSection';
@@ -26,41 +25,17 @@ import {BannerContent} from '@modules/LandingPage/types/Footer';
 import {getProducts} from '@modules/LandingPage/services/Products';
 
 export default function Home() {
-
   const [heroContent, setHeroContent] = useState<HeroContent | null>();
   const [productList, setProductList] = useState([]);
-  const [descriptionContent, setDescriptionContent] = useState<DescriptionContent | null>();
+  const [descriptionContent, setDescriptionContent] =
+    useState<DescriptionContent | null>();
   const [descriptionCardContent, setDescriptionCardContent] = useState([]);
   const [imageContent, setImageContent] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [categoryBannerContent, setCategoryBannerContent] = useState<BannerContent | null>();
+  const [categoryBannerContent, setCategoryBannerContent] =
+    useState<BannerContent | null>();
 
-  const [navShrink, setNavShrink] = useState<boolean>(false);
-  const [heroShrink, setHeroShrink] = useState<boolean>(true);
   const {isOpen, onOpen, onClose} = useDisclosure();
-
-  const {scrollY} = useViewportScroll();
-
-  useEffect(() => {
-    const unsubscribe = scrollY.onChange((y) => {
-      if (y > 92) {
-        setNavShrink(true);
-      } else {
-        setNavShrink(false);
-      }
-
-      if (y > 92 && y < 1500) {
-        setHeroShrink(false);
-      } else if (y > 1400) {
-        setHeroShrink(true);
-      } else if (y < 92) {
-        setHeroShrink(true);
-      }
-    });
-
-    return () => unsubscribe();
-  }, [scrollY]);
-
 
   const fetchLandingPageData = async () => {
     let content = null;
@@ -80,9 +55,11 @@ export default function Home() {
 
       content = await getTopCategories();
 
-      setCategories(content.data.map((ele) => {
-        return ele.attributes.title;
-      }));
+      setCategories(
+        content.data.map((ele) => {
+          return ele.attributes.title;
+        })
+      );
 
       content = await getFooterContent();
       setCategoryBannerContent(content.data.attributes);
@@ -92,7 +69,7 @@ export default function Home() {
     } catch (error) {
       // console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     fetchLandingPageData();
@@ -135,12 +112,11 @@ export default function Home() {
       )}
 
       <MailerModal isOpen={isOpen} onClose={onClose} />
-      <MainMenu navShrink={navShrink} onOpenNewsletter={onOpen} />
+      <AnimatedMainMenu onOpenNewsletter={onOpen} />
 
       <HeroSection
         productList={productList}
         data={heroContent}
-        heroShrink={heroShrink}
         onOpenNewsletter={onOpen}
       />
 

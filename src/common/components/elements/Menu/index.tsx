@@ -1,5 +1,4 @@
-import MainMenu from "./MainMenu";
-import MobileMenu from "./MobileMenu";
-import MainMenuStatic from "./MainMenuStatic";
+import MainMenu from '@common/components/elements/Menu/MainMenu';
+import AnimatedMainMenu from '@common/components/elements/Menu/AnimatedMainMenu';
 
-export {MainMenu, MobileMenu, MainMenuStatic};
+export {MainMenu, AnimatedMainMenu};

@@ -13,8 +13,8 @@ import theme from '@common/theme';
 import {makeServer} from '@tests/mock';
 import {initMirageProxyForCypress} from '@tests/mock/mirageProxy';
 
-if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') {
-  makeServer({environment: 'development'});
+if (process.env.NEXT_PUBLIC_NODE_ENV === 'test') {
+  makeServer({environment: 'test'});
 }
 
 initMirageProxyForCypress();
