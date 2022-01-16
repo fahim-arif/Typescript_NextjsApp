@@ -76,7 +76,7 @@ export default function AnimatedMainMenu({onOpenNewsletter}) {
         <MotionFlex
           flex={{base: 1, md: 'auto'}}
           display={{base: 'flex', md: 'none'}}
-          justify="end"
+          justify="flex-end"
         >
           <Menubar color="grayScale.100" boxSize={5} onClick={onToggle} />
         </MotionFlex>
