@@ -5,7 +5,7 @@ import ProductCarousel from '@modules/LandingPage/components/FeaturedProduct/Pro
 
 const FeatureProducts = ({productList, onOpenNewsletter}) => {
   return (
-    <Box>
+    <Box position="relative" overflow="hidden">
       <Heading
         fontSize={{base: 'mh2', md: 'th2', lg: 'h2'}}
         textAlign="center"

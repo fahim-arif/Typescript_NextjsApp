@@ -368,7 +368,7 @@ function PrivacyPolicy() {
                 Telephone number:
               </Text>
               <br />
-              (888) 326-2824
+              (888) 966-2824
               <br />
               <br />
               Effective as of January 07, 2022

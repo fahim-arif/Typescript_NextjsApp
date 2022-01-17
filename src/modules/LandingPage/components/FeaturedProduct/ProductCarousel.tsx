@@ -1,5 +1,6 @@
 import React, {useRef, useState} from 'react';
-import {Box, Flex, Button, keyframes} from '@chakra-ui/react';
+import {Box, Flex, Button, keyframes, useMediaQuery} from '@chakra-ui/react';
+import {motion, useViewportScroll, useTransform} from 'framer-motion';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -37,9 +38,24 @@ const paddingLeftKeyframes = keyframes`
 
 const paddingLeftAnimation = `${paddingLeftKeyframes} 0.5s linear forwards`;
 
+const MotionBox = motion(Box);
+
 export default function ProductCarousel({data, onOpenNewsletter}) {
+  const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
   const slider = useRef<any>();
   const [sliderChange, setSliderChange] = useState(false);
+
+  const {scrollY} = useViewportScroll();
+  const marginTopOffsetOdd = useTransform(
+    scrollY,
+    [300, 750, 900, 1100],
+    ['0rem', '5rem', '5rem', '10rem']
+  );
+  const marginTopOffsetEven = useTransform(
+    scrollY,
+    [300, 750, 900, 1100],
+    ['10rem', '5rem', '5rem', '0rem']
+  );
 
   const next = () => {
     if (slider.current) slider.current.slickNext();
@@ -57,13 +73,13 @@ export default function ProductCarousel({data, onOpenNewsletter}) {
     return (
       <Box
         position="absolute"
-        bottom={{base: '-4.5rem', md: '-5.6rem'}}
+        top={{base: '21.4rem', md: '28rem'}}
         padding="0.625rem"
-        marginLeft={{
+        left={{
           base: '-0.8rem',
-          sm: !sliderChange ? '-0.9375rem' : '0rem',
-          md: !sliderChange ? '-2.5rem' : '0rem',
-          lg: !sliderChange ? '-3.625rem' : '0rem',
+          sm: !sliderChange ? '-1.875rem' : '0rem',
+          md: !sliderChange ? '-5rem' : '0rem',
+          lg: !sliderChange ? '-7.5rem' : '0rem',
         }}
       >
         {dots}
@@ -74,6 +90,7 @@ export default function ProductCarousel({data, onOpenNewsletter}) {
   return (
     <Box>
       <Box
+        height="20rem"
         paddingLeft={{
           base: '0.8rem',
           sm: !sliderChange ? '1.875rem' : '0rem',
@@ -82,7 +99,12 @@ export default function ProductCarousel({data, onOpenNewsletter}) {
         }}
         animation={{md: sliderChange && paddingLeftAnimation}}
       >
-        <Box id="product-list-slider" width="full" height="19.625rem">
+        <Box
+          id="product-list-slider"
+          position={{base: 'relative', md: 'absolute'}}
+          top={{base: '0rem', lg: '2.4rem'}}
+          width="full"
+        >
           <Slider
             ref={slider}
             {...settings}
@@ -91,17 +113,27 @@ export default function ProductCarousel({data, onOpenNewsletter}) {
           >
             {data &&
               data.map((product: any, idx: number) => (
-                <div key={idx} style={{width: 300}}>
-                  <ProductCard
-                    title={product.attributes.title}
-                    price={product.attributes.price}
-                    rating={product.attributes.rating}
-                    sold={product.attributes.sold}
-                    image={product.attributes.image}
-                    categories={product.attributes.categories}
-                    onOpenNewsletter={onOpenNewsletter}
-                  />
-                </div>
+                <Box key={idx} style={{width: 300}}>
+                  <MotionBox
+                    style={{
+                      marginTop: !isLargerThan768
+                        ? '0rem'
+                        : idx % 2 === 0
+                        ? marginTopOffsetEven
+                        : marginTopOffsetOdd,
+                    }}
+                  >
+                    <ProductCard
+                      title={product.attributes.title}
+                      price={product.attributes.price}
+                      rating={product.attributes.rating}
+                      sold={product.attributes.sold}
+                      image={product.attributes.image}
+                      categories={product.attributes.categories}
+                      onOpenNewsletter={onOpenNewsletter}
+                    />
+                  </MotionBox>
+                </Box>
               ))}
           </Slider>
         </Box>
@@ -117,7 +149,7 @@ export default function ProductCarousel({data, onOpenNewsletter}) {
           lg: '7.25rem',
         }}
         textAlign="center"
-        marginTop={{base: '4.8rem', sm: '5rem', md: '6.6rem'}}
+        marginTop={{base: '4.4rem', md: '6.8rem', lg: '6rem'}}
       >
         <Box visibility="hidden" width="6.5rem">
           <CarouselSlideControls previous={previous} next={next} />

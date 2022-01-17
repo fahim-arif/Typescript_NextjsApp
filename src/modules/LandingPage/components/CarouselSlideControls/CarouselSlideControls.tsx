@@ -21,8 +21,14 @@ export default function CarouselSlideControls({previous, next}: props) {
       paddingX="1.875rem"
       borderRadius="3.75rem"
     >
-      <ArrowLeft boxSize="1rem" cursor="pointer" onClick={previous} />
+      <ArrowLeft
+        zIndex={10}
+        boxSize="1rem"
+        cursor="pointer"
+        onClick={previous}
+      />
       <ArrowRight
+        zIndex={10}
         boxSize="1rem"
         marginLeft="1.125rem"
         cursor="pointer"

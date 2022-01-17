@@ -54,13 +54,17 @@ export default function ProductCard({
         borderTopRightRadius="1rem"
         overflow="hidden"
       >
-        <Image
-          src={process.env.NEXT_PUBLIC_STRAPI_HOST + image.data.attributes.url}
-          layout="fill"
-          objectFit="contain"
-          priority={true}
-          alt="feature product"
-        />
+        {image.data && (
+          <Image
+            src={
+              process.env.NEXT_PUBLIC_STRAPI_HOST + image.data.attributes.url
+            }
+            layout="fill"
+            objectFit="contain"
+            priority={true}
+            alt="feature product"
+          />
+        )}
       </Box>
 
       <Flex
@@ -83,22 +87,27 @@ export default function ProductCard({
 
           <HStack spacing="0.55rem">
             <Star color="#fff" />
-            <Text>{rating}</Text>
+            {rating && <Text>{rating}</Text>}
           </HStack>
         </Flex>
 
         <Flex justify="space-between">
           <HStack spacing="0.5rem" alignItems="baseline">
-            <Heading
-              color="white"
-              fontSize={{base: 'mh6', md: 'th6', lg: 'h6'}}
-              fontWeight="400"
-            >
-              ${price}
-            </Heading>
-            <Text color="gray.400" fontSize="cap">
-              {sold} sold
-            </Text>
+            {price && (
+              <Heading
+                color="white"
+                fontSize={{base: 'mh6', md: 'th6', lg: 'h6'}}
+                fontWeight="400"
+              >
+                ${price}
+              </Heading>
+            )}
+
+            {sold && (
+              <Text color="gray.400" fontSize="cap">
+                {sold} sold
+              </Text>
+            )}
           </HStack>
 
           <Text fontSize="cap" color="grayScale.600">
