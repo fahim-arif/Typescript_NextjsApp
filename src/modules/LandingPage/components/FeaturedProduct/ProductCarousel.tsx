@@ -49,12 +49,12 @@ export default function ProductCarousel({data, onOpenNewsletter}) {
   const marginTopOffsetOdd = useTransform(
     scrollY,
     [300, 750, 900, 1100],
-    ['0rem', '5rem', '5rem', '10rem']
+    ['0rem', '5rem', '5rem', '8rem']
   );
   const marginTopOffsetEven = useTransform(
     scrollY,
     [300, 750, 900, 1100],
-    ['10rem', '5rem', '5rem', '0rem']
+    ['8rem', '5rem', '5rem', '0rem']
   );
 
   const next = () => {
@@ -102,7 +102,7 @@ export default function ProductCarousel({data, onOpenNewsletter}) {
         <Box
           id="product-list-slider"
           position={{base: 'relative', md: 'absolute'}}
-          top={{base: '0rem', lg: '2.4rem'}}
+          top={{base: '0rem', md: '3.6rem'}}
           width="full"
         >
           <Slider
@@ -149,7 +149,7 @@ export default function ProductCarousel({data, onOpenNewsletter}) {
           lg: '7.25rem',
         }}
         textAlign="center"
-        marginTop={{base: '4.4rem', md: '6.8rem', lg: '6rem'}}
+        marginTop={{base: '4.4rem', md: '10rem', lg: '7.2rem'}}
       >
         <Box visibility="hidden" width="6.5rem">
           <CarouselSlideControls previous={previous} next={next} />
